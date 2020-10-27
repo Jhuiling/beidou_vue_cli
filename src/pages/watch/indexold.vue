@@ -39,7 +39,7 @@
 				<radio v-else class="dv-tips" />
 			</view>
 			</radio-group>
-			<view class="close" @tap="closeSel"> 
+			<view class="close" @tap="closeSel">
 				<image src="../../static/image/up.png"></image>
 			</view>
 		</view>
@@ -124,7 +124,7 @@
 				<view class="search-box">
 					<image src="/static/image/home_icon_06.jpg" class="left-icon"></image>
 					<input type="text" class="search-input" placeholder="查找地点、公交、地铁" />
-					<image src="/static/image/home_icon_03.jpg" class="right-icon" alt=""></image>
+					<text class="right-text">搜索</text>
 				</view>
 				<view class="list-box" :style="close?'overflow:hidden':'overflow:auto'">
 					<view class="btn-list">
@@ -155,7 +155,7 @@
 								<image class="icon del-icon" src="/static/image/close@2x.png" @click="removeAddress(work.id)"></image>
 							</view>
 						</view>
-						
+
 					</view>
 					<view class="row" v-for="(item,index) in addressList" :key="index">
 							<view class="item">
@@ -205,7 +205,7 @@
 				selOpen: false,
 				watchOpen: true,
 				imgList:[
-					
+
 				],
 				menuList:[{
 					name:'位置',
@@ -274,7 +274,7 @@
 			}
 		},
 		onLoad() {
-			
+
 			this.getAddress();
 		},
 		onShow() {
@@ -288,7 +288,7 @@
 		},
 		mounted() {
 			_this = this;
-			
+
 			_this.getMachineList()
 			_this.getMachineInfo()
 			_this.getAddress()
@@ -299,28 +299,28 @@
 			// });
 		},
 		methods: {
-			
+
 			// 获取常去地点
 			getAddress(){
 				common.request('machine/localhost', {}, function(res) {
 					_this.addressList = res.data.info
 				})
-				
+
 			},
 			// 获取设备详情
 			getMachineInfo(){
 				common.request('machine/index', {}, function(res) {
 					_this.machineInfo = res.data.info
 				})
-				
+
 			},
 			// 获取设备列表
 			getMachineList() {
 				common.request('machine/machine_list', {}, function(res) {
 					_this.machineLists = res.data.info;
 					if(!uni.getStorageSync('deviceid')) {
-						uni.setStorageSync('deviceid',_this.machineLists[0].machineInfo.deviceid) 
-					} 
+						uni.setStorageSync('deviceid',_this.machineLists[0].machineInfo.deviceid)
+					}
 					_this.machineInfo = _this.machineLists[_this.change].machineInfo
 					_this.$forceUpdate()
 					_this.getRole()

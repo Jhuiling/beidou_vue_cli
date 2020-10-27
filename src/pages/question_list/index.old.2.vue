@@ -1,7 +1,7 @@
 <template>
 	<!-- <web-view src="/hybrid/html/index.html"></web-view> -->
 	<view class="page">
-		
+
 		<view ref="showshare" :class="close?'create-wrap-close':'create-wrap-open'" class="create-wrap">
 			<view class="show-btn" @click="togglePopup()">
 				<image :src="close?'/static/image/up.png':'/static/image/down.png'" mode="scaleToFill"></image>
@@ -10,7 +10,7 @@
 				<view class="search-box">
 					<image src="/static/image/home_icon_06.jpg" class="left-icon"></image>
 					<input type="text" class="search-input" placeholder="查找地点、公交、地铁" />
-					<image src="/static/image/home_icon_03.jpg" class="right-icon" alt=""></image>
+					<text class="right-text">搜索</text>
 				</view>
 				<view class="list-box" :style="close?'overflow:hidden':'overflow:auto'">
 					<!-- <view class="btn-list">
@@ -92,7 +92,7 @@
 				covers: [{
 					latitude: 39.909,
 					longitude: 116.39742,
-					iconPath: '../../static/image/shebeiguanli_11.jpg' 
+					iconPath: '../../static/image/shebeiguanli_11.jpg'
 				}, {
 					latitude: 39.90,
 					longitude: 116.39,
@@ -180,7 +180,7 @@
 			initPolygon() {
 				_this.initPath()
 				_this.polygon = new AMap.Polygon({
-					path: _this.path,  
+					path: _this.path,
 					fillColor: '#d4dff5', // 多边形填充颜色
 					borderWeight: 2, // 线条宽度，默认为 1
 					strokeColor: '#fff', // 线条颜色
@@ -200,14 +200,14 @@
 				MAP.add(_this.polygon);
 				MAP.setFitView([ _this.polygon ])
 				MAP.plugin(["AMap.PolyEditor"],function(){
-				_this.polylineEditor = new AMap.PolyEditor(MAP,_this.polygon); 
+				_this.polylineEditor = new AMap.PolyEditor(MAP,_this.polygon);
 				_this.polylineEditor.open();
-				}); 				
+				});
 			},
-			editorPolygon() {				 
+			editorPolygon() {
 			},
 			getMarker(data) {
-				
+
 			},
 			togglePopup() {
 				this.close = !this.close;
