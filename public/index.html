@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <style lang="less">
+            .mini  uni-switch .uni-switch-input {
+                width: 42px !important;
+                height: 22px !important;
+            }
+            .mini .uni-switch-input:after,.mini uni-switch .uni-switch-input:before {
+                width: 20px !important;
+                height: 20px !important;
+                border-radius: 10px !important;
+            }
+            .nav-save {
+                color: #2b90ff;
+                font-weight: bold;
+            }
+            .uni-picker-view-indicator {
+                color: #338ce3;
+            }
+            uni-radio .uni-radio-input {
+                width: 1rem !important;
+                height: 1rem !important;
+            }
+            .uni-progress-inner-bar {
+                border-radius: 10px;
+            }
+            .uni-progress-bar {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            #health .uni-navbar__content {
+                border:0 !important;
+            }
+            #me .uni-list-item__icon-img  {
+                width: 18px;
+                height: 18px;
+            }
+
+        </style>
+        <title>
+            <%= htmlWebpackPlugin.options.title %>
+        </title>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 20 + 'px'
+            })
+            var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') || CSS.supports('top: constant(a)'))
+            document.write('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' + (coverSupport ? ', viewport-fit=cover' : '') + '" />')
+        </script>
+        <link rel="stylesheet" href="<%= BASE_URL %>static/index.<%= VUE_APP_INDEX_CSS_HASH %>.css" />
+    </head>
+
+    <body>
+        <noscript>
+            <strong>Please enable JavaScript to continue.</strong>
+        </noscript>
+        <div id="app"></div>
+        <!-- built files will be auto injected -->
+    </body>
+
+</html>

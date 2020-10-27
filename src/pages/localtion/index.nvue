@@ -1,0 +1,397 @@
+<template>
+	<div>
+		<div class="topnox">
+			<uni-nav-bar
+			  left-icon="back"
+			  right-text="轨迹历史"
+			  title="位置"
+			  @clickLeft="goBack"
+			  @clickRight="trajectory"
+			>
+			</uni-nav-bar>
+		</div>
+		
+<!-- 		<div>
+			<div class="box">
+				<image class="image" src="../../static/image/urcode@2x.png" mode="widthFix"></image>
+			</div>
+			<div class="box top-2">
+				<image  class="image" src="../../static/image/google@2x.png" mode="widthFix"></image>
+			</div>
+			<div class="box top-3">
+				<image  class="image" src="../../static/image/google@2x.png" mode="widthFix"></image>
+			</div>
+			<div class="bottom-box bottom-1">
+				<image  class="image" src="../../static/image/alarms@2x.png" mode="widthFix"></image>
+			</div>
+			<div class="bottom-box bottom-2">
+				<image  class="image" src="../../static/image/call@2x.png" mode="widthFix"></image>
+			</div>
+			<div class="bottom-box bottom-3">
+				<image  class="image" src="../../static/image/record@2x.png" mode=""></image>
+			</div>
+		</div>
+		<div class="w-ctrl" @tap="openSel">
+			<div class="w-box">
+				<image class="w-img" v-bind:src="change == 0 ? '../../static/image/big_cuff@2x.png' : '../../static/image/shebei4.png'" mode=""></image>
+			</div>
+			<div class="w-arrow">
+				<image class="w-arrow-image" src="../../static/image/right.png" mode=""></image>
+			</div>
+		</div>
+		<div class="sel-device" v-if="selOpen">
+			<radio-group>
+			<div v-if="index == change" v-for="(item,index) in  machineLists" :key="index" v-bind:class=" index == 0 ? 'dv-list active' : 'dv-list'" @tap="changes(index)">
+				<div class="dv-body">
+					<image class="dv-list-image" v-bind:src="item.type == 1 ? '../../static/image/big_cuff@2x.png' : '../../static/image/shebei4.png'"></image>
+					<text class="dv-list-text">{{item.alias}}</text><text class="dv-tips">已选择当前设备</text>
+				</div>
+			</div>
+			<div v-if="index != change" v-for="(item,index) in  machineLists" :key="index" v-bind:class=" index == 0 ? 'dv-list active' : 'dv-list'" @tap="changes(index)">
+				<div class="dv-body">
+					<image class="dv-list-image" v-bind:src="item.type == 1 ? '../../static/image/big_cuff@2x.png' : '../../static/image/shebei4.png'"></image>
+					<text class="dv-list-text">{{item.alias}}</text>
+					<radio class="dv-tips" />
+				</div>
+			</div>
+			</radio-group>
+			<div class="dv-close" @tap="closeSel"> 
+				<image class="dv-close-image" src="../../static/image/up.png"></image>
+			</div>
+		</div> -->
+		<div class="w-info" v-if="watchOpen">
+			<div class="w-close" @tap="closeWatchInfo">
+				<image class="w-close-image" src="../../static/image/close@2x.png" mode=""></image>
+			</div>
+			<div class="w-item">
+				<text class="w-title">名称:</text>
+				<text class="w-txt">{{machineInfo.alias}}</text>
+				<image class="w-image" src="../../static/image/g_single@2x.png" mode="widthFix"></image>
+				<text class="w-txt">在线</text>
+				<text class="w-title">电量:</text>
+				<text class="w-txt">{{machineInfo.batt}}%</text>
+			</div>
+			<div class="w-item">
+				<text class="w-title">状态:</text>
+				<text class="w-txt">{{machineInfo.status == 1 ? '静止' : '移动中'}}({{machineInfo.starup_time}})</text>
+				<text class="w-title">当前速度:</text>
+				<text class="w-txt">{{machineInfo.speed}}(Km/H)</text>
+			</div>
+			<div class="w-item">
+				<text class="w-title">定位时间:</text>
+				<text class="w-txt">{{machineInfo.create_time}}</text>
+			</div>
+			<div class="w-item">
+				<text class="w-title">信号时间:</text>
+				<text class="w-txt">{{machineInfo.create_time}}</text>
+			</div>
+			<div class="w-item">
+				<text class="w-title">经度:</text>
+				<text class="w-txt">{{machineInfo.longitude}}</text>
+				<text class="w-title">维度:</text>
+				<text class="w-txt">{{machineInfo.latitude}}</text>
+			</div>
+			<div class="w-ads">
+				<text class="w-title">地址:</text>
+				<text class="w-txt">{{machineInfo.address}}</text>
+			</div>
+		</div>
+		<map 
+		:enable-overlooking='true' 
+		:show-location="true"  
+		:style="{width: '750rpx', height: phoneHeight + 'px'}" 
+		:latitude="latitude"
+		:scale="15"
+		:longitude="longitude"
+		:markers="markers"
+		
+		>
+		<!-- <text class="w-txt">{{machineInfo.longitude}}</text>
+		<text class="w-title">维度:</text>
+		<text class="w-txt">{{machineInfo.latitude}}</text> -->
+		</map>
+	</div>
+</template>
+
+<script>
+	import Binding from 'weex-bindingx';
+	import common from '@/common.js';
+	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
+	var _this = null
+	export default {
+		components:{
+			uniNavBar
+		},
+		data() {
+			return {
+				map: null,
+				// 屏幕高度
+				screenHeight: 667,
+				polylines: [],
+				phoneHeight: 667,
+				testdiv: "testdiv",
+				topSize: 769,
+				// 向上滑动的距离
+				topHeight: 0,
+				isTop: false,
+				// 初始化禁止滑动
+				scrollable: false,
+				refreshing: false,
+				contentOffsetY: 10,
+				machineLists:[],
+				machineInfo:{},
+				createShow: true,
+				close: true,
+				addressList: [],
+				home: '',
+				work: '',
+				change: 0,
+				selOpen: false,
+				watchOpen: true,
+				imgList:[
+					
+				],
+				latitude: null,
+				longitude: null,
+				markers:[] ,
+				deviceid:""
+			}
+		},
+		beforeCreate() {
+			_this = this;
+		},
+		onReady() {
+			let that = this;
+			uni.getSystemInfo({
+				success(res) {
+					_this.phoneHeight = res.windowHeight;
+				}
+			});
+		},
+		onLoad(e){
+			_this.deviceid = e.deviceid
+			console.log(e.deviceid)
+		},
+		mounted() {
+			_this.getMachineList();
+			_this.getMachineInfo();
+			_this.getLocation();
+		},
+		watch: {},
+		methods: {
+			goBack (){
+				uni.navigateBack({
+					data:1
+				})
+			},
+			navTo(url) {
+				uni.switchTab({
+					url: url
+				});
+			},
+			trajectory() {
+				uni.navigateTo({
+					url:'/pages/trajectory/index?deviceid='+_this.deviceid
+				})
+			},
+			// 获取常去地点
+			getAddress(){
+				// deviceid
+				common.request('machine/localhost', {}, function(res) {
+					_this.addressList = res.data.info
+				})
+				
+			},
+			// 获取设备详情
+			getMachineInfo(){
+				var deviceid = _this.deviceid;
+				common.request('machine/index', {deviceid:deviceid}, function(res) {
+					var x =  res.data.info ; 
+				if(!res.data.info.latitude){
+					uni.getLocation({
+						type: 'wgs84',
+						success: function(res) {
+							console.log(res)
+						}
+					});  
+				}else{
+					_this.latitude = res.data.info.latitude ; 
+					_this.longitude = res.data.info.longitude ;
+					_this.markers = [
+						{
+						latitude: res.data.info.latitude,
+						longitude: res.data.info.longitude,
+						icon: '../../static/image/dwya.png', 
+						width:20,
+						height:20,
+						anchor:{x:.5, y:1}
+						
+					},
+					]
+				}
+					var boxs = res.data.info
+					
+					var lng = _this.bgps_gps(res.data.info.longitude,res.data.info.latitude).lng 
+					var lat = _this.bgps_gps(res.data.info.longitude,res.data.info.latitude).lat 
+					 boxs.longitude =  lng 
+					 boxs.latitude =  lat
+					 console.log(111111111111111111111111111)
+					  console.log(boxs) 
+					// _this.bgps_gps(res.data.info.longitude,res.data.info.latitude)
+					console.log(_this.bgps_gps(res.data.info.longitude,res.data.info.latitude))
+					 _this.machineInfo = boxs
+					// "data": {
+					// 	"info": {
+					// 		"alias": "手表",
+					// 		"deviceid": "626160003568108",
+					// 		"is_online": 0,
+					// 		"batt": "2",
+					// 		"is_static": "0",
+					// 		"speed": 0,
+					// 		"longitude": "114.5930451",
+					// 		"latitude": "38.1282434",
+					// 		"address": "河北省石家庄市正定县正定镇河北大道",
+					// 		"create_time": "2020-07-16 13:35:06",
+					// 		"starup_time": 0
+					// 	},
+					// 	"status": 1,
+					// 	"url": 1
+					
+				})
+				
+			},
+			bgps_gps(bd_lng, bd_lat) {
+			    var X_PI = Math.PI * 3000.0 / 180.0;
+			    var x = bd_lng - 0.0065;
+			    var y = bd_lat - 0.006;
+			    var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * X_PI);
+			    var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * X_PI);
+			    var gg_lng = z * Math.cos(theta);
+			    var gg_lat = z * Math.sin(theta);
+			    return {lng: gg_lng, lat: gg_lat}
+			},
+			// 获取设备列表
+			getMachineList() {
+				common.request('machine/machine_list', {}, function(res) {
+					_this.machineLists = res.data.info;
+					// if(!uni.getStorageSync('deviceid')) {
+					// 	uni.setStorageSync('deviceid',_this.machineLists[0].machineInfo.deviceid) 
+					// } 
+					// _this.machineInfo = _this.machineLists[_this.change].machineInfo
+					_this.$forceUpdate()
+					_this.getRole()
+				})
+			},
+			// 路由跳转
+			goUrl(item) {
+				console.log('url',item)
+				uni.navigateTo({
+					url: item.url
+				});
+			},
+			// 关闭手表信息
+			closeWatchInfo() {
+				_this.watchOpen = false
+			},
+			// 打开选择框
+			openSel() {
+				_this.selOpen = true
+				_this.watchOpen = false
+			},
+			// 关闭选择框
+			closeSel() {
+				_this.selOpen =  false
+			},
+			// 获取功能
+			getRole () {
+				common.request('/machine/auth_role',{
+					deviceid: uni.getStorageSync('deviceid')
+				}, function (res) {
+					_this.menuList = res.data.info
+				})
+			},
+			changes(index) {
+				_this.change = index;
+				_this.machineInfo = _this.machineLists[_this.change]
+				uni.setStorageSync('deviceid',_this.machineInfo.deviceid)
+				_this.selOpen = false
+				_this.$forceUpdate()
+			},
+			togglePopup() {
+				this.close = !this.close;
+			},
+			getAddress() {
+				common.request('index/getAddress', {}, function(res) {
+					_this.addressList = res.data.info.list;
+					_this.home = res.data.info.home;
+					_this.work = res.data.info.work;
+				})
+			},
+			getLocation() {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						var covers = [{
+							latitude: res.latitude,
+							longitude: res.longitude,
+						}]
+						_this.latitude = res.latitude
+						_this.longitude = res.longitude
+						_this.covers = covers;
+					}
+				});
+			},
+			nowLocation() {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						_this.lng = res.longitude;
+						_this.lat = res.latitude;
+					}
+				});
+			},
+			addAddress(type) {
+				uni.chooseLocation({
+					success: function(res) {
+						var data = {};
+						data.lng = res.longitude;
+						data.lat = res.latitude;
+						data.address = res.address;
+						data.type = type;
+						common.request('index/createAddress', data, function(res) {
+							uni.showToast({
+								icon: 'none',
+								position: 'center',
+								title: res.data.info
+							});
+							_this.getAddress();
+						})
+					}
+				});
+			},
+			removeAddress(addressId) {
+				common.request('index/deleteAddress', {
+					id: addressId
+				}, function(res) {
+					uni.showToast({
+						icon: 'none',
+						position: 'center',
+						title: res.data.info
+					});
+					_this.getAddress();
+				})
+			}
+		}
+	}
+</script>
+
+<style>
+	@import "./css/index.css";
+
+	.testdiv {
+		width: 750rpx;
+		height: 1600rpx;
+		position: fixed;
+		/* background-color: #007AFF; */
+	}
+</style>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+	<title>Document</title>
+	<script type="text/javascript" src="./js/rem.js"></script>
+	<script type="text/javascript" src="./js/vue.min.js"></script>
+	<script type="text/javascript"
+		src="https://webapi.amap.com/maps?v=1.4.15&key=6377b012084115e1ce080a3d8b3cd752"></script>
+	<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+	<div id="maps" v-cloak>
+		<div class="page">
+			<div id="map"></div>
+			<div :class="close?'create-wrap create-wrap-close':'create-wrap create-wrap-open'">
+				<div class="show-btn" @click="togglePopup()">
+					<img :src="close?'/static/image/up.png':'/static/image/down.png'" mode="scaleToFill" />
+				</div>
+				<div class="inner" ref="createInner">
+					<div class="search-box">
+						<img src="/static/image/home_icon_06.jpg" class="left-icon">
+						<input type="text" class="search-input" placeholder="查找地点、公交、地铁" />
+						<img src="/static/image/home_icon_03.jpg" class="right-icon" alt="" />
+					</div>
+					<div class="list-box" :style="close?'overflow:hidden':'overflow:auto'">
+						<div class="btn-list">
+							<div class="item" v-for="item in [0,1,2,3,4,5,6,7,8]" @click="goUrl()">
+								<img src="/static/image/home_icon_13.jpg" alt="" class="icon" />
+								<div class="text">位置</div>
+							</div>
+						</div>
+						<h2 class="tit">常去地点</h2>
+						<div class="ads-wrap">
+							<div class="row row-two">
+								<div class="item" v-if="home==null" @click="addAddress(1)">
+									<img class="icon" src="/static/image/ahome@2x.png" alt="" />
+									<span class="txt">我的家</span>
+								</div>
+								<div class="item" v-else>
+									<img class="icon" src="/static/image/ahome@2x.png" alt="" />
+									<span class="txt">{{home.address}}</span>
+									<img class="icon del-icon" src="/static/image/close@2x.png"
+										@click="removeAddress(home.id)"></image>
+								</div>
+								<div class="item" v-if="work==null" @click="addAddress(1)">
+									<img class="icon" src="/static/image/workplace@2x.png" alt="" />
+									<span class="txt">我的单位</span>
+								</div>
+								<div class="item" v-else>
+									<img class="icon" src="/static/image/workplace@2x.png" alt="" />
+									<span class="txt">{{work.address}}</span>
+									<img class="icon del-icon" src="/static/image/close@2x.png"
+										@click="removeAddress(work.id)"></image>
+								</div>
+							</div>
+							<div class="row" v-for="item in addressList">
+								<div class="item">
+									<span class="txt">{{item.address}}</span>
+									<img class="icon del-icon" src="/static/image/close@2x.png"
+										@click="removeAddress(item.id)"></image>
+								</div>
+							</div>
+							<div class="row" @click="addAddress(0)">
+								<div class="item">
+									<img class="icon" src="/static/image/map_more@2x.png" alt="" />
+									<span class="txt">添加地点</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div
+						style="background: #eee;border-radius: 0.1rem;height:2rem;display: flex;align-items: center;justify-content: center;margin: .2rem 0 .5rem;color:#999;">
+						预留广告位
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+	window.onload = function () {
+		var _this = null;
+		var MAP = null;
+		var app = new Vue({
+			el: '#maps',
+			data: {
+				message: 'Hello Vue!',
+				home: '',
+				work: '',
+				close: true,
+				createShow: true,
+				addressList: []
+			},
+			mounted() {
+				_this = this;
+				_this.initMap()
+			},
+			methods: {
+				goUrl() {
+					uni.navigateTo({
+						url: '/pages/watch/index'
+					});
+				},
+				initPath() {
+					_this.path = [
+						new AMap.LngLat(116.335354, 40.031118),
+						new AMap.LngLat(116.33544, 40.030996),
+						new AMap.LngLat(116.335459, 40.030894),
+						new AMap.LngLat(116.335053, 40.030854),
+						new AMap.LngLat(116.335354, 40.031118)
+					]
+				},
+				initPolygon() {
+					_this.initPath()
+					_this.polygon = new AMap.Polygon({
+						path: _this.path,
+						fillColor: '#d4dff5', // 多边形填充颜色
+						borderWeight: 2, // 线条宽度，默认为 1
+						strokeColor: '#fff', // 线条颜色
+					});
+					_this.drawPolygon()
+				},
+				initMap() {
+					MAP = new AMap.Map('map', {
+						zoomEnable: false,
+						dragEnable: false,
+						center: [116.33545, 40.030995],
+						zoom: 18
+					});
+					// _this.initPolygon();
+				},
+				drawPolygon() {
+					MAP.add(_this.polygon);
+					MAP.setFitView([_this.polygon])
+					MAP.plugin(["AMap.PolyEditor"], function () {
+						_this.polylineEditor = new AMap.PolyEditor(MAP, _this.polygon);
+						_this.polylineEditor.open();
+					});
+				},
+				editorPolygon() { },
+				getMarker(data) {
+
+				},
+				togglePopup() {
+					this.close = !this.close;
+				},
+				getAddress() {
+					common.request('index/getAddress', {}, function (res) {
+						_this.addressList = res.data.info.list;
+						_this.home = res.data.info.home;
+						_this.work = res.data.info.work;
+					})
+				},
+				getLocation() {
+					uni.getLocation({
+						type: 'wgs84',
+						success: function (res) {
+							var covers = [{
+								latitude: res.latitude,
+								longitude: res.longitude,
+							}]
+							_this.covers = covers;
+						}
+					});
+				},
+				nowLocation() {
+					uni.getLocation({
+						type: 'wgs84',
+						success: function (res) {
+							_this.lng = res.longitude;
+							_this.lat = res.latitude;
+						}
+					});
+				},
+				addAddress(type) {
+					uni.chooseLocation({
+						success: function (res) {
+							var data = {};
+							data.lng = res.longitude;
+							data.lat = res.latitude;
+							data.address = res.address;
+							data.type = type;
+							common.request('index/createAddress', data, function (res) {
+								uni.showToast({
+									icon: 'none',
+									position: 'center',
+									title: res.data.info
+								});
+								_this.getAddress();
+							})
+						}
+					});
+				},
+				removeAddress(addressId) {
+					common.request('index/deleteAddress', {
+						id: addressId
+					}, function (res) {
+						uni.showToast({
+							icon: 'none',
+							position: 'center',
+							title: res.data.info
+						});
+						_this.getAddress();
+					})
+				}
+			},
+		})
+	}
+</script>
+
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+	<title>轨迹</title>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=6377b012084115e1ce080a3d8b3cd752"></script>
+	<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="./js/jquery.js"></script>
+	<!-- jquery -->
+	<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="./css/trajectory.css"> 
+	<!-- 引入组件库 -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+</head>
+   <style>
+	 html, body, #container {
+			   height: 100%;
+			   width: 100%;
+		   }
+   
+		   .input-card .btn{
+			   margin-right: 1.2rem;
+			   width: 9rem;
+		   }
+   
+		   .input-card .btn:last-child{
+			   margin-right: 0;
+		   }
+		   .title{
+		    		   height: 50px;
+		    		   position: relative;
+		   			   display: flex;
+		   			   display: -webkit-flex;
+		   			   flex-wrap: nowrap;
+		   			   align-items: center;
+		   			   align-content: center;
+		   			   justify-content: space-around;
+		   			   position: relative;
+		   			   top: 2px;
+		    }
+		    .text{
+		   		   padding: 0px!important;
+		   		   margin: 0px!important;
+		   		   background: #ffffff;
+		   		   height: 50px!important;
+		   		   border-width: 0px!important;
+		   		   font-size: 14px!important;
+		   		   box-shadow: 0 0 0px #ffffff;
+				   width: 33%;
+		    }
+		    .bottbombox{
+		   		   position: relative;
+		   		   top: 8px;
+		    }
+		    .mint-button--default{
+		   		   border: 0px;
+		    }
+			.traje{
+				position: relative;
+				height: 100%;
+			}
+		   .traje-menu{
+			   margin-top: 48px;
+			   display: flex;
+			   display: -webkit-flex;
+			   flex-wrap: nowrap;
+			   justify-content: space-between;
+		   }
+		   .el-slider__runway{
+			       width: 78%;
+			       margin: 0px auto;
+		   }
+		   .traje-menu {
+		       margin-top: 17px;
+		   }
+		   #start{
+			   display: block;
+		   }
+			#starttwp{
+				display: none;
+			}
+   </style>
+<body style="padding-top: 100rpx;position: fixed;height: 60%;bottom: 0rpx;overflow: hidden;">
+	
+	
+	<!-- <div class="input-card">
+	   <div class="input-item">
+	        <div type="button" class="btn" value="开始动画" id="start" onclick="startAnimation()"/>开始动画</div>
+	        <div type="button" class="btn" value="暂停动画" id="pause" onclick="pauseAnimation()"/>暂停动画</div>
+	    </div>
+	    <div class="input-item">
+	        <div type="button" class="btn" value="继续动画" id="resume" onclick="resumeAnimation()"/>继续动画</div>
+			  <div type="button" class="btn" value="快进" id="resume" onclick="kuaijing()"/>快进</div>
+	    </div>
+		<div class="block" >
+		    <el-slider
+		      v-model="value1"
+			 :show-tooltip="false"
+			  >
+		    </el-slider>
+		  </div>
+	</div>
+	 -->
+	<div id="container"></div>
+	<div class="page"  id="app">
+		
+		<div class="traje">
+			<div class="title">
+				<mt-button  class="text"  @click.native="openPicker(1)">
+					{{start_time}} 
+				</mt-button>
+				至
+				<mt-button  class="text" @click.native="openPicker(2)">
+					{{end_time}} 
+				</mt-button>
+				
+				
+			</div>
+			<mt-datetime-picker
+			ref="picker"
+			v-model="pickerValue"
+			type="datetime"
+			@confirm="handleConfirm"
+			:end-date="endDate"
+			    > 
+			  </mt-datetime-picker>
+			<div class="bottbombox">
+				<!-- <div class="timeline">
+					<div class="protext">{{minValue}}<input type="range" :min="minValue" :max="maxValue"
+							v-model="rangeValue" v-on:change="setTraject">{{maxValue}}</div>
+					{{rangeValue}} 
+				</div> -->
+				<div class="block" >
+				    <el-slider
+				      v-model="value1"
+					 :show-tooltip="false"
+					  >
+				    </el-slider>
+				  </div>
+				<div class="traje-menu">
+					<div class="stop" id="pause" onclick="pauseAnimation()">
+						<img src="./image/gj_stop@2x.png" alt="">
+					</div>
+					<div class="begin"  id="start" onclick="startAnimation()">
+						<img src="./image/gj_start@2x.png" alt="">
+					</div>
+					
+					<div class="begin"  id="starttwp" onclick="resumeAnimation()">
+						<img src="./image/gj_start@2x.png" alt="">
+					</div>
+					<div class="accelerate" id="resume" onclick="kuaijing()">
+						<img src="./image/fast@2x.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+</body>
+<script src="./js/http.js"></script>
+
+
+
+<script>
+	
+	
+	var marker, lineArr = [];
+	var zhouguo =  0 ; 
+	var dijige = 0 ; 
+	var xingluj = [] ; 
+	var passedPolylinetwo = '' ;
+	var passedPolyline = '' ; 
+	var map = new AMap.Map("container", {
+		   resizeEnable: true,
+		   center: lineArr[0],
+		   zoom: 10 
+	   });
+	var _this = null; 
+	
+var  datas = {
+			start_time: '2010-01-01 00:00:00' ,
+			end_time: getQueryString('end_time') ,
+			deviceid:getQueryString('deviceid') ,
+			token: getQueryString('token')
+		}
+		var  urls = 'http://car.jiaxinruanjian.com/api/car/trajectory_details?'
+		for (var  key in datas) {
+				urls += key + '=' + datas[key] + '&'
+			} 
+		console.log(urls)
+		
+	$.ajax({
+		url: urls,
+		 type: "get",
+		 dataType:'json',
+		 async:true,
+		success: function (res) {
+			console.log(res)
+			console.log(JSON.stringify(res))
+			let list  = res.info
+			let arr = []
+			list.map( (val) => {
+				if(!val.Longitude&&!val.Latitude){}else{
+					arr.push([val.Longitude,val.Latitude])
+				}
+			})
+			console.log(arr)
+			lineArr = arr 
+				map = new AMap.Map("container", {
+					   resizeEnable: true,
+					   center: lineArr[0],
+					   zoom: 10 
+				   }); 
+				   
+				passedPolylinetwo = new AMap.Polyline({
+					map: map,
+					// path: lineArr,
+					strokeColor: "#AF5",  //线颜色
+					// strokeOpacity: 1,     //线透明度
+					strokeWeight: 6,      //线宽
+					// strokeStyle: "solid"  //线样式
+				});
+			   marker = new AMap.Marker({
+				   map: map,
+				   position: lineArr[0],
+				   icon: "https://webapi.amap.com/images/car.png",
+				   offset: new AMap.Pixel(-26, -13),
+				   autoRotation: true,
+				   angle:-90
+			   });
+			  marker.on('moving', function (e) {
+				passedPolyline = new AMap.Polyline({
+						   map: map,
+						   path: e.passedPath,
+						   strokeColor: "#AF5",  //线颜色
+						   // strokeOpacity: 1,     //线透明度
+						   strokeWeight: 6, 
+						   // strokeStyle: "solid"  //线样式
+				});
+			  	dijige = e.passedPath.length - 1  ; 
+			  	zhouguo = e.passedPath ;
+			  	app.value1 = (100*e.passedPath.length)/lineArr.length
+				
+			  }); 
+			   // map.setFitView();
+			   var polyline = new AMap.Polyline({
+			   		   map: map,
+			   		   path: lineArr,
+			   		   showDir:true,
+			   		   strokeColor: "#28F",  //线颜色
+			   		   // strokeOpacity: 1,     //线透明度
+			   		   strokeWeight: 6,      //线宽
+			   		   // strokeStyle: "solid"  //线样式
+			   });
+			   passedPolylinetwo = new AMap.Polyline({
+			   				map: map,
+			   				strokeColor: "rgba(0,0,0,0)",  //线颜色
+			   				// strokeOpacity: 1,     //线透明度
+			   				strokeWeight: 6,      //线宽
+			   				// strokeStyle: "solid"  //线样式
+			   			});   
+		},
+		error: function (ex) {
+			alert(JSON.stringify(ex));
+		} 
+	});
+		
+	var app = new Vue({
+	  el: '#app',
+	  data: {
+	     value1: 0,
+		 jiange:0,
+		 stopSrc: './image/gj_stop@2x.png',
+		 beginSrc: './image/gj_start@2x.png',
+		 accelerateSrc: './image/fast@2x.png',
+		 start_time: '2020-03-09 00:09:13',
+		 end_time: '2020-03-09 04:44:49',
+		 endDate:new Date(),
+		 pickerValue:'',
+	  },
+	  mounted(){
+		  _this = this
+		  // var _this = this ; 
+		  // var lrhj = lineArr.length 
+		  // var jiange =  lrhj
+		  // console.log(jiange)
+		  // _this.jiange = jiange 
+		  // 	console.log(getQueryString('start_time')) 
+		  	
+	  },
+	  methods:{
+		  handleConfirm(value){
+		  	 var _this = this ;
+		  	 var standardDate = value 
+		  	 var year = standardDate.getFullYear();
+		  	 var month= standardDate.getMonth()+1;
+		  	 var day = standardDate.getDate();
+		  	 var hour = standardDate.getHours();
+		  		if(hour<10){
+		  			hour = '0'+ standardDate.getHours();
+		  		}
+		  
+		  		var minute = standardDate.getMinutes();
+		  		if(minute<10){
+		  			 minute = '0'+ standardDate.getHours();
+		  		}
+		  
+		  		var second = standardDate.getSeconds();
+		  		if(second<10){
+		  			 second = '0'+ standardDate.getHours();
+		  		}
+		  	 var formatting = year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second;
+		  	 
+		  	 console.log(JSON.stringify(formatting)) 
+		  	 if(_this.types==1){ 
+		  		 _this.start_time = formatting 
+		  	 }else{
+		  		 _this.end_time = formatting 
+		  	 }
+		  	 let datas = {
+		  	 	start_time: _this.start_time,
+		  	 	end_time: _this.end_time,
+		  	 	deviceid: _this.deviceid,
+		  	 	token: _this.token
+		  	 }
+		  	 // _this.getList(datas)
+		  },
+		 openPicker(e) {
+			 var _this = this ;
+		 	_this.types = e 
+		 	console.log(JSON.stringify(e)) 
+		    this.$refs.picker.open(); 
+		 },
+		 formatTooltip(val) {
+			var dijigk = (val*lineArr.length)/100
+			var niubi = dijigk.toFixed()
+			console.log(niubi)
+			var qianmian =  lineArr.slice(0,niubi) ;
+			console.log(qianmian)
+			// var passedPolylinetwo = new AMap.Polyline({
+			// 	path: qianmian,
+			//     map: map,
+			//     strokeColor: "#AF5",  //线颜色
+			//     strokeWeight: 6,      //线宽
+			// });
+		   }
+	  }
+	}) 
+	// start_time: getQueryString('start_time') ,
+	// var  datas = {
+	// 		start_time: '2010-01-01 00:00:00' ,
+	// 		end_time: getQueryString('end_time') ,
+	// 		deviceid:getQueryString('deviceid') ,
+	// 		token: getQueryString('token')
+	// 	}
+		
+		
+	// let url = 'http://car.jiaxinruanjian.com/api/car/trajectory_details?'
+	// for (let key in datas) {
+	// 		url += key + '=' + datas[key] + '&'
+	// 	} 
+	// console.log(url)
+	// var request = createCORS('get', url);
+	// if(request){
+	// 	request.onload = function(res){
+	// 		console.log(JSON.stringify(res)) 
+	// 		let list  = JSON.parse(res.target.response).info.list
+	// 		let arr = []
+	// 		list.map( (val) => {
+	// 			if(!val.longitude&&!val.latitude){}else{
+	// 				arr.push([val.longitude,val.latitude])
+	// 			}
+				
+	// 		})
+	// 		lineArr = arr 
+	// 			map = new AMap.Map("container", {
+	// 				   resizeEnable: true,
+	// 				   center: lineArr[0],
+	// 				   zoom: 10 
+	// 			   }); 
+				   
+	// 			passedPolylinetwo = new AMap.Polyline({
+	// 				map: map,
+	// 				// path: lineArr,
+	// 				strokeColor: "#AF5",  //线颜色
+	// 				// strokeOpacity: 1,     //线透明度
+	// 				strokeWeight: 6,      //线宽
+	// 				// strokeStyle: "solid"  //线样式
+	// 			});
+	// 		   marker = new AMap.Marker({
+	// 			   map: map,
+	// 			   position: lineArr[0],
+	// 			   icon: "https://webapi.amap.com/images/car.png",
+	// 			   offset: new AMap.Pixel(-26, -13),
+	// 			   autoRotation: true,
+	// 			   angle:-90
+	// 		   });
+	// 		  marker.on('moving', function (e) {
+	// 			passedPolyline = new AMap.Polyline({
+	// 					   map: map,
+	// 					   path: e.passedPath,
+	// 					   strokeColor: "#AF5",  //线颜色
+	// 					   // strokeOpacity: 1,     //线透明度
+	// 					   strokeWeight: 6, 
+	// 					   // strokeStyle: "solid"  //线样式
+	// 			});
+	// 		  	dijige = e.passedPath.length - 1  ; 
+	// 		  	zhouguo = e.passedPath ;
+	// 		  	app.value1 = (100*e.passedPath.length)/lineArr.length
+				
+	// 		  });
+	// 		   // map.setFitView();
+	// 		   var polyline = new AMap.Polyline({
+	// 		   		   map: map,
+	// 		   		   path: lineArr,
+	// 		   		   showDir:true,
+	// 		   		   strokeColor: "#28F",  //线颜色
+	// 		   		   // strokeOpacity: 1,     //线透明度
+	// 		   		   strokeWeight: 6,      //线宽
+	// 		   		   // strokeStyle: "solid"  //线样式
+	// 		   });
+	// 		   passedPolylinetwo = new AMap.Polyline({
+	// 		   				map: map,
+	// 		   				strokeColor: "rgba(0,0,0,0)",  //线颜色
+	// 		   				// strokeOpacity: 1,     //线透明度
+	// 		   				strokeWeight: 6,      //线宽
+	// 		   				// strokeStyle: "solid"  //线样式
+	// 		   			});   
+	// 	};
+	// 	request.send();
+	// }
+	   function kuaijing(){
+				
+				var xing = lineArr.slice(dijige) ;
+				var qianmian =  lineArr.slice(0,dijige+1) ;
+				passedPolylinetwo.setPath(qianmian) 
+				marker.moveAlong(xing, 5000);
+				app.value1 = (100*xing.length)/xing.length
+			}	
+	  
+	function getQueryString(deviceid) {
+		var reg = new RegExp('(^|&)' + deviceid + '=([^&]*)(&|$)', 'i');
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) {
+			return unescape(r[2]);
+		}
+		return null;
+	} ;  
+	    function startAnimation () { 
+			console.log(JSON.stringify(lineArr)) 
+			passedPolylinetwo.setPath([lineArr[0]])
+	        marker.moveAlong(lineArr, 200);
+	    }
+	    function pauseAnimation () {
+			$('#start').css('display','none')
+			$('#starttwp').css('display','block')
+// starttwp)
+	        marker.pauseMove();
+	    } 
+	
+	    function resumeAnimation () { 
+			$('#start').css('display','block')
+			$('#starttwp').css('display','none')
+	        marker.resumeMove();
+	    }
+	
+	   
+</script>
+
+</html>

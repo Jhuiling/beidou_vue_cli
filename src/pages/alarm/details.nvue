@@ -1,0 +1,330 @@
+<template>
+	<div>
+		<!-- <div class="topbox">
+			<uni-nav-bar
+			  left-icon="back"
+			  title="警报详情"
+			  @clickLeft="goBack"
+			  fixed="false"
+			>
+			</uni-nav-bar>
+		</div> -->
+		<map key='map' v-bind:style="{width: '750rpx', height:phoneHeight + 'px'}" 
+		:latitude="alarmInfo.latitude" 
+		:scale="15"
+		:longitude="alarmInfo.longitude"
+		:show-location="true"
+		:markers="markers"
+		:enable-traffic="true"
+		:polyline="polylines"
+		>
+		</map> 
+			<div class="w-info" v-if="watchOpen">
+				<div class="w-close" @tap="closeWatchInfo">
+					<image class="w-close-image" src="../../static/image/close@2x.png" mode=""></image>
+				</div>
+				<div class="w-item">
+					<text class="w-title">名称:</text>
+					<text class="w-txt">{{alarmInfo.plateNo}}</text>
+				</div>
+				<div class="w-item">
+					<text class="w-title">警报类型:</text>
+					<text class="w-txt">{{alarmInfo.location}}</text>
+				</div>
+				<div class="w-item">
+					<text class="w-title">地址:</text>
+					<text class="w-txt">{{alarmInfo.location}}</text>
+				</div>
+				<!--  -->
+				<div class="w-item">
+					<text class="w-title">定位时间:</text>
+					<text class="w-txt">{{alarmInfo.alarmTime}}</text>
+				</div>
+				<div class="w-item">
+					<text class="w-title">信号时间:</text>
+					<text class="w-txt">{{alarmInfo.createDate}}</text>
+				</div>
+				<div class="w-ads" >
+					<text class="w-title">地址:</text>
+					<text class="w-txt" style="width: 500rpx;">{{alarmInfo.location}}</text>
+				</div>
+				<div class="w-ads" >
+					<text class="w-title">速度:</text>
+					<text class="w-txt" style="width: 500rpx;">{{alarmInfo.speed}}Km/h</text>
+				</div>
+				<!-- speed -->
+			</div>
+			<!-- "id": "1",
+			"VehicleId": "966",
+			"PlateNo": "冀B99999",
+			"AlarmType": "超速",
+			"Descr": "1",
+			"AlarmSource": "1",
+			"AlarmTime": "2020-08-13 18:00:38.000",
+			"Speed": "35.00000",
+			"Location": "河北省石家庄市正定县S302(城东街)(正定康桥御河幼儿园189米)",
+			"Latitude": "114.5933361",
+			"Longitude": "38.1281277",
+			"ProcessedTime": "2020-08-13 18:01:20.000",
+			"ProcessedUserId": "1",
+			"ProcessedUserName": "名字",
+			"AckSn": "1",
+			"Processed": "2",
+			"TenantId": "3",
+			"CreateDate": "2020-08-13 18:01:34.000",
+			"Remark": "备注",
+			"Deleted": "0",
+			"Owner": "0",
+			"ROW_NUMBER": "1" -->
+		</div>
+	<!-- <view class="page">
+		<map :longitude="lng" :latitude="lat" scale=5 style="width: 100%; height: 100%;" :markers="covers"></map>
+		<view class="w-info" v-if="watchOpen">
+			
+            <view class="title">
+                {{alarmInfo.name}}
+                <view class="w-close" @tap="closeWatchInfo">
+				<image src="../../static/image/close@2x.png" mode=""></image>
+			</view>
+            </view>
+			<view class="w-item">
+				<text class="w-title">
+					名称:
+				</text>
+				<text class="dv-name">
+					{{alarmInfo.watchfans.alias}}
+				</text>
+			</view>
+			<view class="w-item">
+				<text class="w-title">
+					定位时间:
+				</text>
+				<text>
+					{{alarmInfo.create_time}}
+				</text>
+			</view>
+			<view class="w-item">
+				<text class="w-title">
+					信号时间:
+				</text>
+				<text>
+					{{alarmInfo.create_time}}
+				</text>
+			</view>
+			<view class="w-ads">
+				<text class="w-title">
+					地址:
+				</text>
+				<text>
+					{{alarmInfo.address}}
+				</text>
+			</view>
+		</view>
+	</view> -->
+</template>
+
+<script>
+	var _this;
+	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
+	import common from '@/common.js'
+	import AMapWXfile from '@/plugins/amap-wx.js'
+	var sdkwx = uni.requireNativePlugin('AMap-NavSdkWX');
+	var key = "da5d2b34fd9cb9fcfb54114d03f9727b"; 
+	export default {
+		components: {
+			uniNavBar
+		},
+		data() {
+			return {
+				markers:[],
+				createShow: true,
+				close: true,
+				lng: '',
+				lat:'',
+				addressList: [],
+				home: '',
+				work: '',
+				latitude: 39.909,
+				longitude: 116.39742,
+				covers: [{
+					latitude: 39.909,
+					longitude: 116.39742,
+					iconPath: '/static/image/location.png',
+					width: 10,
+					height: 10
+				}],
+				polylines:[],
+				change: -1,
+				selOpen: false,
+				watchOpen: true,
+				alarmInfo:{},
+				id:-1,
+				phoneHeight:1334,
+				deviceid:''
+			}
+		},
+		onReady() {
+			_this = this;
+			uni.getSystemInfo({
+				success(res) {
+					_this.phoneHeight = res.windowHeight;
+				}
+			});
+		},
+		onLoad(e) {
+			// "&longitude="+item.longitude+"&latitude="+item.latitude
+			console.log(e)
+			this.id = e.id
+			this.deviceid = e.deviceid
+			// this.longitude = e.longitude
+			// this.latitude = e.latitude
+			
+		},
+		onShow() {
+            uni.setNavigationBarTitle({
+                title: '警报详情'
+            });
+			// setInterval(function() {
+			// 	_this.getLocation();
+			// }, 100000);
+			// this.nowLocation();
+		},
+		mounted() {
+			_this = this;
+			_this.getAlarmInfo()
+			_this.getLocation();
+		},
+		methods: {
+			getLocation() {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						console.log(res);
+						_this.latitude = res.latitude;
+						_this.longitude = res.longitude;
+						var covers = [{
+							latitude: res.latitude,
+							longitude: res.longitude,
+						}]
+						_this.covers = covers;
+					}
+				});
+			},
+			goBack (){
+				uni.navigateBack({
+					data:1
+				})
+			},
+			// 获取警报详情
+			getAlarmInfo(){
+				var token = uni.getStorageSync('token');
+				let data = {
+					deviceid:_this.deviceid, 
+					id:_this.id,
+					token:token
+				}
+				console.log(data)
+                common.request('car/police_detail', data, function(res) {
+					console.log(res)
+					var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
+					var latss = '118.15048299999999,39.587966000000002'
+					myAmapFun.getDrivingRoute({
+					      origin: latss,
+					      destination: latss,
+					      success: function(data){
+					        console.log(data) 
+					      },
+					      fail: function(info){
+					
+					      }
+					    })
+					_this.alarmInfo = res.data.info
+						_this.markers = [{
+							latitude: res.data.info.latitude,
+							longitude: res.data.info.longitude,
+							iconPath: '../../static/image/dwya.png', 
+							width:0.5,
+							height:0.5
+						}]
+					// }
+					
+					// latitude: 39.909,
+					// longitude: 116.39742,
+					
+					// _this.markers = [{
+					// 		latitude:  res.data.info.latitude,
+					// 		longitude:  res.data.info.longitude,
+					// 		iconPath: '../../static/image/dwya.png'
+					// 	}]
+					// _this.alarmInfo = res.data.info.watchfans
+					// _this.latitude = res.data.info.latitude
+					// _this.longitude = res.data.info.longitude
+					
+					// var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
+					// myAmapFun.getRegeo({
+					//   success: function(data){
+					// 	  console.log(data[0].name) ; 
+					// 	  // _this.bgname = data[0].name
+					//   }
+					// })
+				})
+                
+			},
+			// 关闭手表信息
+			closeWatchInfo() {
+				_this.watchOpen = false
+			},
+			// 打开选择框
+			openSel() {
+				_this.selOpen = true
+				_this.watchOpen = false
+			},
+			// 关闭选择框
+			closeSel() {
+				_this.selOpen =  false
+			},
+			changes(index) {
+				_this.change = index
+			},
+			getLocation() {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						var covers = [{
+							latitude: res.latitude,
+							longitude: res.longitude,
+						}]
+						_this.covers = covers;
+					}
+				});
+			},
+			nowLocation() {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						_this.lng = res.longitude;
+						_this.lat = res.latitude;
+					}
+				});
+			},
+		},
+
+	}
+</script>
+
+<style lang="css" scoped>
+@import "./css/index.css";
+.topbox{
+	position: fixed;
+	padding-top: 40rpx!important;
+	top: 0rpx;
+	background-color: #ffffff;
+	display: flex;
+	display: -webkit-flex;
+	flex-wrap: nowrap;
+	align-items:  flex-end;
+	flex-direction: row;
+	width: 780rpx;
+	height: 120rpx;
+}
+</style>

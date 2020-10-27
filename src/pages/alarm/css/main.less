@@ -1,0 +1,68 @@
+uni-page-body {
+    height: 100%;
+}
+
+.page {
+    width: 100%;
+    padding-top: 150rpx;
+    .timearea {
+        display: flex;
+		display: -webkit-flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		align-content: center;
+		justify-content: center;
+		padding: 40rpx 0rpx;  
+        font-size: 26rpx;
+        line-height: 60rpx;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+
+        .time {
+            height: 60rpx;
+            width: 320rpx;
+            border-radius: 30rpx;
+            background: #eee;
+            display: inline-block;
+        }
+
+        text {
+            margin: 0 20rpx;
+        }
+    }
+
+    .event-list {
+        width: 680rpx;
+        font-size: 26rpx;
+        padding: 20rpx;
+        margin: 0 auto;
+        border-bottom: 1px solid #eee;
+        .car-icon {
+            width: 40rpx;
+            height:22rpx;
+            margin-right: 40rpx;
+            padding: 19rpx 10rpx;
+            background: #efeff1;
+            border-radius:50% ;
+            float: left;
+        }
+        .car-name {
+            margin-right: 40rpx;
+        }
+        .title {
+            font-size: 30rpx;
+            color: #ff4141;
+            font-weight: bold;
+        }
+        .time {
+            font-size: 24rpx;   
+            color: #cdcdcd;
+            float:right;
+        }
+    }
+    .active {
+        .car-name,.time {
+            color: #547eff !important;
+        }
+    }
+}

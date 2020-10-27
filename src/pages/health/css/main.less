@@ -1,0 +1,209 @@
+.page {
+    .details {
+        height: 560rpx;
+        background-image:url(../../../static/image/jiankang_bg_01.jpg);
+        background-size: 100% 100%;
+        margin-bottom:20rpx;
+        padding:100rpx 20rpx 0;
+        padding-top:200rpx;
+        position: relative;
+        .hasbg {
+            background: #f8f8f8;
+            .uni-page-head__title {
+                color: #000;
+            }
+            .uni-btn-icon {
+                color: #000 !important;
+            }
+        }
+        .arcbar {
+            width: 125px;
+            margin: 0 auto;
+            position: relative;
+            .over-view {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 125px;
+                height: 95px;
+                padding-top: 30px;
+                .logo {
+                    width: 20px;
+                    margin: 0 auto;
+                    image {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+                .title {
+                    font-size: 18px;
+                    color: #fff;
+                    text-align: center;
+                    font-weight: bold;
+                }
+                .smtitle {
+                    font-size: 12px;
+                    color: #999;
+                    text-align: center;
+                }
+            }
+            .like {
+                width: 60rpx;
+                height: 120rpx;
+                position: absolute;
+                left: 300rpx;
+                top: 106rpx;
+                color: #fff;
+                text-align: center;
+                font-size: 10px;
+                image {
+                    width: 60rpx;
+                    height: 60rpx;
+                }
+            }
+        }
+        .list {
+            width: 90%;
+            margin: 0 auto;
+            height: 100rpx;
+            display: flex;
+            margin-top: 40rpx;
+            .item {
+                flex: 1;
+                text-align: center;
+                color: #fff;
+                .num {
+                    font-size: 28rpx;
+
+                }
+                .small-title {
+                    font-size: 18rpx;
+                }
+            }
+        }
+        .time {
+            padding-top: 50rpx;        
+            .length {
+                width: 80%;
+                height:30rpx;
+                margin: 0 auto;
+                .txt {
+                    color: #4176e6;
+                    font-size: 20rpx;
+                    line-height: 30rpx;
+                    height:30rpx;
+                    float: left;
+                    width: 70rpx;
+                    text-align: center;
+                }
+                .progress {
+                    width: calc(100% - 160rpx);
+                    height: 30rpx;
+                    border-radius: 16rpx;
+                    background-color: #1754ca;
+                    float: left;
+                    margin:0 10rpx ;
+                    position: relative;
+                    .second {
+                        position: absolute;
+                        top: 0;
+                        width: 60%;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                        height: 30rpx;
+                        border-radius: 16rpx;
+                        background-color: #1f78df;
+                        
+                    }
+                    .third {
+                        position: absolute;
+                        top: 0;
+                        width: 40%;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                        height: 30rpx;
+                        border-radius: 16rpx;
+                        background-color: #00c0ff;
+                        z-index: 9;
+                    }
+                }
+                .line {
+                    width: calc(100% - 160rpx);
+                    height: 14rpx;
+                    border-bottom: 1px solid #234fcd;
+                    float: left;
+                    margin:0 10rpx ;
+                    position: relative;
+                    font-size: 20rpx;
+                    color: #234fcd;
+                    .begin {
+                        position: absolute;
+                        left: 0;
+                        top: 20rpx;
+                    }
+                    .end {
+                        position: absolute;
+                        right: 0;
+                        top: 20rpx;
+                    }
+                }
+            }
+            .scale {
+                .txt {
+                    color: #ccc;
+                }
+            }
+            .deep {
+                color: #00c0ff;
+                text-align: center;
+                font-size: 24rpx;
+            }
+            .shallow {
+                color: #1f78df;
+                text-align: center;
+                font-size: 24rpx;
+            }
+        }
+    }
+    .switch {
+        .cirnav {
+            height: 120rpx;
+            text-align: center;
+            .cirtitle {
+                width: 100rpx;
+                height: 100rpx;
+                border-radius: 50%;
+                line-height: 100rpx;
+                text-align: center;
+                display: inline-block;
+                font-size: 28rpx;
+            }
+            .active {
+                background-image: linear-gradient(#655efb, #1e7de6);
+                color: #fff;
+            }
+        }
+        .squnav {
+            width: 600rpx;
+            height: 60rpx;
+            background-color: #ecf0f3;
+            margin: 0 auto;
+            display: flex;
+            padding: 6rpx;
+            border-radius: 10rpx;
+            .swbox {
+                flex: 1;
+                height: 60rpx;
+                text-align: center;
+                line-height: 60rpx;
+                font-size: 24rpx;
+                border-radius:10rpx ;
+            }
+            .active {
+                background-color: #fff;
+            }
+        }
+    }
+}

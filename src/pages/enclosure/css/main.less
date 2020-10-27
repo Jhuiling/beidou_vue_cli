@@ -1,0 +1,93 @@
+uni-page-body {
+  height: 100%;
+}
+uni-nav-bar{
+	
+}
+.daohangbt{
+	height: 150rpx;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: #FFFFFF; 
+	z-index: 10;
+	display: flex;
+	display: -webkit-flex;
+	flex-wrap: nowrap;
+	align-items: flex-end;
+}
+.page {
+  width: 100%;
+  padding-top: 150rpx;
+
+  .timearea {
+    padding: 40rpx;
+    height: 60rpx;
+    font-size: 26rpx;
+    line-height: 60rpx;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+
+    .time {
+      height: 60rpx;
+      width: 280rpx;
+      border-radius: 30rpx;
+      background: #eee;
+      display: inline-block;
+    }
+
+    text {
+      margin: 0 40rpx;
+    }
+  }
+
+  .event-list {
+    width: 680rpx;
+    height: 100rpx;
+    font-size: 26rpx;
+    padding: 20rpx;
+    margin: 0 auto;
+    border-bottom: 1px solid #eee;
+    .car-icon {
+      width: 40rpx;
+      height:22rpx;
+      margin-right: 40rpx;
+      padding: 19rpx 10rpx;
+      background: #efeff1;
+      border-radius:50% ;
+      float: left;
+    }
+    .car-name {
+      margin-right: 40rpx;
+    }
+    .time {
+      font-size: 24rpx;
+      color: #cdcdcd;
+      float: right;
+    }
+    .address {
+      padding-top: 10rpx;
+      height: 40rpx;
+      line-height: 40rpx;
+      padding-left: 100rpx;
+      font-size: 30rpx;
+      color: #333;
+      font-weight: bold;
+      white-space: normal;
+      word-break: break-all;
+    }
+    image {
+      width: 36rpx;
+      height: 36rpx;
+      margin-left: 20rpx;
+      float: right;
+    }
+  }
+
+  .active {
+    .car-name,
+    .time {
+      color: #547eff !important;
+    }
+  }
+}

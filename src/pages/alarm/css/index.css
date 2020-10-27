@@ -1,0 +1,399 @@
+/**********************************header--start**********************************/
+.w-ctrl {
+	position: fixed;
+	z-index: 999;
+	left: 0;
+	top: 50rpx;
+	width: 100rpx;
+	height: 60rpx;
+	border-top-right-radius: 30rpx;
+	border-bottom-right-radius: 30rpx;
+	border-width: 1px;
+	border-color: #ccc;
+	border-style: solid;
+	background-color: #fff;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.w-box {
+	width: 60rpx;
+	height: 60rpx;
+	padding: 10rpx;
+	border-radius: 50%;
+}
+
+.w-img {
+	width: 18rpx;
+	height: 41rpx;
+	margin-left: 20rpx;
+}
+
+.w-arrow {
+	padding-top: 20rpx;
+	width: 10rpx;
+	height: 60rpx;
+	margin-left: 10rpx;
+}
+
+.w-arrow-image {
+	width: 10rpx;
+	height: 20rpx;
+}
+
+.sel-device {
+	height: 600rpx;
+	width: 750rpx;
+	border-bottom-left-radius: 20rpx;
+	border-bottom-right-radius: 20rpx;
+	background-color: #fff;
+	position: fixed;
+	top: 0;
+	z-index: 999;
+	padding-top: 40rpx;
+
+}
+
+.dv-list {
+	height: 60rpx;
+	margin: 10rpx 0;
+	padding: 10rpx 40rpx;
+	line-height: 40rpx;
+	width: 750rpx;
+}
+
+.dv-body {
+	width: 750rpx;
+	height: 40rpx;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.dv-list-text {
+	font-size: 28rpx;
+}
+
+.dv-list-image {
+	width: 40rpx;
+	height: 40rpx;
+	margin-right: 40rpx;
+}
+
+.dv-tips {
+	font-size: 26rpx;
+	color: #999;
+	/* 	position: absolute;
+	right: 60rpx;
+	top: 12rpx;
+	width: 200rpx; */
+	/* text-align: right; */
+	height: 40rpx;
+	line-height: 40rpx;
+	margin-left: 300rpx;
+}
+
+.dv-active {
+	background-color: #eee;
+}
+
+.dv-close {
+	width: 750px;
+	height: 44rpx;
+	padding: 10rpx 0;
+	position: absolute;
+	padding-bottom: 20rpx;
+	bottom: 0;
+	text-align: center;
+	font-size: 0;
+	line-height: 24rpx;
+}
+
+.dv-close-image {
+	width: 80rpx;
+	height: 24rpx;
+	margin-left: 335rpx;
+}
+
+.w-info {
+	width: 700rpx;
+	top: 100rpx;
+	left: 25rpx;
+	height: 440rpx;
+	background-color: #fff;
+	border-radius: 20rpx;
+	position: fixed;
+	padding: 20rpx;
+	font-size: 26rpx;
+	z-index: 999999;
+}
+
+.w-item {
+	width: 660rpx;
+	height: 60rpx;
+	line-height: 50rpx;
+	padding: 0;
+	/* 	justify-content: flex-start;
+	align-items: flex-start; */
+	flex-direction: row;
+}
+
+.w-ads {
+	width: 660rpx;
+	height: 50rpx;
+	/* line-height: 50rpx; */
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-direction: row;
+}
+
+.w-title {
+	color: #999;
+	margin-left: 20rpx;
+	font-size: 30rpx;
+	margin-right: 10rpx;
+}
+
+.w-txt {
+	font-size: 28rpx;
+}
+
+.w-title:first-of-type {
+	margin-left: 0;
+}
+
+.w-image {
+	width: 30rpx;
+	height: 30rpx;
+	margin-left: 20rpx;
+	margin-right: 10rpx;
+}
+
+.w-ads {
+	height: 80rpx;
+	line-height: 40rpx;
+}
+
+.w-close {
+	position: relative;
+	width: 660rpx;
+	height: 40rpx;
+	/* margin-bottom: 10rpx; */
+}
+
+.w-close-image {
+	width: 40rpx;
+	height: 40rpx;
+	position: absolute;
+	right: 10rpx;
+	z-index: 999;
+}
+
+.search-box {
+	border-color:#e6e9f0;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #eef0f4;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 14rpx 0 15rpx;
+	border-radius: 12rpx;
+	height: 90rpx;
+	flex-direction: row;
+}
+
+.search-input {
+	background-color: none;
+	border-width: 0;
+	width: 520rpx;
+	height: 87rpx;
+}
+
+.left-icon {
+	width: 43rpx;
+	height: 42rpx;
+}
+
+.right-icon {
+	width: 53rpx;
+	height: 58rpx;
+}
+
+.btn-list {
+	padding: 35rpx 0 0;
+	width: 750rpx;
+	flex-direction: row;
+}
+
+.item {
+	text-align: center;
+	width: 140rpx;
+	margin-bottom: 10rpx;
+	text-align: center;
+}
+
+.icon {
+	width: 82rpx;
+	height: 82rpx;
+	margin-left: 29rpx;
+}
+
+.btn-list-text {
+	width: 140rpx;
+	text-align: center;
+	font-size: 26rpx;
+	color: #333;
+	line-height:42rpx;
+}
+
+.create-wrap-close {
+	transform: translateY(820rpx);
+	transition-duration: 0.3s;
+}
+.timearea{
+	display: flex;
+	display: -webkit-flexx;
+	flex-wrap: nowrap;
+	align-items: center;
+	align-content: center;
+	border-width: 1px;
+	border-color: #ff4564;
+}
+.create-wrap-open {
+	transform: translateY(0rpx);
+	transition-duration: 0.3s;
+}
+
+.create-wrap {
+	border-top-left-radius: 26rpx;
+	border-top-right-radius: 26rpx;
+	z-index: 200;
+	overflow: hidden;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 750rpx;
+	background-color: #FFFFFF;
+}
+
+.inner {
+	width: 690rpx;
+	margin-left: 30rpx;
+}
+
+.show-btn {
+	text-align: center;
+	padding-bottom: 20rpx;
+	width: 750rpx;
+	height: 60rpx;
+	position: relative;
+}
+
+.i {
+	font-size: 50rpx;
+	transform: scaleX(2);
+	font-weight: bold;
+	color: #ccc;
+}
+.tit {
+	height: 60rpx;
+	padding: 14rpx 0;
+}
+.tit-text{
+	font-weight: normal;
+	font-size: 32rpx;
+	padding-left: 22rpx;
+}
+
+.list-box {
+	margin-top: 35rpx;
+	height: 700rpx;
+	overflow: hidden;
+}
+
+.show-btn-image {
+	width: 80rpx;
+	height: 25rpx;
+	position: absolute;
+	left: 335rpx;
+	top: 15rpx;
+}
+.ads-wrap {
+	padding: 20rpx 0;
+}
+.ads-wrap-item {
+	width:340rpx;
+	padding:14rpx 20rpx;
+	height: 60rpx;
+	line-height: 60rpx;
+	border-color: #eee;
+	border-bottom-width: 1px;
+	border-style: solid;
+	flex-direction: row;
+}
+.row-two {
+	width: 750rpx;
+	flex-direction: row;
+}
+.row-item {
+	width: 750rpx;
+	padding-left: 25rpx;
+	/* align-items: center; */
+	position: relative;
+	flex-direction: row;
+	height: 60rpx;
+	padding: 10rpx 0;
+}
+
+.row-item-icon {
+	width: 23rpx;
+	height: 24rpx;
+	margin-right: 10rpx;
+}
+
+.row-item-txt {
+	margin-right: 45rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 26rpx;
+	color: #494949;
+}
+
+.del-icon {
+	position: absolute;
+	top: 20rpx;
+	right: 10rpx;
+}
+.nav-bar {
+	height: 100rpx;
+	padding:0 15rpx;
+	padding-top: 10rpx;
+	flex-direction: row;
+	position: fixed;
+	bottom: 0;
+	z-index: 9999;
+	background-color: #fff;
+	border-top-width: 1rpx;
+	border-color: #eee;
+	width: 750rpx;
+}
+.nav-bar-item {
+	width: 240rpx;
+	height: 100rpx;
+}
+.nav-bar-item-icon {
+	width: 40rpx;
+	height:40rpx;
+	left: 100rpx;
+	margin-bottom: 10rpx;
+}
+.nav-bar-item-text {
+	font-size: 28rpx;
+	width: 240rpx;
+	text-align: center;
+	line-height: 40rpx;
+	height: 40rpx;
+	color: #999;
+} 
+/**********************************header--end**********************************/

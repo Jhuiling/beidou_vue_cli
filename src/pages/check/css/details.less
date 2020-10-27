@@ -1,0 +1,61 @@
+.page {
+    width: 100%;
+    padding-top: 90rpx;
+    .car-bg {
+        height: 600rpx;
+        background-image: url(../../../static/image/jiance-bg1_02.jpg);
+        background-size: 100% ;
+        position: relative;
+        .car {
+            width: 400rpx;
+            height: 400rpx;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            position: absolute;
+            background-image: url(../../../static/image/jiance-car.png);
+            background-size: 100%;
+            z-index: 999;
+        }
+        .check {
+            width: 280rpx;
+            height: 280rpx;
+            position: absolute;
+            right: 0rpx;
+            bottom: 0rpx;
+            background-image: url(../../../static/image/detection@2x.png);
+            background-size: 100% 100%;
+        }
+     
+    }
+    .fault {
+        padding: 0 20rpx;
+        .title {
+            height: 80rpx;
+            line-height: 80rpx;
+            text-align: center;
+        }
+        .slot-title-box{
+            height: 80rpx;
+            line-height: 80rpx;
+            width: 100%;
+            .slot-title {
+                font-size: 30rpx;
+                float: left;
+            }
+            .slot-icon{
+                font-size: 24rpx;
+                float: right;
+                padding-top: 18rpx;
+                line-height: 40rpx;
+                image {
+                    width: 40rpx;
+                    height: 40rpx;
+                    float: left;
+                }
+            }
+        }
+    }
+}

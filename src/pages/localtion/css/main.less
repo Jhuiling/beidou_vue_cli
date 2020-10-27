@@ -1,0 +1,309 @@
+uni-page-body{
+	height: 100%;
+}
+.page{
+	width: 100%;
+	height: 100%;
+	background-color: #e9e9e9;
+}
+.w-ctrl {
+	position: absolute;
+	left: 0;
+	top: 100rpx;
+	width: 100rpx;
+	height: 60rpx;
+	border-top-right-radius: 30rpx;
+	border-bottom-right-radius: 30rpx;
+	border: 1px solid #ccc;
+	border-left: 0;
+	background: #fff;
+	.w-box {
+		width: 40rpx;
+		height: 40rpx;
+		padding: 10rpx;
+		border-radius: 50%;
+		float: left;
+		.w-img {
+			width: 18rpx;
+			height: 41rpx;
+			margin-left: 20rpx;
+		}	
+	}
+	.w-arrow {
+		width: 10rpx;
+		height: 20rpx;
+		float: left;
+		margin-left: 10rpx;
+		image {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	
+}
+.w-info {
+		width: 90%;
+		left: 0;
+		right: 0;
+		top: 200rpx;
+		bottom:0;
+		margin: auto;
+		height: 400rpx;
+		background: #fff;
+		border-radius: 20rpx;
+		position: absolute;
+		padding: 20rpx;
+		box-sizing: border-box;
+		font-size: 26rpx;
+		
+	.w-item,.w-ads{
+		height: 50rpx;
+		line-height: 50rpx;
+		.w-title {
+			color: #999;
+			margin-left: 20rpx;
+		}
+		.w-title:first-of-type {
+			margin-left: 0;
+		}
+		image {
+			width: 30rpx;
+			height: 30rpx;
+			margin-left: 20rpx;
+		}
+	}
+	.w-ads {
+		height: 80rpx;
+		line-height: 40rpx;
+	}
+	.w-close {
+		float: right;
+		margin-right: 10rpx;
+		width: 40rpx;
+		height: 40rpx;
+		image {
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+.sel-device {
+	height: 600rpx;
+	width: 100%;
+	border-bottom-left-radius: 20rpx;
+	border-bottom-right-radius: 20rpx;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	z-index: 999;
+	.dv-list {
+		height: 40rpx;
+		margin: 30rpx 0;
+		padding: 10rpx 40rpx;
+		line-height: 40rpx;
+		image {
+			width: 40rpx;
+			height: 40rpx;
+			margin-right: 40rpx;
+			float: left;
+		}
+		text {
+			font-size: 28rpx;
+		}
+		.dv-tips {
+			float: right;
+			font-size: 26rpx;
+			color: #999;
+		}
+	}
+	.active {
+		background-color: #eee;
+	}
+	.close {
+		width: 100%;
+		height:24rpx ;
+		padding:10rpx 0;
+		position: absolute;
+		padding-bottom: 20rpx;
+		bottom: 0;
+		text-align: center;
+		font-size: 0;
+		line-height: 24rpx;
+		image {
+			width: 80rpx;
+			height: 24rpx;
+		}
+	}
+}
+// .ads-wrap {
+	.row {
+		display: flex;
+		justify-content: space-between;
+		position: relative;
+		flex: 1;
+		align-items: center;
+		height: 95rpx;
+		border-bottom: 1px solid #f4f4f4;
+
+		&.row-two {
+			.item {
+				width: 45%;
+			}
+		}
+
+		.item {
+			width: 98%;
+			display: flex;
+			padding-left: 25rpx;
+			align-items: center;
+			position: relative;
+
+			&:before {
+				position: absolute;
+				top: -4rpx;
+				left: 0;
+				content: '';
+				background: #f4f4f4;
+				height: 42rpx;
+				width: 1px;
+			}
+
+			&:first-child:before {
+				display: none;
+			}
+		}
+
+		.icon {
+			width: 23rpx;
+			height: 24rpx;
+			margin-right:10rpx;
+		}
+
+		.txt {
+			margin-right: 45rpx;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-size: 26rpx;
+			color: #494949;
+		}
+
+		.del-icon {
+			position: absolute;
+			top: 0rpx;
+			right: 0;
+		}
+	}
+
+// }
+
+.search-box {
+	border: 1px solid #e6e9f0;
+	background: #eef0f4;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 14rpx 0 15rpx;
+	border-radius: 12rpx;
+
+	.search-input {
+		background: none;
+		border: none;
+		width: 520rpx;
+		height: 87rpx;
+	}
+
+	.left-icon {
+		width: 43rpx;
+		height: 42rpx;
+	}
+
+	.right-icon {
+		width: 53rpx;
+		height: 58rpx;
+	}
+}
+
+.btn-list {
+	display: flex;
+	flex-wrap: wrap;
+	// padding: 35rpx 0 0;
+
+	.item {
+		text-align: center;
+		width: 20%;
+		margin-bottom: 10rpx;
+	}
+
+	.icon {
+		width: 82rpx;
+		height: 82rpx;
+	}
+
+	.text {
+		font-size: 24rpx;
+		color: #333;
+		line-height: 1.8;
+	}
+}
+
+.create-wrap-close{
+	transform: translateY(820rpx);
+	transition-duration: 0.3s;
+}
+
+.create-wrap-open{
+	transform: translateY(0rpx);
+	transition-duration: 0.3s;
+}
+
+.create-wrap {
+	border-radius: 26rpx 26rpx 0 0;
+	z-index: 200;
+	height: auto;
+	overflow: hidden;
+	position: fixed;
+	bottom: 100rpx;
+	left: 0;
+	width: 100%;
+	background: #FFFFFF;
+
+	.inner {
+		width: 692rpx;
+		margin: 0 auto;
+	}
+
+	.show-btn {
+		text-align: center;
+		padding-bottom: 20rpx;
+
+		i {
+			font-size: 50rpx;
+			transform: scaleX(2);
+			font-weight: bold;
+			color: #ccc;
+		}
+	}
+
+	.tit {
+		font-weight: normal;
+		font-size: 32rpx;
+		padding-left: 22rpx;
+		line-height: 3;
+	}
+}
+
+// #container {
+// 	width: 100%;
+// 	height: 100vh;
+// }
+
+.show-btn image{
+	width: 80rpx;
+	height: 25rpx;
+}
+.list-box{
+	margin-top: 35rpx;
+	height: 700rpx;
+	overflow: auto;
+}

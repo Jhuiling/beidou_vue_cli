@@ -1,0 +1,492 @@
+
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+ 	<head>
+ 		<meta charset="UTF-8">
+ 		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+ 		<title>围栏</title>
+ 		<script type="text/javascript" src="./js/rem.js"></script>
+ 		<script type="text/javascript" src="./js/vue.min.js"></script>
+ 		<script src="https://webapi.amap.com/maps?v=1.4.15&key=c72fe234cb17e66258687a914002c17a&plugin=AMap.MouseTool,AMap.CircleEditor,AMap.Geocoder"> 
+ 		</script>
+ 		<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js"></script>
+ 
+ 		<link rel="stylesheet" href="./css/main.css">
+ 		<link rel="stylesheet" href="./css/enclosure.css"> 
+ 	</head>
+  
+ 	<body>
+ 		<div id="maps" v-cloak>
+ 			<!-- <div class="imgboxlist" style="position: fixed;width: 100%;height: 100%;top:0px;left: 0px;z-index: 1000;background: rgba(0,0,0,0.5);" v-if="bedlos">
+ 				<div style="width: 100%;height: 100%;display: flex;display: -webkit-flex;flex-wrap: nowrap;align-items: center;align-content: center;justify-content: center;background: rgba(0,0,0,0.5);">
+ 					<div class="tisjibxo" style="background: #FFFFFF;position: relative;top: -100px;width: 70%;border-radius: 5px;height: 200px;display: flex;display: -webkit-flex;flex-wrap: wrap;align-items: center;align-content: center;justify-content: center;">
+ 						<image style="width: 70px;height: 70px;border-radius: 100px;border: 1px solid #007AFF;display: block;margin: 0px auto 50px;" :src="logoImage"></image>
+ 						<div style="width: 100%;text-align: center;font-size: 25rpx;">北斗努力加载中..</div>
+ 					</div>
+ 				</div>
+ 			</div> -->
+ 			<div class="page">
+ 				<div id="map"></div>
+ 				<div class="circle-btn" v-on:click="drawCircle()" style="margin-bottom: 5px">
+ 					<img src="../../static/image/map_biggest@2x.png" alt="">
+ 					<div>圆形围栏</div>
+ 				</div>
+ 				<div class="circle-btn dbx" v-on:click="drawPolygon()" style="margin-bottom: 5px">
+ 					<img src="../../static/image/getmore@2x.png" alt="">
+ 					<div>多边形围栏</div>
+ 				</div>
+ 			</div>
+ 			<div class="inner-g" style="height: 60px;" v-if="close" v-on:click="showSetting">
+ 				<div class="menu">
+ 					<img src="../../static/image/up.png" alt="">
+ 				</div>
+ 				<div class="title" style="margin-top:0;text-align: center;">
+ 					精确度设置
+ 				</div>
+ 			</div>
+ 			<div class="inner" v-if="!close" ref="createInner">
+ 				<div class="menu" v-on:click="hideSetting">
+ 					<img src="../../static/image/down.png" alt="">
+ 				</div>
+ 
+ 				<div class="title" style="margin-top:0">
+ 					半径范围
+ 				</div>
+ 				<div class="timeline">
+ 					<div class="protext">{{beginNum}}米<input type="range" :min="beginNum" :max="endNum" v-model="currentNum">{{endNum}}米</div>
+ 					<div>{{currentNum}}米</div>
+ 				</div> 
+ 				<div class="title">
+ 					进出报警设置
+ 				</div>
+ 				<div class="ralist">
+ 					<div class="radio" v-on:click="setType(1)">
+ 						<div class="label">进</div>
+ 						<img v-bind:src=" type == 1 ? '../../static/image/sure@2x.png' : '../../static/image/g_sure@2x.png'" alt="">
+ 					</div>
+ 					<div class="radio" v-on:click="setType(2)">
+ 						<div class="label">出</div>
+ 						<img v-bind:src=" type == 2 ? '../../static/image/sure@2x.png' : '../../static/image/g_sure@2x.png'" alt="">
+ 					</div>
+ 					<div class="radio" v-on:click="setType(3)">
+ 						<div class="label">进出</div>
+ 						<img v-bind:src=" type == 3 ? '../../static/image/sure@2x.png' : '../../static/image/g_sure@2x.png'" alt="">
+ 					</div>
+ 					<div class="radio" v-on:click="setType(4)">
+ 						<div class="label">关闭</div>
+ 						<img v-bind:src=" type == 4 ? '../../static/image/sure@2x.png' : '../../static/image/g_sure@2x.png'" alt="">
+ 					</div>
+ 				</div>
+ 				<div class="title">
+ 					围栏类型
+ 				</div>
+ 				<div>
+ 					{{titles}}
+ 				</div>
+ 				<div class="title">
+ 					定位位置
+ 				</div>
+ 				<div class="address" >
+ 					<img src="../../static/image/shebeiguanli_11.jpg" alt="">
+ 					{{address}}
+ 				</div>
+ 				<div class="wl-btn"  v-on:click="createEnclosure()" >
+ 					确定
+ 				</div>
+ 			</div>
+ 		</div>
+ 		</div>
+		<!-- style="position: fixed;z-index: 1000;bottom: 0px;margin: auto;left: 0;right: 0;" -->
+ 	</body>
+ 	<script src="./js/http.js"></script>
+ <script src="./js/jquery.js"></script>
+ 	<script>
+		var deviceid= ''
+		var latitude= ''
+		var longitude= ''
+		var range= ''
+		var is_police='1' 
+		var type=''
+		var token=''
+		var title= ''
+		
+		
+		
+		
+ 		document.addEventListener('UniAppJSBridgeReady', function() {
+ 			var _this = null;
+ 			var MAP = null;
+ 			var mouseTool = null;
+ 			var circle = null;
+ 			var polylineEditor = null
+ 			var circleEditor = null
+ 			var polygon = null
+ 			var arr = []
+			
+			
+			
+			
+ 			var app = new Vue({
+ 				el: '#maps',
+ 				data: {
+ 					type: 1,
+ 					beginNum: 200,
+ 					endNum: 10000,
+ 					currentNum: 200,
+ 					close: true,
+ 					height: 300,
+ 					pageX: 0,
+ 					pixelRatio: 2,
+ 					windowHeight: 1280,
+ 					address: '',
+ 					path:[],
+ 					kaiguanonr:1,
+ 					kaiguantewo:1,
+ 					deviceid:'',
+ 					token:'',
+ 					yuan : true  ,
+ 					latitude:'' ,
+ 					longitude:'',
+ 					lat : 39.689746,
+ 					lng : 118.138514,
+ 					titles:"圆形围栏",
+ 					bedlos:true,
+					logoImage:'ss'
+ 				},
+ 				mounted() { 
+ 					_this = this;
+ 					type = 1 
+					deviceid = _this.getQueryString('deviceid')
+					latitude =  _this.getQueryString('latitude')
+					longitude = _this.getQueryString('longitude') 
+						title = "圆形围栏"
+					
+ 					_this.deviceid = _this.getQueryString('deviceid')
+ 					_this.token = _this.getQueryString('token')
+					 token = _this.getQueryString('token')
+ 					_this.longitude =  _this.getQueryString('longitude')
+ 					_this.latitude =  _this.getQueryString('latitude')
+ 					_this.lat = _this.getQueryString('latitude')
+ 					_this.lng = _this.getQueryString('longitude')
+ 					
+ 					_this.initMap(_this.getQueryString('longitude') , _this.getQueryString('latitude'))
+ 					MAP = new AMap.Map('map', {
+ 						zoomEnable: false,
+ 						dragEnable: false,
+ 						resizeEnable: true,
+ 						center: [ _this.getQueryString('longitude') , _this.getQueryString('latitude')],
+ 						zoom: 16
+ 					});
+ 					
+ 				},
+ 				methods: {
+ 					showSetting() {
+ 						this.close = false 
+ 					},
+ 					getQueryString(deviceid) {
+ 					    var reg = new RegExp('(^|&)' + deviceid + '=([^&]*)(&|$)', 'i');
+ 					    var r = window.location.search.substr(1).match(reg);
+ 					    if (r != null) {
+ 					        return unescape(r[2]);
+ 					    }
+ 					    return null;
+ 					},
+ 					hideSetting() {
+ 						this.close = true
+ 					},
+ 					setType(data) {
+ 						this.type = data
+						type = data 
+						
+ 					},
+ 					setHeight() {
+ 						WV.setStyle({
+ 							top: 90,
+ 							height: _this.height
+ 						});
+ 					},
+ 					// 返回
+ 					goBack() {
+ 						uni.navigateBack({
+ 							data: 2
+ 						});
+ 					},
+ 					togglePopup() {
+ 						_this.close = !this.close;
+ 						if (_this.close) {
+ 							WV.setStyle({
+ 								top: 94,
+ 								height: _this.windowHeight - 160,
+ 								zindex: -999
+ 							});
+ 						} else {
+ 							WV.setStyle({
+ 								top: 94,
+ 								height: _this.windowHeight - 530,
+ 								zindex: -999
+ 							});
+ 						}
+ 					},
+ 					setProgress(val) {
+ 						_this.pageX = val.value;
+ 						_this.currentNum = _this.beginNum + ((_this.endNum - _this.beginNum) / 100) * val.value;
+						range = _this.beginNum + ((_this.endNum - _this.beginNum) / 100) * val.value;
+						
+ 					},
+ 					// 创建围栏
+ 					createEnclosure() {
+ 						let data = {} 
+						var ts = '';  
+						for(var i = 0 ; i < _this.dbbox.length ; i++){
+							console.log(JSON.stringify(_this.dbbox[i]))
+							if(i== _this.dbbox.length-1){
+								ts+= _this.dbbox[i].lat+','+_this.dbbox[i].lng
+							}else{
+								ts+= _this.dbbox[i].lat+','+_this.dbbox[i].lng + ';'
+							}
+							
+						}
+						console.log(ts)
+						console.log(_this.dbbox)
+ 						if(_this.yuan){
+ 							 data =  {
+ 								deviceid: _this.deviceid,
+ 								range: _this.currentNum,
+ 								is_police: "1",
+ 								type: _this.type,
+ 								token:_this.token ,
+								centerlog:_this.latitude+ ','+ _this.longitude,
+ 								title:_this.titles
+ 							};
+ 						}else{
+ 							 data = {
+ 								deviceid: _this.deviceid,
+								centerlog: _this.latitude + ','+ _this.longitude,
+ 								range: ts,
+ 								is_police: "2",
+ 								type: _this.type,
+ 								token:_this.token,
+ 								title:_this.titles
+ 							}; 
+ 						}
+ 						
+						
+ 						let url = 'http://car.jiaxinruanjian.com/api/car/enclosure_create?'
+ 						for (let key in data) {
+ 							if(key=='title'){
+ 								url += key + '=' + data[key] 
+ 							}else{
+ 								url += key + '=' + data[key] + '&'
+ 							} 
+ 						}
+						var httpRequest = new XMLHttpRequest();
+						httpRequest.open('GET', url , true);
+						 httpRequest.send();
+						httpRequest.onreadystatechange = function () {
+							if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+								var json = httpRequest.responseText;
+								console.log(JSON.stringify(json));
+								setTimeout(function(){
+									uni.navigateTo({
+										url: '/pages/enclosure/enclosurecar?deviceid='+_this.deviceid
+									});
+								},3000)
+							}
+						};
+ 					},
+ 					goUrl() {
+ 						uni.navigateTo({
+ 							url: '/pages/watch/index'
+ 						});
+ 					}, 
+ 					getAddress(lat, lng) {
+ 						let searchLat = _this.lat
+ 						let searchLng = _this.lng
+ 						if (lat) {
+ 							searchLat = _this.lat
+ 							searchLng = _this.lng
+ 						}
+ 						let url = 'https://restapi.amap.com/v3/geocode/regeo?key=c72fe234cb17e66258687a914002c17a&location=' +
+ 							searchLng + ',' + searchLat;
+ 						var request = createCORS('get', url);
+ 						if (request) {
+ 							request.onload = function(res) {
+ 								console.log(res)
+ 								let data = JSON.parse(res.currentTarget.response)
+ 								_this.address = data.regeocode.formatted_address
+ 							};
+ 							request.send();
+ 						}
+ 					},
+ 					initMap(x , y) {
+ 						var a = Number(x) ; 
+ 						var b = Number(y)
+ 						arr = [
+ 							new AMap.LngLat(a + 0.000784, b - 0.000114),
+ 							new AMap.LngLat(a + 0.000170, b - 0.000618),
+ 							new AMap.LngLat(a - 0.000462, b - 0.000198),
+ 							new AMap.LngLat(a - 0.000365, b + 0.000172),
+ 							new AMap.LngLat(a + 0.000161, b + 0.000337)
+ 						]
+ 						_this.dbbox = arr 
+						range = arr 
+ 						var mapObj = new AMap.Map('container', {
+ 							resizeEnable: true
+ 						});
+ 						mapObj.plugin('AMap.Geolocation', function() {
+ 							var geolocation = new AMap.Geolocation({
+ 								enableHighAccuracy: true, //是否使用高精度定位，默认:true
+ 								timeout: 10000, //超过10秒后停止定位，默认：无穷大
+ 								maximumAge: 0, //定位结果缓存0毫秒，默认：0
+ 								convert: true, //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+ 								showButton: true, //显示定位按钮，默认：true
+ 								buttonPosition: 'LB', //定位按钮停靠位置，默认：'LB'，左下角
+ 								buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+ 								showMarker: true, //定位成功后在定位到的位置显示点标记，默认：true
+ 								showCircle: true, //定位成功后用圆圈表示定位精度范围，默认：true
+ 								panToLocation: true, //定位成功后将定位到的位置作为地图中心点，默认：true
+ 								zoomToAccuracy: true //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+ 							});
+ 							mapObj.addControl(geolocation);
+ 							geolocation.getCurrentPosition(function(status, res) {
+ 								console.log(status,res)
+ 								if (status == 'complete') {
+ 									lat = res.position.lat
+ 									lng = res.position.lng
+ 									MAP = new AMap.Map('map', {
+ 										zoomEnable: true,
+ 										dragEnable: true,
+ 										resizeEnable: true,
+ 										center: [_this.lng, _this.lat],
+ 										zoom: 16
+ 									}); 
+ 									arr = [
+ 										new AMap.LngLat(Number(_this.lng) + 0.000784, Number(_this.lat) - 0.000114),
+ 										new AMap.LngLat(Number(_this.lng) + 0.000170, Number(_this.lat) - 0.000618),
+ 										new AMap.LngLat(Number(_this.lng) - 0.000462, Number(_this.lat) - 0.000198),
+ 										new AMap.LngLat(Number(_this.lng) - 0.000365, Number(_this.lat) + 0.000172),
+ 										new AMap.LngLat(Number(_this.lng) + 0.000161, Number(_this.lat) + 0.000337)
+ 									]
+ 									_this.dbbox = arr 
+ 									mouseTool = new AMap.MouseTool(MAP)
+ 									_this.getAddress(lat, lng);
+ 								} else {
+ 									MAP = new AMap.Map('map', {
+ 										zoomEnable: true,
+ 										dragEnable: true,
+ 										resizeEnable: true,
+ 										center: [_this.lng, _this.lat],
+ 										zoom: 16
+ 									});
+ 									_this.getAddress()
+ 								}
+ 								_this.bedlos = false 
+ 							}); //返回定位信息
+ 							
+ 						});
+ 
+ 					},
+ 					drawPolygon() {
+ 						_this.yuan = false  
+ 						if(polygon) {
+ 							polylineEditor.close()
+ 							MAP.remove(polygon)
+ 						}
+ 						if(circle) {
+ 							circleEditor.close()
+ 							circle.setMap(null)
+ 						}
+ 						_this.titles = "多边形围栏"	
+						title = "多边形围栏"
+ 						polygon = new AMap.Polygon({
+ 							path: arr ,
+ 							fillColor: '#d4dff5', // 多边形填充颜色
+ 							borderWeight: 2, // 线条宽度，默认为 1
+ 							strokeColor: '#fff', // 线条颜色
+ 						});
+ 						MAP.add(polygon);
+ 						MAP.setFitView([polygon])
+ 						MAP.plugin(["AMap.PolyEditor"], function() {
+ 							polylineEditor = new AMap.PolyEditor(MAP, polygon);
+ 							polylineEditor.open();
+ 						});		
+ 						
+ 						polylineEditor.on('adjust', function(event) {
+ 							_this.path = polygon.getPath()
+ 							_dbbox = polygon.getPath()
+ 							_this.getAddress(_this.path[0].lat, _this.path[0].lng)
+ 						})
+ 						polylineEditor.on('end', function(event) {
+ 							console.info('触发事件： end', event)
+ 							console.log(polygon.getPath())
+ 							_dbbox = polygon.getPath()
+ 						})
+ 					},
+ 					drawCircle() {
+ 						_this.yuan = true  
+ 						console.log(circle)
+ 						if(polygon) {
+ 							polylineEditor.close()
+ 							MAP.remove(polygon)
+ 						}
+ 						if(circle) {
+ 							circleEditor.close()
+ 							circle.setMap(null)
+ 						}	
+ 						_this.titles = "圆形围栏"
+										title = "圆形围栏"
+ 						circle = new AMap.Circle({
+ 							center: [_this.lng, _this.lat],
+ 							radius: _this.currentNum, //半径
+ 							borderWeight: 0,
+ 							strokeColor: "#FF33FF",
+ 							strokeOpacity: 1,
+ 							strokeWeight: 6,
+ 							strokeOpacity: 0.2,
+ 							fillOpacity: 0.4,
+ 							strokeStyle: 'hidden',
+ 							strokeDasharray: [10, 10],
+ 							// 线样式还支持 'dashed'
+ 							fillColor: '#1791fc',
+ 							zIndex: 50,
+ 						}) 
+ 						circle.setMap(MAP)
+ 						// MAP.add(circle)
+ 						// 缩放地图到合适的视野级别
+ 						MAP.setFitView([circle])
+ 						circleEditor = new AMap.CircleEditor(MAP, circle) 
+ 						circleEditor.open()
+ 						circleEditor.on('move', function(event) {
+ 							_this.path = circle.getPath()
+ 							_this.getAddress(_this.path[0].lat, _this.path[0].lng)
+ 						})
+ 
+ 						circleEditor.on('adjust', function(event) {
+ 							console.log(event)
+ 							_this.currentNum = event.radius
+ 						})
+ 
+ 						circleEditor.on('end', function(event) {
+ 							console.info('触发事件： end', event)
+ 							// event.target 即为编辑后的圆形对象
+ 						})
+ 					},
+ 					removeCircle() {
+ 						
+ 					}
+ 				},
+ 				watch: {
+ 					currentNum: function(num) {
+ 						if (num <= 200) {
+ 							num = 200
+ 						}
+ 						circle.setRadius(num)
+ 					}
+ 				}
+ 			})
+ 		})
+ 	</script>
+ 
+ </html>
+ 

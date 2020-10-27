@@ -1,0 +1,40 @@
+<template>
+	<view style="position: fixed;width: 100%;height: 100%;z-index:1000;"> 
+		<web-view :webview-styles="webviewStyles"  src="https://www.baidu.com"></web-view>
+	</view> 
+</template>
+ 
+<script>
+	var _this = null
+	export default {
+		data() {
+			return {
+				webviewStyles: {
+					progress: {
+						color: '#FF3333'
+					}
+				}
+			}
+		},
+		onReady() {
+			console.log(1111)
+		},
+		mounted() {
+			
+		},
+		watch: {}, 
+		methods: {
+		
+	}
+}
+</script>
+
+<style>
+	@import "./css/index.css";
+	.testdiv {
+		width: 750rpx;
+		height: 1600rpx;
+		position: fixed;
+		/* background-color: #007AFF; */
+	}
+</style>

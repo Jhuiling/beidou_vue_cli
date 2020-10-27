@@ -1,0 +1,293 @@
+<template>
+	<div>
+		<!-- <div class="topbox">
+			<uni-nav-bar
+			  left-icon="back"
+			  title="警报详情"
+			  @clickLeft="goBack"
+			  fixed="false"
+			>
+			</uni-nav-bar>
+		</div> -->
+		<map key='map' v-bind:style="{width: '750rpx', height:phoneHeight + 'px'}" 
+		:latitude="latitude" 
+		:scale="15"
+		:longitude="longitude"
+		:show-location="true"
+		:markers="markers"
+		:enable-traffic="true"
+		:polyline="polylines"
+		>
+		</map> 
+			<div class="w-info" v-if="watchOpen">
+				<div class="w-close" @tap="closeWatchInfo">
+					<image class="w-close-image" src="../../static/image/close@2x.png" mode=""></image>
+				</div>
+				<div class="w-item">
+					<text class="w-title">名称:</text>
+					<text class="w-txt">{{alarmInfo.alias}}</text>
+				</div>
+				<div class="w-item">
+					<text class="w-title">定位时间:</text>
+					<text class="w-txt">{{alarmInfo.create_time}}</text>
+				</div>
+				<div class="w-item">
+					<text class="w-title">信号时间:</text>
+					<text class="w-txt">{{alarmInfo.create_time}}</text>
+				</div>
+				<div class="w-ads"  v-if="alarmInfo.address">
+					<text class="w-title">地址:</text>
+					<text class="w-txt">{{alarmInfo.address}}</text>
+				</div>
+			</div>
+			
+		</div>
+	<!-- <view class="page">
+		<map :longitude="lng" :latitude="lat" scale=5 style="width: 100%; height: 100%;" :markers="covers"></map>
+		<view class="w-info" v-if="watchOpen">
+			
+            <view class="title">
+                {{alarmInfo.name}}
+                <view class="w-close" @tap="closeWatchInfo">
+				<image src="../../static/image/close@2x.png" mode=""></image>
+			</view>
+            </view>
+			<view class="w-item">
+				<text class="w-title">
+					名称:
+				</text>
+				<text class="dv-name">
+					{{alarmInfo.watchfans.alias}}
+				</text>
+			</view>
+			<view class="w-item">
+				<text class="w-title">
+					定位时间:
+				</text>
+				<text>
+					{{alarmInfo.create_time}}
+				</text>
+			</view>
+			<view class="w-item">
+				<text class="w-title">
+					信号时间:
+				</text>
+				<text>
+					{{alarmInfo.create_time}}
+				</text>
+			</view>
+			<view class="w-ads">
+				<text class="w-title">
+					地址:
+				</text>
+				<text>
+					{{alarmInfo.address}}
+				</text>
+			</view>
+		</view>
+	</view> -->
+</template>
+
+<script>
+	var _this;
+	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
+	import common from '@/common.js'
+	import AMapWXfile from '@/plugins/amap-wx.js'
+	var sdkwx = uni.requireNativePlugin('AMap-NavSdkWX');
+	var key = "da5d2b34fd9cb9fcfb54114d03f9727b"; 
+	export default {
+		components: {
+			uniNavBar
+		},
+		data() {
+			return {
+				markers:[],
+				createShow: true,
+				close: true,
+				lng: '',
+				lat:'',
+				addressList: [],
+				home: '',
+				work: '',
+				latitude: 39.909,
+				longitude: 116.39742,
+				covers: [{
+					latitude: 39.909,
+					longitude: 116.39742,
+					iconPath: '/static/image/location.png',
+					width: 10,
+					height: 10
+				}],
+				polylines:[],
+				change: -1,
+				selOpen: false,
+				watchOpen: true,
+				alarmInfo:{},
+				id:-1,
+				phoneHeight:1334,
+				deviceid:''
+			}
+		},
+		onReady() {
+			_this = this;
+			uni.getSystemInfo({
+				success(res) {
+					_this.phoneHeight = res.windowHeight;
+				}
+			});
+		},
+		onLoad(e) {
+			// "&longitude="+item.longitude+"&latitude="+item.latitude
+			console.log(e)
+			this.id = e.id
+			this.deviceid = e.deviceid
+			// this.longitude = e.longitude
+			// this.latitude = e.latitude
+			
+		},
+		onShow() {
+            uni.setNavigationBarTitle({
+                title: '警报详情'
+            });
+			// setInterval(function() {
+			// 	_this.getLocation();
+			// }, 100000);
+			// this.nowLocation();
+		},
+		mounted() {
+			_this = this;
+			_this.getAlarmInfo()
+			_this.getLocation();
+		},
+		methods: {
+			getLocation() {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						console.log(res);
+						_this.latitude = res.latitude;
+						_this.longitude = res.longitude;
+						var covers = [{
+							latitude: res.latitude,
+							longitude: res.longitude,
+						}]
+						_this.covers = covers;
+					}
+				});
+			},
+			goBack (){
+				uni.navigateBack({
+					data:1
+				})
+			},
+			// 获取警报详情
+			getAlarmInfo(){
+				let data = {
+					deviceid:_this.deviceid, 
+					id:_this.id
+				}
+				console.log(data)
+                common.request('machine/police_detail', data, function(res) {
+					console.log(res.data.info.latitude)
+					if(!res.data.info.latitude){
+						console.log(1)
+						
+						uni.getLocation({
+							type: 'wgs84',
+							success: function(res) {
+								console.log(res)
+								_this.latitude =   res.latitude ; 
+								_this.longitude =  res.longitude ; 
+							}
+						});
+					}else{
+						console.log(2)
+						_this.markers = [{
+							latitude: res.data.info.latitude,
+							longitude: res.data.info.longitude,
+							iconPath: '../../static/image/dwya.png', 
+							width:0.5,
+							height:0.5
+						}]
+					}
+					
+					// latitude: 39.909,
+					// longitude: 116.39742,
+					
+					// _this.markers = [{
+					// 		latitude:  res.data.info.latitude,
+					// 		longitude:  res.data.info.longitude,
+					// 		iconPath: '../../static/image/dwya.png'
+					// 	}]
+					_this.alarmInfo = res.data.info.watchfans
+					_this.latitude = res.data.info.latitude
+					_this.longitude = res.data.info.longitude
+					
+					// var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
+					// myAmapFun.getRegeo({
+					//   success: function(data){
+					// 	  console.log(data[0].name) ; 
+					// 	  // _this.bgname = data[0].name
+					//   }
+					// })
+				})
+                
+			},
+			// 关闭手表信息
+			closeWatchInfo() {
+				_this.watchOpen = false
+			},
+			// 打开选择框
+			openSel() {
+				_this.selOpen = true
+				_this.watchOpen = false
+			},
+			// 关闭选择框
+			closeSel() {
+				_this.selOpen =  false
+			},
+			changes(index) {
+				_this.change = index
+			},
+			getLocation() {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						var covers = [{
+							latitude: res.latitude,
+							longitude: res.longitude,
+						}]
+						_this.covers = covers;
+					}
+				});
+			},
+			nowLocation() {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						_this.lng = res.longitude;
+						_this.lat = res.latitude;
+					}
+				});
+			},
+		},
+
+	}
+</script>
+
+<style lang="css" scoped>
+@import "./css/index.css";
+.topbox{
+	position: fixed;
+	padding-top: 40rpx!important;
+	top: 0rpx;
+	background-color: #ffffff;
+	display: flex;
+	display: -webkit-flex;
+	flex-wrap: nowrap;
+	align-items:  flex-end;
+	flex-direction: row;
+	width: 780rpx;
+	height: 120rpx;
+}
+</style>

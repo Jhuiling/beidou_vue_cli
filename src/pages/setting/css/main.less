@@ -1,0 +1,146 @@
+uni-page-body {
+    height: 100%;
+}
+.qrcode {
+	width: 650rpx;
+	padding: 50rpx;
+	text-align: center;
+	image {
+		width: 580rpx;
+		height: 580rpx;
+		margin-top: 100rpx;
+	}
+}
+.page {
+    width: 100%;
+    padding-top: 100rpx;
+
+    .device {
+        height: 340rpx;
+        padding: 40rpx 30rpx;
+        .item {
+            padding: 0;
+            border: 0;
+        }
+        .info {
+            height: 280rpx;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            position: relative;
+            .logo {
+                height: 120rpx;
+                padding: 10rpx;
+                image {
+                    width: 62rpx;
+                    height: 82rpx;
+                    background: #eee;
+                    border-radius: 50%;
+                    padding: 10rpx 20rpx;
+                }
+            }
+            .title {
+                font-size: 32rpx;
+            }
+
+            .subtitle {
+                font-size: 24rpx;
+                color: #999;
+            }
+        }
+        .icon {
+            width:20rpx;
+            height: 30rpx;
+            position: absolute;
+            top: 0;
+            bottom: 40rpx;
+            margin: auto 0;
+            right: 80rpx;
+            image {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    .item {
+        height: 100rpx;
+        line-height: 100rpx;
+        border-bottom: 1px solid #eee;
+        .title {
+            font-size: 28rpx;
+            color: #333;
+        }
+        .times,.subtitle {
+            float: right;
+            color: #999;
+            width: 240rpx;
+            height: 60rpx;
+            padding-top: 20rpx;
+            line-height: 60rpx;
+            font-size: 30rpx;
+            input {
+                width: 120rpx;
+                height: 60rpx;
+                border-radius: 60rpx;
+                float: right;
+                background-color: #eef0f4;
+                padding: 0 20rpx;
+                text-align: right;
+            }
+        }
+        .arrow {
+            float: right;
+            width: 20rpx;
+            height: 30rpx;
+            image {
+                width: 100%;
+                height: 100%;
+                
+            }
+        }
+    }
+    .set,.people,.tips {
+        padding: 0 30rpx;
+        .subtitle,.times {
+            width: 300rpx;
+            input {
+                width: 240rpx;
+                color: #333;
+                font-size: 28rpx;
+            }
+            .text {
+                color: #999;
+                font-size: 24rpx;
+                width: 150rpx;
+                text-align: center;
+                display: inline-block;
+                image {
+                    width: 40rpx;
+                    height: 40rpx;
+                    margin-top: 15rpx;
+                }
+            }
+            .radios {
+                display: inline-block;
+                margin: 0 10rpx;
+                width: 120rpx;
+                text-align: center;
+            }
+            .radios:nth-of-type(odd){
+                margin-left: 20rpx;
+            }
+            .radios:nth-of-type(even ) {
+                margin-right: 0;
+            }
+        }
+        .sub {
+            color: #999;
+        }
+    }
+    .item:last-of-type {
+        border: 0;
+    }
+    .line {
+        height: 16rpx;
+        background-color: #e9e9e9;
+    }
+}

@@ -1,0 +1,83 @@
+<template>
+	<view class="topbox">
+	
+		<view class="textcont">
+			<text class="contbox">
+				{{xiyyi}}
+			</text>
+		</view>
+	</view>
+</template>
+ 
+<script>
+	import Binding from 'weex-bindingx';
+	import common from '@/common.js'
+	var _this = null
+	export default { 
+		data() {
+			return {
+				xiyyi:''
+			}
+		},
+		onHide(){
+			_this.manjia = false
+		},
+		onReady() {
+			let  that = this
+			uni.getSystemInfo({
+				success(res) {
+					that.phoneHeight = res.windowHeight;
+				}
+			});
+			
+		}, 
+		onShow() {
+			_this = this;
+			common.request('login/register_agreement', {}, function(res) {
+				_this.xiyyi = res.data.info
+				console.log(res)
+			})
+		},
+		distroyed: function () {
+		　　clearInterval(_this.timer)
+		},
+		watch: {}, 
+		methods: {
+			goUrltwo(){
+				
+			},
+			dianhua(){
+			}
+			
+		}
+	}
+</script>
+
+<style>
+	page{
+		background: #fffff;
+	}
+	.topbox{
+		background-color: #ffffff;
+	}
+	.textcont{
+		padding: 0 20rpx ;
+		width: 700rpx;
+		margin: 0px auto;
+		text-align: center;
+	}
+	.title{
+		font-size: 30rpx;
+		font-weight: 600;
+		text-align: center;
+	}
+	.contbox{
+		font-size: 30rpx;
+	}
+	.titlelist{
+		padding: 20rpx;
+		width: 700rpx;
+		margin: 0px auto;
+		text-align: center;
+	}
+</style>

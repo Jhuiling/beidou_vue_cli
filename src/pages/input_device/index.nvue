@@ -1,0 +1,206 @@
+<template>
+	<view class="waiweibox"> 
+		<view class="inputbox">
+			<input class="inputboxinput" v-model="inputValue"   placeholder="请输入设备号" maxlength="13" type="number" />
+		</view>
+		<view class="inputbox">
+			<input class="inputboxinput" v-model="inputValuenicheng"   placeholder="昵称" maxlength="13" type="text" />
+		</view>
+		<view class="inputbox">
+			<input class="inputboxinput" :value="xuanzss" disabled="true" @click="xuanz()"  placeholder="选择使用人群" maxlength="13" type="text" />
+		</view>
+		<view class="buttonbox">
+			<button class="btnbox" @click="input()">提交</button>
+		</view>
+	</view> 
+</template>
+ 
+<script>
+	// import common from '@/common.js'
+	var _this = null
+	export default {
+		data() {
+			return {
+				info:{},
+				inputValue:'',
+				menarr: ['男人', '女人', '男孩','女孩','老人'],
+				xuanzss:'',
+				xuanzssnb:'',
+				inputValuenicheng:''
+			}
+		},
+		onReady() {
+			
+		}, 
+		onLoad(){
+			// console.log(e);
+			// _this = this
+			// common.request('machine/delfans', {id:e.id}, function(res) {
+			// 	_this.info  = res.data.info  
+			// 	console.log(res) 
+			// })
+		},
+		mounted() {
+			_this = this 
+		},
+		watch: {}, 
+		methods: {
+			xuanz(){
+				uni.showActionSheet({
+					itemList: _this.menarr,
+				    success: function (res) {
+						_this.xuanzss = _this.menarr[res.tapIndex]
+						_this.xuanzssnb = res.tapIndex+1
+				    },
+				    fail: function (res) {
+				        console.log(res.errMsg);
+				    }
+				});
+			},
+			input(){
+				if(_this.inputValue==''){
+					uni.showToast({
+					    title: '请输入设备号',
+					    duration: 2000,
+						icon :"none"
+					});
+					return false 
+				}
+				if(_this.inputValuenicheng==''){
+					uni.showToast({
+					    title: '请输入昵称',
+					    duration: 2000,
+						icon :"none"
+					});
+					return false 
+				}
+				if(_this.xuanzss==''){
+					uni.showToast({
+					    title: '请选择人群',
+					    duration: 2000,
+						icon :"none"
+					});
+					return false 
+				}
+				// xuanzssnb:'',
+				// inputValuenicheng:''
+				uni.navigateTo({
+					url:"/pages/machine/bind?frompage="+_this.inputValue+"&alias="+_this.xuanzssnb+"&use_user="+_this.inputValuenicheng+"&types=1"
+				})
+			}
+			// dianji(){
+			// 	uni.showModal({
+			// 	    content: '是否从当前账号移除设备',
+			// 	    success: function (res) {
+			// 	        if (res.confirm) {
+			// 	            console.log('用户点击确定');
+			// 	        } else if (res.cancel) {
+			// 	            console.log('用户点击取消');
+			// 	        }
+			// 	    }
+			// 	});
+			// }
+		}
+		
+	}
+</script>
+
+<style>
+	.inputbox{
+		padding-top:50rpx ;
+	}
+	.waiweibox{
+		position: fixed;
+		width: 710rpx;
+		height: 710rpx;
+		background-color: #ffffff;
+		left: 25rpx;
+		top: 50rpx;
+	}
+	.inputboxinput{
+		height: 100rpx;
+		text-align: center;
+		width: 650rpx;
+		border-radius: 5rpx;
+		position: relative ;
+		border-width: 1rpx;
+		border-color: #999999;
+		left: 30rpx;
+	}
+	.buttonbox{
+		position: relative;
+		width: 500rpx;
+		top: 60rpx;
+		left: 100rpx;
+	}
+	.righriximgtuokg{
+		width: 70rpx;
+		height: 70rpx;
+		margin-right: 10rpx;
+	}
+	.centext{
+		font-size: 15px;
+		margin-right: 20px;
+		color:#787878
+	}
+	.nicheng{
+		color: #555555;
+		font-size: 18px!important;
+		padding-bottom: 10rpx;
+	}
+	/* @import "./css/index.css"; */
+	
+	.leftimg{
+		width: 50rpx;
+		height: 50rpx;
+		margin-left: 20rpx;
+		margin-right: 20rpx;
+	}
+	.shijian{
+		font-size: 13px!important;
+		color: #656B79;
+	}
+	.waibox{
+		display: flex;
+		display: -webkit-flex;
+		flex-direction: row;
+		align-items: center;
+		align-content: center;
+		justify-content: space-between;
+		border-bottom-width: 1rpx;
+		border-color: #F3F3F3;
+		padding-top: 40rpx;
+		padding-bottom: 40rpx;
+		
+	}
+	.lefthtbox{
+		display: flex;
+		display: -webkit-flex;
+		flex-direction: row;
+		align-items: center;
+		align-content: center;
+	}
+	.rightbox{
+		display: flex;
+		display: -webkit-flex;
+		flex-direction: row;
+		align-items: center;
+		align-content: center;
+	}
+	page{
+		background-color: #ffffff; 
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		overflow-y: scroll;
+	}
+	.righriximg{
+		width: 40rpx;
+		height: 40rpx;
+	}
+	.righriximgtuo{
+		width: 30rpx;
+		height: 40rpx;
+		margin-right: 20rpx;
+	}
+</style>

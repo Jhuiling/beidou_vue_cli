@@ -1,0 +1,132 @@
+<template>
+	<view class="waiweibox"> 
+		
+		<!-- 带图标 -->
+		<uni-collapse>
+		    <uni-collapse-item class="blxocvs" title="问题分类">
+		        <view style="padding: 30rpx;background-color: #ffffff;">
+		            折叠内容主体，可自定义内容及样式
+		        </view>
+		    </uni-collapse-item>
+		    <uni-collapse-item class="blxocvs" title="问题分类" >
+		        <view style="padding: 30rpx;background-color: #ffffff;">
+		            折叠内容主体，可自定义内容及样式
+		        </view>
+		    </uni-collapse-item>
+			<view class="wentifl" style="text-align: center;">问题分类</view>
+			<uni-collapse-item class="blxocvs" title="问题分类">
+			    <view style="padding: 30rpx;background-color: #ffffff;">
+			        折叠内容主体，可自定义内容及样式
+			    </view>
+			</uni-collapse-item>
+			<uni-collapse-item class="blxocvs" title="问题分类" >
+			    <view style="padding: 30rpx;background-color: #ffffff;" >
+			        折叠内容主体，可自定义内容及样式
+			    </view>
+			</uni-collapse-item>
+			<view class="bottwaibox">
+				<view class="borttombox">
+					问题答案，问题答案，问题答案
+				</view>
+			</view>
+		</uni-collapse>
+		
+		
+		
+		<!-- <view class="topbox">
+			<view class="blxocvs">问题分类</view>
+			<image class="boxing" src="../../static/image/xysa.png"></image>
+		</view>
+		<view  class="topbox">
+			<view class="blxocvs">问题分类</view>
+			<image  class="boxing" src="../../static/image/xysa.png"></image> 
+		</view>
+		
+		
+		<view class="wentifl" style="text-align: center;">问题分类</view>
+		
+		<view class="topbox">
+			<view class="blxocvs">xxxx问题</view>
+			<image class="boxing" src="../../static/image/xysa.png"></image>
+		</view>
+		<view  class="topbox">
+			<view class="blxocvs">xxxx问题</view>
+			<image  class="boxing" src="../../static/image/xysa.png"></image> 
+		</view>
+		
+		
+		<view class="bottwaibox">
+			<view class="borttombox">
+				问题答案，问题答案，问题答案
+			</view>
+		</view> -->
+	</view> 
+</template>
+ 
+<script>
+	var _this = null
+	import uniCollapse from '@/components/uni-collapse/uni-collapse.vue'
+	import uniCollapseItem from '@/components/uni-collapse-item/uni-collapse-item.vue'
+	export default {
+		components: {uniCollapse,uniCollapseItem},
+		data() {
+			return {
+				 
+			}
+		},
+		onReady() {
+			
+		}, 
+		mounted() {
+			
+		},
+		watch: {}, 
+		methods: {
+		
+	}
+}
+</script>
+
+<style>
+	/* @import "./css/index.css";
+	.testdiv {
+		width: 750rpx;
+		height: 1600rpx;
+		position: fixed;
+	} */
+	page{
+		background-color: #e9e9e9; 
+	}
+	.blxocvs{
+		background: #ffffff;
+	}
+	.bottwaibox{
+		background-color: #e9e9e9;
+	}
+	.borttombox{
+		width: 680rpx;
+		background-color: #FFFFFF; 
+		margin-left: 30rpx;
+		margin-top: 20rpx;
+		border-radius: 10rpx;
+		font-size: 14rpx; 
+		color: #555555; 
+	}
+	.wentifl{
+		width: 700rpx;
+		margin-left: 20rpx;
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		align-content: center;
+		justify-content:center;
+		flex-direction: row;
+		margin-top: 60rpx;
+		padding-top: 40rpx ;
+		margin-left: 20rpx;
+		border-bottom-width: 1rpx;
+		border-color: #F5F5F5;
+		flex-direction: row;
+		padding-bottom: 40rpx;
+	}
+</style>

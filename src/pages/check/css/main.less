@@ -1,0 +1,78 @@
+.page {
+    width: 100%;
+    padding-top: 90rpx;
+    .car-bg {
+        height: 600rpx;
+        background-image: url(../../../static/image/jiance-bg1_02.jpg);
+        background-size: 100% ;
+        position: relative;
+        .car {
+            width: 400rpx;
+            height: 400rpx;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            position: absolute;
+            background-image: url(../../../static/image/jiance-car.png);
+            background-size: 100%;
+            z-index: 999;
+        }
+        .check {
+            width: 280rpx;
+            height: 280rpx;
+            position: absolute;
+            right: 0rpx;
+            bottom: 0rpx;
+            background-image: url(../../../static/image/detection@2x.png);
+            background-size: 100% 100%;
+        }
+        .progress-box {
+            width: 600rpx;
+            margin: auto;
+            left: 0;
+            right: 0;
+            position: absolute;
+            bottom: 40rpx;
+        }
+        .active {
+            -webkit-animation: checks 5s linear infinite; /* Chrome, Safari, Opera */
+            animation:  checks 3s linear infinite;
+        }
+    }
+    .wraning {
+        height: 460rpx;
+        padding: 40rpx 150rpx;
+        image {
+            width: 100%;
+        }
+    }
+    .info {
+        padding: 40rpx;
+        line-height: 40rpx;
+        color: #666;
+        font-size: 28rpx;
+        text {
+            color: #000;
+            font-weight: bold;
+        }
+    }
+}
+@keyframes checks {
+    from {
+        transform: rotateZ(0);
+    }
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes checks {
+    from {
+        transform: rotateZ(0);
+    }
+    to {
+        transform: rotateZ(360deg);
+    }
+}

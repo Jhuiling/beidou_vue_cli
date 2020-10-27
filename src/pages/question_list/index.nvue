@@ -1,0 +1,141 @@
+<template>
+	<view class="waiweibox">
+		<view class="topbox">
+			<view class="blxocvs">
+				<image class="topbimgx" src="../../static/image/lg.png"></image>
+			</view>
+		</view>
+		<text class="appname">北斗位置</text>
+		<view class="shiyongx">
+			<text class="ontex">微信公众号</text>
+			<text class="twotex">xx</text>
+		</view>
+		<view class="shiyongx">
+			<text class="ontex">商务合作</text>
+			<text class="twotex">xx</text>
+		</view>
+		<view class="shiyongx">
+			<text class="ontex">意见反馈</text>
+			<text class="twotex">xx</text>
+		</view>
+		<view class="shiyongx">
+			<text class="ontex">设备使用协议</text>
+			<text class="twotex">xx</text>
+		</view>
+		<view class="shiyongx">
+			<text class="ontex">平台服务协议</text>
+			<text class="twotex">xx</text>
+		</view>
+	</view> 
+</template>
+ 
+<script>
+	var _this = null
+	import uniCollapse from '@/components/uni-collapse/uni-collapse.vue'
+	import uniCollapseItem from '@/components/uni-collapse-item/uni-collapse-item.vue'
+	export default {
+		components: {uniCollapse,uniCollapseItem},
+		data() {
+			return {
+				 
+			}
+		},
+		onReady() {
+			
+		}, 
+		mounted() {
+			
+		},
+		watch: {}, 
+		methods: {
+		
+	}
+}
+</script>
+
+<style>
+	@import "./css/index.css";
+	.appname{
+		width: 750rpx;
+		font-weight: 700;
+		padding: 40rpx 0rpx;
+		text-align: center;
+	}
+	.blxocvs{
+		width: 400rpx;
+		height: 400rpx;
+		border-radius: 100px;
+		background-color: #F3F3F3;
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		align-content: center;
+		justify-content:center;
+		flex-direction: row;
+		margin: 10rpx auto;
+		position: relative;
+		left: 140rpx;
+	}
+	.ontex{
+		padding-left: 40rpx;
+		font-size: 30rpx;
+	}
+	.twotex{
+		padding-right: 40rpx;
+		font-weight: 400;
+		color: #555555;
+	}
+	.shiyongx{
+		padding: 20rpx 0rpx;
+		border-bottom: 1rpx solid #f3f3f3;
+		width: 750rpx;
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		align-content: center;
+		justify-content:space-between;
+		flex-direction: row;
+		margin: 20rpx auto;
+		position: relative;
+	}
+	.topbimgx{
+		width: 200rpx;
+		height: 200rpx;
+		border-radius: 100px;
+	}
+	page{
+		background-color: #ffffff; 
+	}
+	.blxocvs{
+		background: #ffffff;
+	}
+	.bottwaibox{
+		background-color: #ffffff;
+	}
+	.borttombox{
+		width: 680rpx;
+		background-color: #FFFFFF; 
+		margin-left: 30rpx;
+		margin-top: 20rpx;
+		border-radius: 10rpx;
+		font-size: 14rpx; 
+		color: #555555; 
+	}
+	.wentifl{
+		width: 700rpx;
+		margin-left: 20rpx;
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		align-content: center;
+		justify-content:center;
+		flex-direction: row;
+		margin-top: 60rpx;
+		padding-top: 40rpx ;
+		margin-left: 20rpx;
+		border-bottom-width: 1rpx;
+		border-color: #F5F5F5;
+		flex-direction: row;
+		padding-bottom: 40rpx;
+	}
+</style>

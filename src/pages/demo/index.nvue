@@ -1,0 +1,83 @@
+<template>
+	<div>
+		<map key='map1' :style="{width: '750rpx', height: mapHeight + 'rpx'}" :latitude="latitude" :longitude="longitude"
+		 :polyline="polylines" >
+		</map>
+		 
+	</div>
+</template>
+
+<script>
+	import Binding from 'weex-bindingx';
+	const domModule = weex.requireModule('dom')
+	export default {
+		data() {
+			return {
+				map: null,
+				mapHeight: 1334,
+				// 屏幕高度
+				screenHeight: 667,
+				latitude: 39.909,
+				longitude: 116.39742,
+				polylines:[{
+					points:[{ 
+						latitude: 39.9091,
+						longitude:116.3975
+					},{
+						latitude: 39.9091,
+						longitude:116.3977
+					},{
+						latitude: 39.9091,
+						longitude:116.398
+					},{
+						latitude: 39.9098,
+						longitude:116.3985
+					},{
+						latitude: 39.9098,
+						longitude:116.3989
+					},{
+						latitude: 39.9098,
+						longitude:116.3995
+					}],
+					width: 2,
+					color: "FEAA34"
+				}],
+			}
+		},
+		onReady() {
+			
+			
+		},
+		mounted() {
+			let that = this;
+			var path = [
+				[116.403322, 39.920255],
+				[116.410703, 39.897555],
+				[116.402292, 39.892353],
+				[116.389846, 39.891365]
+			]
+			that.map = plus.maps.create('map', {
+				center: [116.400274, 39.905812],
+				zoom: 18
+			});
+			var polygon = new plus.maps.Map.Polygon({
+				path: path,
+				strokeColor: "#FF33FF", 
+				strokeWeight: 6,
+				})
+			console.log(polygon)
+			that.app.add(polygon);
+		}
+	}
+</script>
+
+<style>
+	@import "index.css";
+
+	.testdiv {
+		width: 750rpx;
+		height: 1600rpx;
+		position: fixed;
+		/* background-color: #007AFF; */
+	}
+</style>

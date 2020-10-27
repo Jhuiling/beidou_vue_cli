@@ -1,0 +1,137 @@
+uni-page-body {
+    height: 100%;
+}
+
+.page {
+    width: 100%;
+    padding-top: 150rpx;
+    .device {
+        height: 560rpx;
+        padding: 40rpx 30rpx;
+        .item {
+            padding: 0;
+        }
+        .info {
+            height: 300rpx;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            position: relative;
+            .logo {
+                height: 120rpx;
+                padding: 10rpx;
+                image {
+                    width: 62rpx;
+                    height: 82rpx;
+                    background: #eee;
+                    border-radius: 50%;
+                    padding: 10rpx 20rpx;
+                }
+            }
+            .title {
+                font-size: 26rpx;
+            }
+
+            .subtitle {
+                font-size: 24rpx;
+                color: #999;
+            }
+        }
+    }
+    .date {
+        padding: 0 40rpx;
+        .item {
+            .subtitle {
+                text-align: right;
+                width: 260rpx;
+            }
+        }
+    }
+    .pay {
+        padding: 0 40rpx;
+        .subtitle {
+            text-align: right;
+            text {
+                margin-right: 40rpx;
+            }
+            image {
+                width: 40rpx;
+                height: 40rpx;
+                margin-top: 15rpx;
+                float: right;
+            }
+        }
+    }
+    .item {
+        height: 100rpx;
+        line-height: 100rpx;
+        border-bottom: 1px solid #eee;
+        .title {
+            font-size: 28rpx;
+            color: #333;
+        }
+        .times,.subtitle {
+            float: right;
+            color: #999;
+            width: 240rpx;
+            height: 60rpx;
+            padding-top: 20rpx;
+            line-height: 60rpx;
+            font-size: 30rpx;
+            input {
+                width: 240rpx;
+                height: 60rpx;
+                border-radius: 60rpx;
+                float: right;
+                background-color: #eef0f4;
+                padding: 0 20rpx;
+                text-align: right;
+                font-size: 24rpx;
+            }
+            .radios {
+                display: inline-block;
+            }
+        }
+        .arrow {
+            float: right;
+            width: 20rpx;
+            height: 30rpx;
+            image {
+                width: 100%;
+                height: 100%;
+                
+            }
+        }
+        button {
+            border-radius:30rpx;
+            float: left;
+            margin-right: 10rpx;
+            height: 56rpx;
+            line-height: 56rpx;
+        }
+        .end {
+            width: 380rpx !important;
+        }
+    }
+
+    .item:last-of-type {
+        border: 0;
+    }
+    .line {
+        height: 16rpx;
+        background-color: #e9e9e9;
+    }
+    .btn {
+        width: 600rpx;
+        margin: 40rpx auto;
+        height: 100rpx;
+        line-height: 100rpx;
+        box-shadow: 0 0 5rpx #ccc;
+        background-color: #fff;
+        font-size: 30rpx;
+        color: #333;
+		position: fixed;
+		bottom: 120rpx;
+		left: 0;
+		right: 0;
+    }
+}
