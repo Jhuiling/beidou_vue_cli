@@ -93,7 +93,7 @@
 				<div class="search-box">
 					<image src="/static/image/home_icon_06.jpg" class="left-icon"></image>
 					<input type="text" class="search-input" placeholder="查找地点、公交、地铁" />
-					<image src="/static/image/home_icon_03.jpg" class="right-icon" alt=""></image>
+					<text class="right-text">搜索</text>
 				</div>
 				<div class="list-box" :style="close?'overflow:hidden':'overflow:auto'">
 					<div class="btn-list">

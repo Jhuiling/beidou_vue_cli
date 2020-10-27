@@ -91,6 +91,10 @@ html,body {
 	width: .53rem;
 	height: .58rem;
   }
+  .search-box .right-text {
+	width: .53rem;
+	height: .58rem;
+  }
   .btn-list {
 	display: flex;
 	flex-wrap: wrap;

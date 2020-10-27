@@ -22,9 +22,18 @@
 			<div class="text" style="font-size: 13rpx;padding-top: 20px;padding-bottom: 20px;">{{distance}}</div>
 			<div class="text" style="font-size: 13rpx;padding-top: 20px;padding-bottom: 20px;">{{cost}}</div>
 		</div>
-		  <map id="navi_map" :longitude="longitude"
-		:latitude="latitude" :style="{width: '750rpx', height: phoneHeight + 'px'}"  scale="12" :markers="markers" :polyline="polyline"></map> 
-		
+		  <map id="navi_map" 
+			:longitude="longitude"
+			:latitude="latitude" 
+			:style="{width: '750rpx', height: phoneHeight + 'px'}"  
+			scale="12" 
+			:show-compass='true'
+			:show-location="true"
+			:markers="markers" 
+			:polyline="polyline"
+			@updated="mapUpdated">
+			</map> 
+			
 			<image @tap="daohangqu"  style="position:fixed;z-index:10;bottom: 180px;width: 70rpx;height: 70rpx;right: 50px;"  src="../../static/image/daohang.png" ></image> 
 		
 	</div>
@@ -224,6 +233,9 @@
 		},
 		watch: {}, 
 		methods: {
+				mapUpdated(){
+					console.log(_this.longitude)
+				},
 				daohangqu(){
 					var _this = this; 
 					var yanshi = _this.yanshi ; 
