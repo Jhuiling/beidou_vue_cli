@@ -1,148 +1,183 @@
 <template>
-	<view class="waiweibox"> 
-	
-		<viev class="waibox" v-for="(item,index) in info" >
+	<view class="waiweibox">
+		<viev class="waibox">
+			<view class="userinfo">
+				<text class="nicheng">{{nickName}}</text>
+				<text class="shijian">{{mobile}}</text>
+			</view>
+		</viev>
+		<viev class="waibox" v-for="(item,index) in info">
 			<view class="lefthtbox">
 				<image class="leftimg" v-if="item.type==1" src="../../static/image/big_weatch@2x.png"></image>
-				<image class="leftimg" v-if="item.type==2"  src="../../static/image/big_workcard@2x.png"></image>
+				<image class="leftimg" v-if="item.type==2" src="../../static/image/big_workcard@2x.png"></image>
 				<view class="zhaohao">
-					<text class="nicheng">{{item.alias}}</text> 
+					<text class="nicheng">{{item.alias}}</text>
 				</view>
 			</view>
 			<view class="rightbox">
-				<image  class="righriximgtuokg" src="../../static/image/off.png" v-if="item.is_main==1"  @click="guanli(item.id,index)"></image>
-				<image  class="righriximgtuokg" src="../../static/image/or.png" v-if="item.is_main==0"  @click="guanli(item.id,index)"></image>
-				<image class="righriximgtuo" src="../../static/image/del@3x.png"  @click="dianji(item.id)" ></image>
-				<text class="centext"  @click="dianji(item.id,index)" >移除</text>
+				<view class="rightbox">
+					<text class="centext">主账号</text>
+					<image class="righriximgtuokg" src="../../static/image/off.png" v-if="item.is_main==1" @click="guanli(item.id,index)">
+					</image>
+					<image class="righriximgtuokg" src="../../static/image/or.png" v-if="item.is_main==0" @click="guanli(item.id,index)"></image>
+				</view>
+				<view class="rightbox">
+					<text class="centext" @click="dianji(item.id,index)">移除</text>
+					<image class="righriximgtuo" src="../../static/image/del@3x.png" @click="dianji(item.id)"></image>
+				</view>
 			</view>
 		</viev>
-		
-	</view> 
+
+	</view>
 </template>
- 
+
 <script>
 	import common from '@/common.js'
 	var _this = null
 	export default {
 		data() {
 			return {
-				info:[]
+				info: [],
+				mobile: "",
+				nickName: "",
 			}
 		},
 		onReady() {
-			
-		}, 
-		onLoad(e){
-			console.log(e);
+
+		},
+		onLoad(e) {
+			console.log("-----",e);
 			_this = this
-			common.request('machine/fanslist', {type:e.id}, function(res) {
-				_this.info = res.data.info   
-				console.log(res) 
+			_this.nickName = e.nickName;
+			_this.mobile = e.mobile;
+			common.request('machine/fanslist', {
+				type: e.id
+			}, function(res) {
+				_this.info = res.data.info
+				console.log(res)
 			})
 		},
 		mounted() {
-			
+
 		},
-		watch: {}, 
+		watch: {},
 		methods: {
-			guanli(e,index){
-				var _this = this ;
+			guanli(e, index) {
+				var _this = this;
 				console.log(index)
 				uni.showModal({
-				    content: '是否设为主账号',
-				    success: function (res) {
-				        if (res.confirm) {
-						  common.request('machine/setfansmain', {id:e}, function(res) {
-							  console.log(res.data.info)
-							  if(res.data.status==1){
-								 uni.showToast({
-								  title: res.data.info,
-								  duration: 2000,
-								  icon:'none'
-								 }); 
-								  _this.info[index].is_main =  !_this.info[index].is_main
-							  }else{
-								  uni.showToast({
-								   title: res.data.info,
-								   duration: 2000,
-								   icon:'none'
-								  }); 
-							  }
-							 
-						  })
-				        } else if (res.cancel) {
-				            console.log('用户点击取消');
-				        }
-				    }
+					content: '是否设为主账号',
+					success: function(res) {
+						if (res.confirm) {
+							common.request('machine/setfansmain', {
+								id: e
+							}, function(res) {
+								console.log(res.data.info)
+								if (res.data.status == 1) {
+									uni.showToast({
+										title: res.data.info,
+										duration: 2000,
+										icon: 'none'
+									});
+									_this.info[index].is_main = !_this.info[index].is_main
+								} else {
+									uni.showToast({
+										title: res.data.info,
+										duration: 2000,
+										icon: 'none'
+									});
+								}
+
+							})
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
 				});
 			},
-			dianji(e,index){
-				var _this = this 
+			dianji(e, index) {
+				var _this = this
 				uni.showModal({
-				    content: '是否从当前账号移除设备',
-				    success: function (res) {
-						
-				        if (res.confirm) {
-				           common.request('machine/delfans', {id:e}, function(res) {
-							   console.log(res)
-							   if(res.data.status==1){
-								   uni.showToast({
-								    title: res.data.info,
-								    duration: 2000,
-								    icon:'none'
-								   });
-								   console.log(res)
-								   _this.info = res.data.info
-							   }else{
-								   uni.showToast({
-								    title: res.data.info,
-								    duration: 2000,
-								    icon:'none'
-								   });
-							   }
-				           });
-				        } else if (res.cancel) {
-				            console.log('用户点击取消');
-				        }
-				    }
+					content: '是否从当前账号移除设备',
+					success: function(res) {
+
+						if (res.confirm) {
+							common.request('machine/delfans', {
+								id: e
+							}, function(res) {
+								console.log(res)
+								if (res.data.status == 1) {
+									uni.showToast({
+										title: res.data.info,
+										duration: 2000,
+										icon: 'none'
+									});
+									console.log(res)
+									_this.info = res.data.info
+								} else {
+									uni.showToast({
+										title: res.data.info,
+										duration: 2000,
+										icon: 'none'
+									});
+								}
+							});
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
 				});
 			}
 		}
-		
+
 	}
 </script>
 
 <style>
-	.righriximgtuokg{
+	.delbox{
+		display: flex;
+		align-items: center;
+}
+	.righriximgtuokg {
 		width: 70rpx;
 		height: 70rpx;
-		margin-right: 10rpx;
+		margin-right: 15rpx;
 	}
-	.centext{
-		font-size: 15px;
-		margin-right: 20px;
-		color:#787878
+	.righriximgtuokgtext{
+		font-size: 12px;
+		transform: scale(.8);
+		color: #fff;
+}
+	.centext {
+		font-size: 14px;
+		/* margin-right: 20px; */
+		color: #787878
 	}
-	.nicheng{
+
+	.nicheng {
 		color: #555555;
-		font-size: 18px!important;
+		font-size: 18px !important;
 		padding-bottom: 10rpx;
 	}
+
 	/* @import "./css/index.css"; */
-	.waiweibox{
+	.waiweibox {
 		background-color: #FFFFFF;
 	}
-	.leftimg{
+
+	.leftimg {
 		width: 50rpx;
 		height: 50rpx;
 		margin-left: 20rpx;
 		margin-right: 20rpx;
 	}
-	.shijian{
-		font-size: 13px!important;
+
+	.shijian {
+		font-size: 14px !important;
 		color: #656B79;
 	}
-	.waibox{
+
+	.waibox {
 		display: flex;
 		display: -webkit-flex;
 		flex-direction: row;
@@ -153,36 +188,46 @@
 		border-color: #F3F3F3;
 		padding-top: 40rpx;
 		padding-bottom: 40rpx;
-		
+
 	}
-	.lefthtbox{
+	
+	.userinfo{
+		padding-left:15px ;
+	
+	}
+	.lefthtbox {
 		display: flex;
 		display: -webkit-flex;
 		flex-direction: row;
 		align-items: center;
 		align-content: center;
 	}
-	.rightbox{
+
+	.rightbox {
 		display: flex;
 		display: -webkit-flex;
 		flex-direction: row;
 		align-items: center;
 		align-content: center;
 	}
-	page{
-		background-color: #ffffff; 
+
+	page {
+		background-color: #ffffff;
 		position: fixed;
 		width: 100%;
 		height: 100%;
 		overflow-y: scroll;
 	}
-	.righriximg{
+
+	.righriximg {
 		width: 40rpx;
 		height: 40rpx;
 	}
-	.righriximgtuo{
+
+	.righriximgtuo {
 		width: 30rpx;
 		height: 40rpx;
-		margin-right: 20rpx;
+		margin-left: 15rpx;
+		margin-right: 20px;
 	}
 </style>

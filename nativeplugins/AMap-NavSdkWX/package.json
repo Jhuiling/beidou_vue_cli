@@ -1,0 +1,60 @@
+{
+	"name": "高德地图导航、后台持续定位插件",  
+	"id": "AMap-NavSdkWX",  
+	"version": "1.0",  
+	"description": "高德地图导航导航、后台持续定位插件",  
+	"_dp_type":"nativeplugin",  
+	"_dp_nativeplugin":{ 
+		"android": {
+			"plugins": [  
+				{
+					"type": "module",  
+					"name": "AMap-NavSdkWX",  
+					"class": "com.yanyanmm.amapnavsdkwx.AMapNavSdkWXModule"  
+				}
+			],  
+			"hooksClass": "com.yanyanmm.amapnavsdkwx.AMapNavAppProxy",  
+			"integrateType": "aar",  
+			"dependencies": [
+			],  
+			"abis": [
+				"armeabi-v7a",
+				"arm64-v8a"
+			], 
+			"minSdkVersion": "19"
+		},
+		"ios": {
+			"plugins": [
+				{
+					"type": "module",
+					"name": "AMap-NavSdkWX",
+					"class": "AMapNavSdkWXModule"
+				}
+			],
+			"hooksClass": "",
+			"integrateType": "library",
+			"frameworks": [
+				"ExternalAccessory.framework"
+			],
+			"embedFrameworks": [
+			],
+			"plists":{
+				"UIBackgroundModes":[
+					"location"
+				]
+			},
+			"resources": [
+				"AMapNavi.bundle"
+			],  
+			"validArchitectures": [
+				"arm64"
+			],
+			"privacies": [
+				"NSLocationWhenInUseUsageDescription",
+				"NSLocationAlwaysUsageDescription",
+				"NSLocationAlwaysAndWhenInUseUsageDescription"
+			],  
+			"deploymentTarget": "9.0"
+		}
+	}
+}

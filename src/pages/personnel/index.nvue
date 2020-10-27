@@ -1,6 +1,6 @@
 <template>
 	<view class="waiweibox"> 
-		<viev class="waibox" v-for="(item,index) in info" :key="index"  @click="jurisdiction(item.type)">
+		<viev class="waibox" v-for="(item,index) in info" :key="index"  @click="jurisdiction(item.type,item)">
 			<view class="lefthtbox">
 				<image class="leftimg" src="../../static/image/head_none@2x.png"></image>
 				<view class="zhaohao">
@@ -34,6 +34,7 @@
 			common.request('machine/fanstypecount', {
 				token:uni.getStorageSync('token')
 			}, function(res) {
+				
 				_this.info = res.data.info
 				console.log(res)
 			}) 
@@ -43,10 +44,10 @@
 		}, 
 		watch: {}, 
 		methods: {
-			jurisdiction(e){
-				console.log(e)
+			jurisdiction(e,item){
+				console.log(e,item)
 				uni.navigateTo({
-				    url: '/pages/jurisdiction/index?id='+e
+				    url: '/pages/jurisdiction/index?id='+e+'&nickName='+item.fans.nick_name+'&mobile='+item.fans.mobile
 				});
 			} 
 		}

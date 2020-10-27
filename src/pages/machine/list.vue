@@ -110,7 +110,7 @@
 				common.request('machine/machine_list', {}, function(res) {
 					// console.log(res) 
 					_this.list = res.data.info;
-					console.log(_this.list)
+					console.log( "====>列表",JSON.stringify(_this.list))
 					uni.hideLoading();
 				})
 			},
@@ -120,7 +120,7 @@
 				_this.ys = e ;
 				common.request('machine/machine_list', {types:types}, function(res) {
 					_this.list = res.data.info;
-					console.log(_this.list)
+					console.log("列表数据",JSON.stringify(res))
 					uni.hideLoading();
 				})
 				// this.$refs.picker.show()
