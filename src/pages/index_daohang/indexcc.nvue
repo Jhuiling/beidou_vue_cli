@@ -64,6 +64,7 @@
 
 
 		<map key='map2'
+		v-if="isShow"
 		:longitude="longitude"
 		:latitude="latitude"
 		:enable-3D="true"
@@ -73,6 +74,8 @@
 		:scale="scale"
 		:enable-traffic="true"
 		:show-compass='true'
+		show-scale
+		scale-position='top-right'
 		:enable-satellite="satellite"
 		@regionchange="gaibian">
 		</map>
@@ -187,6 +190,9 @@
 				satellite:false,
 				texrbix:'卫星:关',
 				province:'',
+				isShow:true,
+				plotting:null,
+				systemInfo:null
 			}
 		},
 		onShow(){
@@ -212,12 +218,12 @@
 		},
 		onReady() {
 			let  that = this
-			uni.getSystemInfo({
-				success(res) {
-					that.phoneHeight = res.windowHeight;
-				}
-			});
-
+			setTimeout(()=>{
+				const dom = weex.requireModule('dom')
+				const result = dom.getComponentRect(this.$refs.showshare, option => {
+					that.phoneHeight = option.size.top
+				})
+			},400)
 		},
 		mounted() {
 			_this = this;
@@ -234,14 +240,16 @@
 		watch: {},
 		methods: {
 			gaibian(r){
-
+				
 			},
 			dangqian(){
-				console.log(_this.clongitude)
-				_this.longitude= Number(_this.longitude)-0.000001 ;
-				_this.latitude = Number(_this.latitude) -0.000001 ;
-				// :longitude="longitude"
-				// :latitude="latitude"
+				// _this.longitude= Number(_this.longitude)-0.000001 ;
+				// _this.latitude = Number(_this.latitude) -0.000001 ;
+				this.isShow=false
+				this.$nextTick(()=>{
+					this.scale = this.plotting||17
+					this.isShow=true
+				})
 			},
 			weixing(){
 				if(_this.satellite==true){

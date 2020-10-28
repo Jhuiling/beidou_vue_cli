@@ -1,9 +1,9 @@
 <template>
 	<div>
 
-		<div>
-			<div class="singbubox" :style="'position: fixed;height: 100px;width:'+kuan+';background-color: #ffffff;text-align: center;'">{{uanzhong}}</div>
-			<div class="box top-2" style="top: 180rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;" v-on:click="scan()">
+		<div ref="titleBox">
+			<div class="singbubox" ref="title" :style="'position: fixed;height: 180rpx;width:'+kuan+';background-color: #ffffff;text-align: center;'">{{uanzhong}}</div>
+			<div class="box top-2" style="top: 200rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;" v-on:click="scan()">
 				<image  style="width: 70rpx;height: 70rpx;" src="../../static/image/new_one.png" mode="widthFix"></image>
 			</div>
 			<div class="box qiejis top-3" style="top: 300rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;" >
@@ -112,7 +112,7 @@
 			</div>
 		</div>
 
-		<div v-if="manjia" ref="showshare" :style="close?'transform: translateY(750rpx);transition-duration: 0.5s;':'transform: translateY(-120rpx);transition-duration: 0.5s;'" class="create-wrap">
+		<div ref="showshare" :style="close?'transform: translateY(750rpx);transition-duration: 0.5s;':'transform: translateY(-120rpx);transition-duration: 0.5s;'" class="create-wrap">
 			<div class="show-btn" @click="togglePopup()">
 				<image class="show-btn-image" :src="close?'/static/image/up.png':'/static/image/down.png'" mode="scaleToFill"></image>
 			</div>
@@ -224,21 +224,26 @@
 
 
 
-		<map key='map2'
+		<!-- <map key='map2'
 		:longitude="longitude"
 		:latitude="latitude"
 		:enable-3D='true'
 		:show-compass='true'
 		:show-location="true"
-		:style="{width: '750rpx', height: phoneHeight + 'px'}"
+		:style="{width: '750rpx',  height: phoneHeight + 'px','padding-top':mapTop+'px'}"
 		:markers="mymarkers"
 		:polyline="mypolylines"
 		:scale="scale"
+		show-scale
 		@markertap="markertap"
 		:enable-traffic="true"
 		:enable-satellite="satellite"
 		:circles="circles"
 		>
+		</map> -->
+		<map key='map2' :longitude="longitude" :latitude="latitude" :enable-3D='true' :show-compass='true' :show-location="true"
+		 :style="{width: '750rpx', height: phoneHeight-titleBoxHeight+ 'px','padding-top':mapTop-titleBoxHeight+'px'}" :markers="mymarkers" :polyline="mypolylines"
+		 :scale="scale" show-scale @markertap="markertap" :enable-traffic="true" :enable-satellite="satellite" :circles="circles">
 		</map>
 
 		<div class="w-info"  v-if="yingchang">
@@ -457,7 +462,10 @@
 				djsh:'',
 				dsiaos:'30',
 				dajmnbox:false,
-				yingchang:false
+				yingchang:false,
+				mapTop:null,
+				windowHeight:null,
+				titleBoxHeight:null
 			}
 		},
 		onHide(){
@@ -467,13 +475,24 @@
 			let  that = this
 			uni.getSystemInfo({
 				success(res) {
-					that.phoneHeight = res.windowHeight - 100;
-					that.kuan = res.windowWidth +'px'
-					console.log(res)
+					that.windowHeight = res.windowHeight;
+					that.kuan = res.windowWidth + 'px'
 					that.djsw = res.windowWidth + 'px'
-					that.djsh = res.windowHeight  + 'px'
+					that.djsh = res.windowHeight + 'px'
 				}
 			});
+			const dom = weex.requireModule('dom')
+			const result = dom.getComponentRect(this.$refs.titleBox, option => {
+				this.titleBoxHeight = option.size.height
+			});
+			const result1 = dom.getComponentRect(this.$refs.title, option => {
+				this.mapTop = option.size.height
+			});
+			setTimeout(() => {
+				const result2 = dom.getComponentRect(this.$refs.showshare, option => {
+					that.phoneHeight = option.size ? option.size.top: this.windowHeight
+				})
+			}, 400)
 		},
 		onShow(){
 			var _this = this ;
