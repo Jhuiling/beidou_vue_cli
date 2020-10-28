@@ -19,19 +19,19 @@
 			<!-- <view @tap="startLoginyouke"><wButton text="登 录"></wButton></view> -->
 			<view style="font-size: 20rpx;width: 100%;text-align: center;margin: 40rpx auto 20rpx;">其他登录</view>
 			<view class="qita" style="display: flex;display: -webkit-flex;flex-wrap: nowrap;justify-content: center;flex-direction: row;">
-				<view class="zhifu" style="margin:0px 20rpx;">
+				<view class="zhifu" style="margin:0px 20rpx;text-align: center;">
 					<image style="width: 70rpx;height: 70rpx;" src="../../static/image/icon(2)/icon/wx.png"></image>
 					<text style="display:block;font-size:20rpx;color:#555555">微信</text>
 				</view>
-				<view class="zhifu" style="margin:0px 20rpx;">
+				<view class="zhifu" style="margin:0px 20rpx;text-align: center;s">
 					<image  style="width: 70rpx;height: 70rpx;" src="../../static/image/icon(2)/icon/eb.png"></image>
 					<text style="display:block;font-size:20rpx;color:#555555">微博</text>
 				</view>
-				<view class="zhifu" style="margin:0px 20rpx;">
+				<view class="zhifu" style="margin:0px 20rpx;text-align: center;">
 					<image  style="width: 70rpx;height: 70rpx;" src="../../static/image/icon(2)/icon/zfb.png"></image>
 					<text style="display:block;font-size:20rpx;color:#555555">支付宝</text>
 				</view>
-				<view class="zhifu" style="margin:0px 20rpx;"  @click="login_weixin">
+				<view class="zhifu" style="margin:0px 20rpx;text-align: center;s"  @click="login_weixin">
 					<image  style="width: 70rpx;height: 70rpx;" src="../../static/image/icon(2)/icon/gr.png"></image>
 					<text style="display:block;font-size:20rpx;color:#555555">游客登录</text>
 				</view>
