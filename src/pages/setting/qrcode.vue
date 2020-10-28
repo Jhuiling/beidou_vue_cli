@@ -1,12 +1,12 @@
 <template>
-    <view>
-    <uni-nav-bar left-icon="back" :fixed="true" :status-bar="true"  title="设备二维码" @clickLeft="goBack" ></uni-nav-bar>
-    <view class="page" style="">
-		<view class="qrcode">
-			<image  :src="url" ></image>
+	<view>
+		<uni-nav-bar left-icon="back" :fixed="true" :status-bar="true" title="设备二维码" @clickLeft="goBack"></uni-nav-bar>
+		<view class="page" style="">
+			<view class="qrcode">
+				<image :src="url"></image>
+			</view>
 		</view>
 	</view>
-    </view>
 </template>
 <script>
 	var _this;
@@ -17,40 +17,47 @@
 		components: {
 			uniSection,
 			uniIcons
-        },
-        data() {
-            return {
-                url:''
-            }
-        },
-        mounted() {
-            _this = this;
+		},
+		data() {
+			return {
+				url: '',
+				deviceid:"",
+			}
+		},
+		onLoad(e) {
+			console.log(e);
+			var deviceid = e.deviceid;
+			this.deviceid = e.deviceid
+		},
+		mounted() {
+			_this = this;
 			_this.getDetials();
-        },
-        methods: {
-            goBack() {
-                uni.navigateBack({
-                    data:1
-                })
-            },
-			getDetials () {
+		},
+		methods: {
+			goBack() {
+				uni.navigateBack({
+					data: 1
+				})
+			},
+			getDetials() {
 				let data = {
-					deviceid:uni.getStorageSync('deviceid'),
+					deviceid: this.deviceid,
 				}
+				console.log("解析id", data)
 				common.request('machine/machine_qrcode', data, function(res) {
+					console.log("res",res)
 					_this.url = res.data.info.src
 				})
 			}
-        }
-    }
-    </script>
-    <style lang="less" scoped>
+		}
+	}
+</script>
+<style lang="less" scoped>
 	.uni-transition {
 		bottom: calc(var(--window-bottom) + 0);
 	}
-	page{
-		
-	}
-	
+
+	page {}
+
 	@import url("./css/main.less");
 </style>

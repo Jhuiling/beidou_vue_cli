@@ -507,6 +507,7 @@
 						if(res.tapIndex==0){
 							uni.scanCode({
 								success:function(res){
+									console.log("扫码====",res)
 									uni.navigateTo({
 										url:"/pages/machine/bind?deviceid="+res.result
 									}) 

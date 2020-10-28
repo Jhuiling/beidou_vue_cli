@@ -12,21 +12,21 @@
             <view class="item">
                 <text class="title">设备昵称</text>
                 <view class="subtitle">
-                    <input class="uni-input" v-model="machineInfo.alias" type="text" placeholder="请输入16字符昵称" />
+                    <input style="background: transparent;" disabled class="uni-input" v-model="machineInfo.alias" type="text" placeholder="请输入16字符昵称" />
                 </view>
             </view>
 			
 			<view class="item">
 			    <text class="title">设备号</text>
 			    <view class="subtitle">
-			        <input class="uni-input" v-model="machineInfo.deviceid" type="text" placeholder="" /> 
+			        <input  style="background: transparent;" disabled class="uni-input" v-model="machineInfo.deviceid" type="text" placeholder="" /> 
 			    </view>
 			</view>
 			
 			<view class="item">
 			    <text class="title">紧急联系人</text>
 			   <view class="subtitle">
-			       <input class="uni-input" v-model="machineInfo.machine.sos1" type="text" placeholder="" /> 
+			       <input  style="background: transparent;" disabled class="uni-input" :value="machineInfo.machine?machineInfo.machine.sos1:''" type="text" placeholder="" /> 
 			   </view>
 			</view>
 			
@@ -127,7 +127,8 @@
 				//     title: '成功',
 				//     duration: 2000
 				// });
-				_this.machineInfo = res.data.info.machineInfo
+				_this.machineInfo = res.data.info.machineInfo;
+				console.log("_this.machineInfo ",_this.machineInfo )
 				_this.name = res.data.info.machineInfo.alias
 				_this.id = res.data.info.machineInfo.id
 			})
@@ -157,8 +158,9 @@
 				// unbind_machine
 			},
 			goQrcode() {
+				 _this = this;
 			    uni.navigateTo({
-			        url:'/pages/setting/qrcode'
+			        url:'/pages/setting/qrcode?deviceid='+_this.deviceid
 			    })
 			},
             goAdmin() {
