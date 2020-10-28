@@ -7,7 +7,11 @@
 			<view class="name">点击编辑头像</view>
 		</view>
 		<view class="detail-list">
-			<cmd-cell-item title="手机号码" :addon="mobile" :arrow="false"></cmd-cell-item>
+			<cmd-cell-item title="手机号码" slotRight :addon="mobile" :arrow="false">
+				<view>
+				<input type="text" v-model="mobile" class="nike-input" placeholder="请输入您的手机号">
+				</view>
+			</cmd-cell-item>
 			<cmd-cell-item title="账户昵称" slotRight :arrow="false">
 				<view>
 					<input type="text" v-model="nickName" class="nike-input" placeholder="请输入您的昵称">
@@ -52,6 +56,7 @@
 		methods: {
 			setInfo() {
 				common.request('Member/setinfo', {
+					mobile:this.mobile,
 					nick_name: this.nickName
 				}, function(res) {
 					uni.showToast({

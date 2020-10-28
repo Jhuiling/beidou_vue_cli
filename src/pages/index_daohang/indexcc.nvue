@@ -5,7 +5,7 @@
 			<text style="font-size: 25rpx;background-color: #26A2FF;color: #ffffff;border-radius: 100px;text-align: center;padding: 5rpx 0rpx;"  v-on:click="weixing()">{{texrbix}}</text>
 		</div>
 		<div class="box top-3" v-on:click="dangqian()" style="text-align: center;width: 70rpx;height: 70rpx;" >
-			<image style="width: 70rpx;height: 70rpx;" class="image" src="../../static/image/dangian.png" mode="widthFix"></image> 
+			<image style="width: 70rpx;height: 70rpx;" class="image" src="../../static/image/dangian.png" mode="widthFix"></image>
 		</div>
 		<div style="position:fixed;z-index:0;!important" v-if="manjia" ref="showshare" :class="close?'create-wrap-close':'create-wrap-open'" class="create-wrap">
 			<div class="nav-bar" style="z-index:1000;position: fixed;bottom:0;height:120rpx;">
@@ -15,8 +15,8 @@
 				</div>
 				<div class="nav-bar-item" @click="navTo('/pages/storetwo/index')">
 					<image class="nav-bar-item-icon" src="../../static/image/store@3x.png"></image>
-					<text class="nav-bar-item-text">商城</text> 
-				</div> 
+					<text class="nav-bar-item-text">商城</text>
+				</div>
 				<div class="nav-bar-item" @click="navTo('/pages/me/index')">
 					<image class="nav-bar-item-icon" src="../../static/image/me@3x.png"></image>
 					<text class="nav-bar-item-text">我的</text>
@@ -25,11 +25,10 @@
 			<div class="show-btn" @click="togglePopup()">
 				<image class="show-btn-image" :src="close?'/static/image/up.png':'/static/image/down.png'" mode="scaleToFill"></image>
 			</div>
-			<div class="inner" ref="createInner"> 
+			<div class="inner" ref="createInner">
 				<div class="search-box">
 					<image src="/static/image/home_icon_06.jpg" class="left-icon"></image>
 					<input type="text" class="search-input" .v-bind:value="searchtext" placeholder="查找地点、公交、地铁" v-on:touchstart="searchAddress" :focus="focusss"  @input="bindInput"/>
-					<!-- <image src="/static/image/home_icon_03.jpg" class="right-icon" alt="" @click="sechbox()"></image> -->
 					<text class="right-text">搜索</text>
 					<!-- <text style="font-size: 20rpx;background-color:rgb(82,125,225);color: #ffffff;width: 100rpx;text-align: center;height: 50rpx;line-height: 50rpx;border-radius: 10rpx;">确定</text> -->
 				</div>
@@ -42,8 +41,8 @@
 							  <text style="font-size: 25rpx;width: 100%;" class="row-item3">{{item.address}}</text>
 						  </div>
 						</div>
-						
-						
+
+
 						<div @tap="bindSearch(item)" style="border-bottom-width: 1rpx;border-color: #f3f3f3;" class="row-item2" v-for="(item,index) in tips" :key="index" v-if="item.location.length!=0">
 						  <div class="row">
 							  <text style="font-size: 30rpx;width: 100%;padding: 15rpx 0rpx;" class="row-item3">{{item.name}}</text>
@@ -62,36 +61,35 @@
 				</div>
 			</div>
 		</div>
-		
-		 
-		<map key='map2' 
+
+
+		<map key='map2'
 		v-if="isShow"
-		id="map1"
-		ref="map1"
 		:longitude="longitude"
 		:latitude="latitude"
-		:enable-3D="true" 
-		:enable-overlooking='true' 
-		:show-location="true"  
-		:style="{width: '750rpx', height: systemInfo.windowHeight + 'px'}" 
-		:scale="scale"  
+		:enable-3D="true"
+		:enable-overlooking='true'
+		:show-location="true"
+		:style="{width: '750rpx', height: phoneHeight + 'px'}"
+		:scale="scale"
 		:enable-traffic="true"
 		:show-compass='true'
+		show-scale
+		scale-position='top-right'
 		:enable-satellite="satellite"
-		@regionchange="gaibian"
-		@updated="mapUpdated">
-		</map>  
+		@regionchange="gaibian">
+		</map>
 	</div>
 </template>
- 
+
 <script>
 	import Binding from 'weex-bindingx';
 	import common from '@/common.js'
 	import zySearch from '../../components/zy-search/zy-search.vue'
 	import AMapWXfile from '@/plugins/amap-wx.js'
-	var key = "b7ac380a83e2a2b753f0023d3931ba33"; 
-	// var sdkwx = uni.requireNativePlugin('AMap-NavSdkWX');
-	
+	var key = "b7ac380a83e2a2b753f0023d3931ba33";
+	var sdkwx = uni.requireNativePlugin('AMap-NavSdkWX');
+
 	var _this = null
 	export default {
 		data() {
@@ -126,16 +124,16 @@
 				machineInfo:{},
 				createShow: true,
 				close: true,
-				addressList: [], 
+				addressList: [],
 				home: '',
 				work: '',
 				change: 0,
 				selOpen: false,
 				watchOpen: false,
 				imgList:[
-					
+
 				],
-				
+
 				menuList:[{
 					name:'位置',
 					path: '',
@@ -172,7 +170,7 @@
 					name:'遥控拍照',
 					path:'/pages/camera/index',
 					src:'/static/image/photo@2x.png'
-				},], 
+				},],
 				latitude: '',
 				longitude: '',
 				clatitude: '',
@@ -192,9 +190,9 @@
 				satellite:false,
 				texrbix:'卫星:关',
 				province:'',
-				systemInfo:null,
 				isShow:true,
-				plotting:null
+				plotting:null,
+				systemInfo:null
 			}
 		},
 		onShow(){
@@ -210,53 +208,52 @@
 			var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
 			myAmapFun.getRegeo({
 			      success: function(data){
-					  _this.province = data[0].regeocodeData.addressComponent.province 
+					  _this.province = data[0].regeocodeData.addressComponent.province
 			        // console.log(data.regeocodeData.addressComponent)
-					console.log(data[0].regeocodeData.addressComponent.province) 
+					console.log(data[0].regeocodeData.addressComponent.province)
 			      },
 			      fail: function(info){
 			        //失败回调
 			        console.log(info)
 			      }
 			    })
-			
+
 		},
 		onHide(){
 			_this.manjia = false
 		},
 		onReady() {
 			let  that = this
-			uni.getSystemInfo({
-				success(res) {
-					that.phoneHeight = res.windowHeight;
-				}
-			});
-			
-		},  
+			setTimeout(()=>{
+				const dom = weex.requireModule('dom')
+				const result = dom.getComponentRect(this.$refs.showshare, option => {
+					that.phoneHeight = option.size.top
+				})
+			},400)
+		},
 		mounted() {
 			_this = this;
 			setTimeout(function(){
 				_this.close=true
-			},500) 
-			
+			},500)
+
 			_this.getLocation()
 			//_this.timer = setInterval(this.getMachineList(),5000)
 		},
 		distroyed: function () {
 		　　clearInterval(_this.timer)
 		},
-		watch: {}, 
+		watch: {},
 		methods: {
 			gaibian(r,b){
 				// console.log(r,b)
 			},
 			dangqian(){
-				_this.longitude= Number(_this.longitude)-0.000001 ;
-				_this.latitude = Number(_this.latitude) -0.000001 ;
-				
+				// _this.longitude= Number(_this.longitude)-0.000001 ;
+				// _this.latitude = Number(_this.latitude) -0.000001 ;
 				this.isShow=false
-				this.scale=this.plotting||16
 				this.$nextTick(()=>{
+					this.scale = this.plotting||17
 					this.isShow=true
 				})
 			},
@@ -268,23 +265,23 @@
 					_this.satellite = !_this.satellite
 					_this.texrbix = '卫星:开'
 				}
-				
+
 			},
 			daohangbtn(){
-				
+
 				uni.navigateTo({
 					url: '/pages/index_daohang/indexccnew'
-				}); 
+				});
 				// var endlon = _this.endlon;
 				// var endlan = _this.endlan;
 				// var bg = _this.bglatitude ;
-				// var bgt = _this.bglongitude ; 
+				// var bgt = _this.bglongitude ;
 				// var bgname = _this.bgname ;
-				// _this.imagett = false 
-				// var key = "b7ac380a83e2a2b753f0023d3931ba33"; 
+				// _this.imagett = false
+				// var key = "b7ac380a83e2a2b753f0023d3931ba33";
 				//  sdkwx.showRoute({
 				//  theme:0,
-				//  trafficEnabled:true, 
+				//  trafficEnabled:true,
 				//  start:{
 				//  coordinate:{
 				//  latitude:bg,
@@ -301,7 +298,7 @@
 				//  name:'',
 				//  poiId:null
 				//  },
-				//  multipleRouteNaviMode:false 
+				//  multipleRouteNaviMode:false
 				//  }, function(res) {
 				//  console.log(res.type);
 				//  console.log(res.data);
@@ -315,23 +312,23 @@
 			sechbox(){
 				console.log(_this.sechboxtt);
 				var e = _this.sechboxtt ;
-				var x = 1 ; 
+				var x = 1 ;
 				_this.bindInput(e,x)
-				_this.focusss = false 
+				_this.focusss = false
 			},
 		 bindInput(e,x){
-		 			  var keywords = '' ; 
+		 			  var keywords = '' ;
 		 			  if(x){
-		 				 keywords = e 
+		 				 keywords = e
 		 			  }else{
 		 				keywords = e.detail.value;
-		 				 _this.sechboxtt = e.detail.value;  
+		 				 _this.sechboxtt = e.detail.value;
 		 			  }
-		 			  
-		 			  
+
+
 		 			console.log(_this.province)
-		 			var danqianzb = [] ; 
-		 			var yuan = [] ; 
+		 			var danqianzb = [] ;
+		 			var yuan = [] ;
 		 			if(keywords){
 		 				var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
 		 				// danqianzb
@@ -341,47 +338,47 @@
 		 				  success: function(data){
 		 					  console.log(data)
 		 					if(data && data.tips){
-		 						
-		 						var  duibi = data.tips 
+
+		 						var  duibi = data.tips
 		 						for(var i = 0 ; i <duibi.length ; i++){
 		 							if(duibi[i].district.indexOf(_this.province)==0){
 		 								danqianzb.push(duibi[i])
 		 							}else{
 		 								yuan.push(duibi[i])
-		 							} 
+		 							}
 		 						}
-		 						_this.danqianzb = danqianzb 
+		 						_this.danqianzb = danqianzb
 		 						console.log(danqianzb);
 		 						_this.tips = yuan
 		 					}
 		 				  }
 		 				})
 		 				_this.close=false
-		 				
+
 		 				_this.notsearch=false
 		 			}else{
 		 				_this.close=true
 		 				_this.notsearch=true
-		 				_this.focusss = false 
+		 				_this.focusss = false
 		 			}
 		 },
 		  bindSearch(e){
 			   console.log(e)
 			  let lat = e.location.split(',')[1]
 			  let lon = e.location.split(',')[0]
-			  let endname = e.district+e.address 
+			  let endname = e.district+e.address
 			  let bgname = _this.bgname ;
 			  let bglat = _this.bglatitude;
-			  let bglon =  _this.bglongitude ; 
-			 uni.navigateTo({ 
+			  let bglon =  _this.bglongitude ;
+			 uni.navigateTo({
 			 	url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
-			 }); 
+			 });
 			  _this.topoint={latitude:lat,longitude:lon}
-			  _this.focusss = false 
-			  var key = "b7ac380a83e2a2b753f0023d3931ba33"; 
+			  _this.focusss = false
+			  var key = "b7ac380a83e2a2b753f0023d3931ba33";
 			  // uni.navigateTo({
 			  // 	url: '/pages/index_daohang/indexccnew'
-			  // }); 
+			  // });
 			 //  sdkwx.showRoute({
 			 //  theme:0,
 			 //  trafficEnabled:true,
@@ -409,28 +406,29 @@
 			 //  _this.togglePopup()
 			  // _this.timer = setInterval(_this.startroute,5000)
 		  },
-		  
-			
+
+
 			markertap(e){
 				var mymarkers = _this.mymarkers ;
-				var ind = Number(e.detail.markerId)	
+				var ind = Number(e.detail.markerId)
 				 _this.longitude = mymarkers[ind].longitude;
-				 _this.latitude = mymarkers[ind].latitude;	
+				 _this.latitude = mymarkers[ind].latitude;
 				console.log(mymarkers[ind]);
 				var myAmapFun = new AMapWXfile.AMapWX({key:'9751ba7066e405d0f351b49dcc8b9704'});
 				_this.imagett = true ;
-				var endlon = mymarkers[ind].longitude ; 
+				var endlon = mymarkers[ind].longitude ;
 				var endlan = mymarkers[ind].latitude;
 				_this.endlon =  mymarkers[ind].longitude  ;
-				_this.endlan = mymarkers[ind].latitude; 
+				_this.endlan = mymarkers[ind].latitude;
 				let desdis = endlon+','+ endlan
 				var bg = _this.bglatitude ;
-				var bgt = _this.bglongitude ; 
-				let sourcedis =bgt +","+ bg ; 
+				var bgt = _this.bglongitude ;
+				let sourcedis =bgt +","+ bg ;
+
 				_this.scale = 15
 				myAmapFun.getDrivingRoute({origin:sourcedis,destination:desdis,success:function(data){
 					let pathtemp = data.paths[0]
-					let pls = []; 
+					let pls = [];
 					for(let l in pathtemp.steps){
 						let step = pathtemp.steps[l]
 						let line = step.polyline
@@ -454,7 +452,7 @@
 					console.log(data)
 				}})
 			},
-			
+
 			// 路由跳转
 			goUrl(item) {
 				console.log(item)
@@ -482,8 +480,8 @@
 			closeSel() {
 				_this.selOpen =  false
 			},
-			
-			changes(index) {   
+
+			changes(index) {
 				_this.change = index;
 				_this.machineInfo = _this.machineLists[_this.change].machineInfo;
 				console.log(_this.machineInfo)
@@ -494,7 +492,7 @@
 				_this.$forceUpdate();
 				_this.scale = 15
 				_this.mypolylines = [] ;
-				
+
 			},
 			togglePopup() {
 				this.close = !this.close;
@@ -503,15 +501,15 @@
 					this.searchtext = ''
 				}
 			},
-			
+
 			getDrivingLine(latitude,longitude){
 						let desdis = longitude+','+latitude
 						let sourcedis = _this.longitude+","+_this.latitude
 						var amap = new AMapWXfile.AMapWX({key:'9751ba7066e405d0f351b49dcc8b9704'});
 						amap.getDrivingRoute({origin:sourcedis,destination:desdis,success:function(data){
-							
+
 							let pathtemp = data.paths[0]
-							console.log(data) 
+							console.log(data)
 							let pls = [];
 							for(let l in pathtemp.steps){
 								let step = pathtemp.steps[l]
@@ -523,7 +521,7 @@
 									let aao = point.split(',')
 									let p = {latitude: eval(aao[1]), longitude: eval(aao[0])}
 									pl.push(p)
-								} 
+								}
 								if(l==0)
 								pls.push({points:pl,color:'#0000ff',width:6})
 								else
@@ -551,11 +549,11 @@
 				var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
 				myAmapFun.getRegeo({
 				  success: function(data){
-					  // console.log(data[0].name) ; 
+					  // console.log(data[0].name) ;
 					  _this.bgname = data[0].name
 				  }
 				})
-			}, 
+			},
 			nowLocation() {
 				uni.getLocation({
 					type: 'wgs84',
@@ -566,19 +564,19 @@
 				});
 			},
 			scan(){
-				  
+
 				// console.log(1111)
 				uni.scanCode({
 					success:function(res){
 						uni.navigateTo({
 							url:"/pages/machine/bind?frompage="+res.result
-						}) 
-					}  
+						})
+					}
 				});
-				
+
 			},
 			searchAddress(e){
-				_this.focusss = true ; 
+				_this.focusss = true ;
 				console.log('on click')
 			},
 			startroute(){
@@ -593,11 +591,11 @@
 						data.lat = res.latitude;
 						data.address = res.address;
 						data.type = type;
-						
+
 					}
 				});
 			},
-			
+
 		}
 	}
 </script>

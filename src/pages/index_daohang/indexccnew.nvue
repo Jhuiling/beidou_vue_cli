@@ -1,73 +1,68 @@
 <template>
 	<div>
-		
-		<div style="position:fixed;z-index:0;!important"  class="create-wrap">
+
+		<div style="position:fixed;z-index:0;!important" class="create-wrap">
 			<div class="buttonboxss" style="display: flex;display: -webkit-flex;flex-wrap: nowrap;justify-content: space-between;flex-direction: row;width: 100%;">
-				<div class="flex-item"  style="color:#FFFFFF;height: 70px;text-align: center;display: flex;display-webkit-flex;flex-wrap: nowrap;align-items: center;justify-content: center;align-content: center;	flex-direction: row;" @tap="goToCar">
+				<div class="flex-item" style="color:#FFFFFF;height: 70px;text-align: center;display: flex;display-webkit-flex;flex-wrap: nowrap;align-items: center;justify-content: center;align-content: center;	flex-direction: row;"
+				 @tap="goToCar">
 					<text :style="yanshi==1?'color:#1a76ff;':'color:#333333;'">驾车</text>
-					</div>
-				<div  class="flex-item" style="color:#FFFFFF;height: 70px;text-align: center;display: flex;display-webkit-flex;flex-wrap: nowrap;align-items: center;justify-content: center;align-content: center;	flex-direction: row;" @tap="goToWalk">
+				</div>
+				<div class="flex-item" style="color:#FFFFFF;height: 70px;text-align: center;display: flex;display-webkit-flex;flex-wrap: nowrap;align-items: center;justify-content: center;align-content: center;	flex-direction: row;"
+				 @tap="goToWalk">
 					<text :style="yanshi==2?'color:#1a76ff;':'color:#333333;'">步行</text>
-					</div>
-				<div  class="flex-item"     style="color:#FFFFFF;height: 70px;text-align: center;display: flex;display-webkit-flex;flex-wrap: nowrap;align-items: center;justify-content: center;align-content: center;flex-direction: row;" @tap="goToRide">
-					<text  :style="yanshi==3?'color:#1a76ff;':'color:#333333;'">骑行</text>
-					</div>
-				
+				</div>
+				<div class="flex-item" style="color:#FFFFFF;height: 70px;text-align: center;display: flex;display-webkit-flex;flex-wrap: nowrap;align-items: center;justify-content: center;align-content: center;flex-direction: row;"
+				 @tap="goToRide">
+					<text :style="yanshi==3?'color:#1a76ff;':'color:#333333;'">骑行</text>
+				</div>
+
 				<!-- <a href="www.baidu.com">比赛的比分</a> -->
 			</div>
-			
+
 		</div>
-		
-		<div style="position:fixed;z-index:10;bottom: 70px;background-color: #FFFFFF;width: 750rpx;display: flex;display: -webkit-flex;flex-wrap: nowrap;flex-direction: row;justify-content:  space-around;;">
+
+		<div style="position:fixed;z-index:10;bottom: 70px;background-color: #FFFFFF;width: 750rpx;display: flex;display: -webkit-flex;flex-wrap: nowrap;flex-direction: row;justify-content:  space-around;;"
+		 ref="showshare">
 			<div class="text" style="font-size: 13rpx;padding-top: 20px;padding-bottom: 20px;">{{distance}}</div>
 			<div class="text" style="font-size: 13rpx;padding-top: 20px;padding-bottom: 20px;">{{cost}}</div>
 		</div>
-		  <map id="navi_map" 
-			:longitude="longitude"
-			:latitude="latitude" 
-			:style="{width: '750rpx', height: phoneHeight + 'px'}"  
-			scale="12" 
-			:show-compass='true'
-			:show-location="true"
-			:markers="markers" 
-			:polyline="polyline"
-			@updated="mapUpdated">
-			</map> 
-			
-			<image @tap="daohangqu"  style="position:fixed;z-index:10;bottom: 180px;width: 70rpx;height: 70rpx;right: 50px;"  src="../../static/image/daohang.png" ></image> 
-		
+		<map id="navi_map" :longitude="longitude" @regionchange="gaibian" :latitude="latitude" :style="{width: '750rpx', height: phoneHeight + 'px'}"
+		 show-scale scale="12" :show-location="true" :show-compass='true' :markers="markers" :polyline="polyline"></map>
+
+		<image @tap="daohangqu" style="position:fixed;z-index:10;bottom: 180px;width: 70rpx;height: 70rpx;right: 50px;" src="../../static/image/daohang.png"></image>
+
 	</div>
 </template>
- 
+
 <script>
 	import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
 	import Binding from 'weex-bindingx';
 	import common from '@/common.js'
 	import zySearch from '../../components/zy-search/zy-search.vue'
 	import AMapWXfile from '@/plugins/amap-wx.js'
-	var key = "b7ac380a83e2a2b753f0023d3931ba33"; 
+	var key = "b7ac380a83e2a2b753f0023d3931ba33";
 	var sdkwx = uni.requireNativePlugin('AMap-NavSdkWX');
-	
+
 	var _this = null
 	export default {
 		data() {
 			return {
-				danqianzb:[],
-				imagett:false,
-				bglatitude:39.909,
-				bglongitude:116.39742,
+				danqianzb: [],
+				imagett: false,
+				bglatitude: 39.909,
+				bglongitude: 116.39742,
 				map: null,
-				scale:13,
+				scale: 13,
 				phoneHeight: 667,
 				// 屏幕高度
 				screenHeight: 667,
-				latitude: 39.909, 
-				notsearch:true,
-				topoint:{},
+				latitude: 39.909,
+				notsearch: true,
+				topoint: {},
 				mypolylines: [],
-				mymarkers:[],
-				searchtext:'',
-				timer:'',
+				mymarkers: [],
+				searchtext: '',
+				timer: '',
 				tips: [],
 				testdiv: "testdiv",
 				topSize: 769,
@@ -78,489 +73,544 @@
 				scrollable: false,
 				refreshing: false,
 				contentOffsetY: 10,
-				machineLists:[],
-				machineInfo:{},
+				machineLists: [],
+				machineInfo: {},
 				createShow: true,
 				close: true,
-				addressList: [], 
+				addressList: [],
 				home: '',
 				work: '',
 				change: 0,
 				selOpen: false,
 				watchOpen: false,
-				imgList:[
-					
+				imgList: [
+
 				],
-				
+
 				longitude: '',
 				clatitude: '',
 				longitude: '',
-				imgconfig:{
-					"1":{"icon":"/static/image/weatch@2x.png","pointimg":"/static/image/mapcnn@3x-watch.png"},
-					"2":{"icon":"/static/image/big_workcard@2x.png","pointimg":"/static/image/mapcnn@3x-aaa.png"},
-					"3":{"icon":"/static/image/big_car@2x.png","pointimg":"/static/image/big_car@2x.png"}
+				imgconfig: {
+					"1": {
+						"icon": "/static/image/weatch@2x.png",
+						"pointimg": "/static/image/mapcnn@3x-watch.png"
+					},
+					"2": {
+						"icon": "/static/image/big_workcard@2x.png",
+						"pointimg": "/static/image/mapcnn@3x-aaa.png"
+					},
+					"3": {
+						"icon": "/static/image/big_car@2x.png",
+						"pointimg": "/static/image/big_car@2x.png"
+					}
 				},
-				sechboxtt:'',
-				focusss:false,
-				bgname:'',
-				endnames:'',
-				endlon : 116.39742,
-				endlan : 39.909,
-				manjia:false,
-				satellite:false,
-				texrbix:'卫星:关',
-				province:'',
-				bglat:'',
-				bglon:'',
-				endlat:'',
-				
-				
-				
-				markers: [
-					],
-					
-			
-			distance: '',
-			cost: '',
-			polyline: [],
-			yanshi:1
+				sechboxtt: '',
+				focusss: false,
+				bgname: '',
+				endnames: '',
+				endlon: 116.39742,
+				endlan: 39.909,
+				manjia: false,
+				satellite: false,
+				texrbix: '卫星:关',
+				province: '',
+				bglat: '',
+				bglon: '',
+				endlat: '',
+
+
+
+				markers: [],
+
+
+				distance: '',
+				cost: '',
+				polyline: [],
+				yanshi: 1
 			}
 		},
-		onLoad(e){
+		onLoad(e) {
 			console.log(e)
-			var _this = this ;
-			 
+			for (let i in sdkwx) {
+				console.log(i + ':' + sdkwx[i])
+			}
+			var _this = this;
+
 			_this.bglat = e.bglat
 			_this.bglon = e.bglon
 			_this.endlat = e.endlat
 			_this.endlon = e.endlon
-			 
-			_this.latitude = e.bglat ;
-			_this.longitude = e.bglon  ;
-			
-			console.log(e.bglat,e.bglon)
-			_this.markers = [
-				{
-				  id: 0,
-				  latitude: bglat,
-				  longitude:bglon ,
-				  width: 23,
-				  height: 33
-				},{
-				  id: 0,
-				  latitude:endlat ,
-				  longitude: endlon,
-				  width: 24,
-				  height: 34
-				}
-			]
-			
-			
+
+			_this.latitude = e.bglat;
+			_this.longitude = e.bglon;
+
+			console.log(e.bglat, e.bglon)
+			_this.markers = [{
+				id: 0,
+				latitude: bglat,
+				longitude: bglon,
+				width: 23,
+				height: 33
+			}, {
+				id: 0,
+				latitude: endlat,
+				longitude: endlon,
+				width: 24,
+				height: 34
+			}]
+
+
 			var bglat = e.bglat
 			var bglon = e.bglon
 			var endlat = e.endlat
 			var endlon = e.endlon
 			var that = this;
-			   // origin: '116.481028,39.989643',
-			   // destination: '116.434446,39.90816', 
-			var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
-			// console.log('"'+bglon+','+bglat+'"')
-			var kouns = bglon+','+bglat
-			var lons = endlon+','+endlat
-			myAmapFun.getDrivingRoute({
-			  origin: kouns,
-			  destination:lons, 
-			  success: function(data){
-				var points = [];
-				if(data.paths && data.paths[0] && data.paths[0].steps){
-				  var steps = data.paths[0].steps;
-				  for(var i = 0; i < steps.length; i++){
-					var poLen = steps[i].polyline.split(';');
-					for(var j = 0;j < poLen.length; j++){
-					  points.push({
-						longitude: parseFloat(poLen[j].split(',')[0]),
-						latitude: parseFloat(poLen[j].split(',')[1])
-					  })
-					} 
-				  }
-				}
-				console.log(points)
-				  that.polyline = [{
-					points: points,
-					color: "#1a76ff",
-					width: 6
-				  }]
-				if(data.paths[0] && data.paths[0].distance){
-					console.log(data.paths[0].distance + '米')
-				  // that.setData({
-					that.distance = data.paths[0].distance + '米'
-				  // });
-				}
-				if(data.taxi_cost){
-				  // that.setData({
-					  console.log(parseInt(data.taxi_cost))
-					  that.cost = '打车约' + parseInt(data.taxi_cost) + '元'
-				  // });
-				}
-				  
-			  },
-			  fail: function(info){
-		
-			  }
-			})
-		},
-		
-		
-		
-		onHide(){
-			_this.manjia = false
-		}, 
-		onReady() {
-			let  that = this
-			uni.getSystemInfo({
-				success(res) {
-					that.phoneHeight = res.windowHeight-50;
-				}
+			// origin: '116.481028,39.989643',
+			// destination: '116.434446,39.90816', 
+			var myAmapFun = new AMapWXfile.AMapWX({
+				key: '9751ba7066e405d0f351b49dcc8b9704'
 			});
-			
-		},  
-		mounted() {
-			_this = this;
-			//_this.timer = setInterval(this.getMachineList(),5000)
-		},
-		distroyed: function () {
-		　　clearInterval(_this.timer)
-		},
-		watch: {}, 
-		methods: {
-				mapUpdated(){
-					console.log(_this.longitude)
-				},
-				daohangqu(){
-					var _this = this; 
-					var yanshi = _this.yanshi ; 
-					if(yanshi==1){
-						var endlon = _this.endlon;
-						var endlan = _this.endlat;
-						// _this.bglat = e.bglat
-						// _this.bglon = e.bglon
-						// _this.endlat = e.endlat
-						// _this.endlon = e.endlon
-						 
-						var bg = _this.bglat ;
-						var bgt = _this.bglon ; 
-						var bgname = _this.bgname ;
-						_this.imagett = false  
-						var key = "b7ac380a83e2a2b753f0023d3931ba33"; 
-						 sdkwx.showRoute({
-						 theme:0,
-						 trafficEnabled:true, 
-						 start:{
-						 coordinate:{
-						 latitude:bg,
-						 longitude:bgt
-						 },
-						 name:bgname,
-						 poiId:null
-						 },
-						 end:{
-						coordinate:{
-						  latitude:endlan,
-						  longitude:endlon
-						 },
-						 name:'',
-						 poiId:null
-						 },
-						 multipleRouteNaviMode:false 
-						 }, function(res) {
-						 console.log(res.type);
-						 console.log(res.data);
-						 });
-					}else{
-						uni.getLocation({
-							success: res => {
-								console.log('location success', res)
-								uni.openLocation({
-									latitude: res.latitude, 
-									longitude: res.longitude,
-									scale: 18
+			// console.log('"'+bglon+','+bglat+'"')
+			var kouns = bglon + ',' + bglat
+			var lons = endlon + ',' + endlat
+			myAmapFun.getDrivingRoute({
+				origin: kouns,
+				destination: lons,
+				success: function(data) {
+					var points = [];
+					if (data.paths && data.paths[0] && data.paths[0].steps) {
+						var steps = data.paths[0].steps;
+						for (var i = 0; i < steps.length; i++) {
+							var poLen = steps[i].polyline.split(';');
+							for (var j = 0; j < poLen.length; j++) {
+								points.push({
+									longitude: parseFloat(poLen[j].split(',')[0]),
+									latitude: parseFloat(poLen[j].split(',')[1])
 								})
 							}
-						})
+						}
 					}
+					console.log(points)
+					that.polyline = [{
+						points: points,
+						color: "#1a76ff",
+						width: 6
+					}]
+					if (data.paths[0] && data.paths[0].distance) {
+						console.log(data.paths[0].distance + '米')
+						// that.setData({
+						that.distance = data.paths[0].distance + '米'
+						// });
+					}
+					if (data.taxi_cost) {
+						that.cost = '打车约' + parseInt(data.taxi_cost) + '元'
+					}
+
 				},
-			  goToCar: function (e) {
-			   var that = this;
-			   that.yanshi = 1
-			       // var key = config.Config.key;
-			       var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
-				   var kouns = that.bglon+','+that.bglat
-				   var lons = that.endlon+','+that.endlat
-			       myAmapFun.getDrivingRoute({
-			         origin:kouns, 
-			         destination: lons,
-			         success: function(data){
-			           var points = [];
-			           if(data.paths && data.paths[0] && data.paths[0].steps){
-			             var steps = data.paths[0].steps;
-			             for(var i = 0; i < steps.length; i++){
-			               var poLen = steps[i].polyline.split(';');
-			               for(var j = 0;j < poLen.length; j++){
-			                 points.push({
-			                   longitude: parseFloat(poLen[j].split(',')[0]),
-			                   latitude: parseFloat(poLen[j].split(',')[1])
-			                 })
-			               } 
-			             }
-			           }
-			   		console.log(points)
-			             that.polyline = [{
-			               points: points,
-			               color: "#1a76ff",
-			               width: 6
-			             }]
-			           if(data.paths[0] && data.paths[0].distance){
-			   			console.log(data.paths[0].distance + '米')
-			             // that.setData({
-			               that.distance = data.paths[0].distance + '米'
-			             // });
-			           }
-			           if(data.taxi_cost){
-			             // that.setData({
-			   			  console.log(parseInt(data.taxi_cost))
-			                 that.cost = '打车约' + parseInt(data.taxi_cost) + '元'
-			             // });
-			           }
-			             
-			         },
-			         fail: function(info){
-			   
-			         }
-			       })
-			  },
-			 
-			  goToRide: function (e) {
-			    var that = this;
-				 that.yanshi = 3
-			        // var key = config.Config.key;
-			        var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
-					var kouns = that.bglon+','+that.bglat
-					var lons = that.endlon+','+that.endlat
-			        myAmapFun.getRidingRoute({
-			          origin: kouns, 
-			          destination: lons,
-			          success: function(data){
-			            var points = [];
-			            if(data.paths && data.paths[0] && data.paths[0].steps){
-			              var steps = data.paths[0].steps;
-			              for(var i = 0; i < steps.length; i++){
-			                var poLen = steps[i].polyline.split(';');
-			                for(var j = 0;j < poLen.length; j++){
-			                  points.push({
-			                    longitude: parseFloat(poLen[j].split(',')[0]),
-			                    latitude: parseFloat(poLen[j].split(',')[1])
-			                  })
-			                } 
-			              }
-			            }
-			    		console.log(points)
-			              that.polyline = [{
-			                points: points,
-			                color: "#1a76ff",
-			                width: 6
-			              }]
-			            if(data.paths[0] && data.paths[0].distance){
-			    			console.log(data.paths[0].distance + '米')
-			              // that.setData({
-			                that.distance = data.paths[0].distance + '米'
-			              // });
-			            }
-			            if(data.taxi_cost){
-			              // that.setData({
-			    			  console.log(parseInt(data.taxi_cost))
-			                  that.cost = '打车约' + parseInt(data.taxi_cost) + '元'
-			              // });
-			            }
-			              
-			          },
-			          fail: function(info){
-			    
-			          }
-			        })
-			  },
-			  goToWalk: function (e) {
-			    var that = this;
-				 that.yanshi = 2
-			        // var key = config.Config.key;
-			        var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
-					var kouns = that.bglon+','+that.bglat
-					var lons = that.endlon+','+that.endlat
-			        myAmapFun.getWalkingRoute({
-			          origin:kouns, 
-			          destination:lons,
-			          success: function(data){
-			            var points = [];
-			            if(data.paths && data.paths[0] && data.paths[0].steps){
-			              var steps = data.paths[0].steps;
-			              for(var i = 0; i < steps.length; i++){
-			                var poLen = steps[i].polyline.split(';');
-			                for(var j = 0;j < poLen.length; j++){
-			                  points.push({
-			                    longitude: parseFloat(poLen[j].split(',')[0]),
-			                    latitude: parseFloat(poLen[j].split(',')[1])
-			                  })
-			                } 
-			              }
-			            }
-			    		console.log(points)
-			              that.polyline = [{
-			                points: points,
-			                color: "#1a76ff",
-			                width: 6
-			              }]
-			            if(data.paths[0] && data.paths[0].distance){
-			    			console.log(data.paths[0].distance + '米')
-			              // that.setData({
-			                that.distance = data.paths[0].distance + '米'
-			              // });
-			            }
-			            if(data.taxi_cost){
-			              // that.setData({
-			    			  console.log(parseInt(data.taxi_cost))
-			                  that.cost = '打车约' + parseInt(data.taxi_cost) + '元'
-			              // });
-			            }
-			              
-			          },
-			          fail: function(info){
-			    
-			          }
-			        })
-			  },
-			gaibian(r){
-				
+				fail: function(info) {
+
+				}
+			})
+		},
+
+
+
+		onHide() {
+			this.manjia = false
+		},
+		onReady() {
+			setTimeout(() => {
+				const dom = weex.requireModule('dom')
+				const result = dom.getComponentRect(this.$refs.showshare, option => {
+					console.log(option)
+					this.phoneHeight = option.size.top
+				})
+			}, 400)
+		},
+		mounted() {
+			this.mapUpdate()
+		},
+		distroyed: function() {
+			clearInterval(_this.timer)
+		},
+		watch: {},
+		methods: {
+			mapUpdate() {
+				this.timer = setInterval(this.dangqian, 5000)
 			},
-			dangqian(){
-				console.log(_this.clongitude)
-				_this.longitude= Number(_this.longitude)-0.000001 ;
-				_this.latitude = Number(_this.latitude) -0.000001 ;
+			daohangqu() {
+				var _this = this;
+				var yanshi = _this.yanshi;
+				if (yanshi == 1) {
+					var endlon = _this.endlon;
+					var endlan = _this.endlat;
+					// _this.bglat = e.bglat
+					// _this.bglon = e.bglon
+					// _this.endlat = e.endlat
+					// _this.endlon = e.endlon
+
+					var bg = _this.bglat;
+					var bgt = _this.bglon;
+					var bgname = _this.bgname;
+					_this.imagett = false
+					var key = "b7ac380a83e2a2b753f0023d3931ba33";
+					sdkwx.showRoute({
+						theme: 0,
+						trafficEnabled: true,
+						showScale:true,
+						start: {
+							coordinate: {
+								latitude: bg,
+								longitude: bgt
+							},
+							name: bgname,
+							poiId: null
+						},
+						end: {
+							coordinate: {
+								latitude: endlan,
+								longitude: endlon
+							},
+							name: '',
+							poiId: null
+						},
+						multipleRouteNaviMode: false
+					}, function(res) {
+						console.log(res.type);
+						console.log(res.data);
+					});
+				} else {
+					// uni.getLocation({
+					// 	success: res => {
+					// 		console.log('location success', res)
+					// 		uni.openLocation({
+					// 			latitude: res.latitude, 
+					// 			longitude: res.longitude,
+					// 			scale: 18
+					// 		})
+					// 	}
+					// })
+					var endlon = _this.endlon;
+					var endlan = _this.endlat;
+					// _this.bglat = e.bglat
+					// _this.bglon = e.bglon
+					// _this.endlat = e.endlat
+					// _this.endlon = e.endlon
+					
+					var bg = _this.bglat;
+					var bgt = _this.bglon;
+					var bgname = _this.bgname;
+					var key = "b7ac380a83e2a2b753f0023d3931ba33";
+					sdkwx.showRoute({
+						theme: 0,
+						trafficEnabled: true,
+						start: {
+							coordinate: {
+								latitude: bg,
+								longitude: bgt
+							},
+							name: bgname,
+							poiId: null
+						},
+						end: {
+							coordinate: {
+								latitude: endlan,
+								longitude: endlon
+							},
+							name: '',
+							poiId: null
+						},
+						multipleRouteNaviMode: false
+					}, function(res) {
+						console.log(res.type);
+						console.log(res.data);
+					});
+				}
+			},
+			goToCar: function(e) {
+				var that = this;
+				that.yanshi = 1
+				// var key = config.Config.key;
+				var myAmapFun = new AMapWXfile.AMapWX({
+					key: '9751ba7066e405d0f351b49dcc8b9704'
+				});
+				var kouns = that.bglon + ',' + that.bglat
+				var lons = that.endlon + ',' + that.endlat
+				myAmapFun.getDrivingRoute({
+					origin: kouns,
+					destination: lons,
+					success: function(data) {
+						var points = [];
+						if (data.paths && data.paths[0] && data.paths[0].steps) {
+							var steps = data.paths[0].steps;
+							for (var i = 0; i < steps.length; i++) {
+								var poLen = steps[i].polyline.split(';');
+								for (var j = 0; j < poLen.length; j++) {
+									points.push({
+										longitude: parseFloat(poLen[j].split(',')[0]),
+										latitude: parseFloat(poLen[j].split(',')[1])
+									})
+								}
+							}
+						}
+						console.log(points)
+						that.polyline = [{
+							points: points,
+							color: "#1a76ff",
+							width: 6
+						}]
+						if (data.paths[0] && data.paths[0].distance) {
+							console.log(data.paths[0].distance + '米')
+							// that.setData({
+							that.distance = data.paths[0].distance + '米'
+							// });
+						}
+						if (data.taxi_cost) {
+							// that.setData({
+							console.log(parseInt(data.taxi_cost))
+							that.cost = '打车约' + parseInt(data.taxi_cost) + '元'
+							// });
+						}
+
+					},
+					fail: function(info) {
+
+					}
+				})
+			},
+
+			goToRide: function(e) {
+				var that = this;
+				that.yanshi = 3
+				// var key = config.Config.key;
+				var myAmapFun = new AMapWXfile.AMapWX({
+					key: '9751ba7066e405d0f351b49dcc8b9704'
+				});
+				var kouns = that.bglon + ',' + that.bglat
+				var lons = that.endlon + ',' + that.endlat
+				myAmapFun.getRidingRoute({
+					origin: kouns,
+					destination: lons,
+					success: function(data) {
+						var points = [];
+						if (data.paths && data.paths[0] && data.paths[0].steps) {
+							var steps = data.paths[0].steps;
+							for (var i = 0; i < steps.length; i++) {
+								var poLen = steps[i].polyline.split(';');
+								for (var j = 0; j < poLen.length; j++) {
+									points.push({
+										longitude: parseFloat(poLen[j].split(',')[0]),
+										latitude: parseFloat(poLen[j].split(',')[1])
+									})
+								}
+							}
+						}
+						that.polyline = [{
+							points: points,
+							color: "#1a76ff",
+							width: 6
+						}]
+						if (data.paths[0] && data.paths[0].distance) {
+							console.log(data.paths[0].distance + '米')
+							// that.setData({
+							that.distance = data.paths[0].distance + '米'
+							// });
+						}
+						if (data.taxi_cost) {
+							// that.setData({
+							console.log(parseInt(data.taxi_cost))
+							that.cost = '打车约' + parseInt(data.taxi_cost) + '元'
+							// });
+						}
+
+					},
+					fail: function(info) {
+
+					}
+				})
+			},
+			goToWalk: function(e) {
+				var that = this;
+				that.yanshi = 2
+				// var key = config.Config.key;
+				var myAmapFun = new AMapWXfile.AMapWX({
+					key: '9751ba7066e405d0f351b49dcc8b9704'
+				});
+				var kouns = that.bglon + ',' + that.bglat
+				var lons = that.endlon + ',' + that.endlat
+				myAmapFun.getWalkingRoute({
+					origin: kouns,
+					destination: lons,
+					success: function(data) {
+						var points = [];
+						if (data.paths && data.paths[0] && data.paths[0].steps) {
+							var steps = data.paths[0].steps;
+							for (var i = 0; i < steps.length; i++) {
+								var poLen = steps[i].polyline.split(';');
+								for (var j = 0; j < poLen.length; j++) {
+									points.push({
+										longitude: parseFloat(poLen[j].split(',')[0]),
+										latitude: parseFloat(poLen[j].split(',')[1])
+									})
+								}
+							}
+						}
+						console.log(points)
+						that.polyline = [{
+							points: points,
+							color: "#1a76ff",
+							width: 6
+						}]
+						if (data.paths[0] && data.paths[0].distance) {
+							console.log(data.paths[0].distance + '米')
+							// that.setData({
+							that.distance = data.paths[0].distance + '米'
+							// });
+						}
+						if (data.taxi_cost) {
+							// that.setData({
+							console.log(parseInt(data.taxi_cost))
+							that.cost = '打车约' + parseInt(data.taxi_cost) + '元'
+							// });
+						}
+
+					},
+					fail: function(info) {
+
+					}
+				})
+			},
+			gaibian(r) {
+				if (this.timer) {
+					clearInterval(this.timer)
+					this.mapUpdate()
+				}
+			},
+			dangqian() {
+				this.longitude = Number(this.longitude) - 0.000001;
+				this.latitude = Number(this.latitude) - 0.000001;
 				// :longitude="longitude"
 				// :latitude="latitude"
 			},
-			weixing(){
-				if(_this.satellite==true){
+			weixing() {
+				if (_this.satellite == true) {
 					_this.satellite = !_this.satellite
 					_this.texrbix = '卫星:关'
-				}else{
+				} else {
 					_this.satellite = !_this.satellite
 					_this.texrbix = '卫星:开'
 				}
-				
+
 			},
-			daohangbtn(){
-				
+			daohangbtn() {
+
 			},
 			navTo(url) {
 				uni.reLaunch({
 					url: url
 				});
 			},
-			sechbox(){
+			sechbox() {
 				console.log(_this.sechboxtt);
-				var e = _this.sechboxtt ;
-				var x = 1 ; 
-				_this.bindInput(e,x)
-				_this.focusss = false 
+				var e = _this.sechboxtt;
+				var x = 1;
+				_this.bindInput(e, x)
+				_this.focusss = false
 			},
-		 bindInput(e,x){
-		 			  var keywords = '' ; 
-		 			  if(x){
-		 				 keywords = e 
-		 			  }else{
-		 				keywords = e.detail.value;
-		 				 _this.sechboxtt = e.detail.value;  
-		 			  }
-		 			  
-		 			  
-		 			console.log(_this.province)
-		 			var danqianzb = [] ; 
-		 			var yuan = [] ; 
-		 			if(keywords){
-		 				var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
-		 				// danqianzb
-		 				myAmapFun.getInputtips({
-		 				  keywords: keywords,
-		 				  location: '',
-		 				  success: function(data){
-		 					  console.log(data)
-		 					if(data && data.tips){
-		 						
-		 						var  duibi = data.tips 
-		 						for(var i = 0 ; i <duibi.length ; i++){
-		 							if(duibi[i].district.indexOf(_this.province)==0){
-		 								danqianzb.push(duibi[i])
-		 							}else{
-		 								yuan.push(duibi[i])
-		 							} 
-		 						}
-		 						_this.danqianzb = danqianzb 
-		 						console.log(danqianzb);
-		 						_this.tips = yuan
-		 					}
-		 				  }
-		 				})
-		 				_this.close=false
-		 				
-		 				_this.notsearch=false
-		 			}else{
-		 				_this.close=true
-		 				_this.notsearch=true
-		 				_this.focusss = false 
-		 			}
-		 },
-		  bindSearch(e){
-			   console.log(e)
-			  let lat = e.location.split(',')[1]
-			  let lon = e.location.split(',')[0]
-			  let endname = e.district+e.address 
-			  let bgname = _this.bgname ;
-			  let bglat = _this.bglatitude;
-			  let bglon =  _this.bglongitude ; 
-			 // uni.navigateTo({ 
-			 // 	url: '/pages/index_daohang/index?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
-			 // }); 
-			  _this.topoint={latitude:lat,longitude:lon}
-			  _this.focusss = false 
-			  var key = "b7ac380a83e2a2b753f0023d3931ba33"; 
-			  sdkwx.showRoute({
-			  theme:0,
-			  trafficEnabled:true,
-			  start:{
-			  coordinate:{
-				  latitude:bglat,
-				  longitude:bglon
-			  },
-			  name:bgname,
-			  poiId:null
-			  },
-			  end:{
-				coordinate:{
-				  latitude:lat,
-				  longitude:lon
-			  },
-			  name:endname,
-			  poiId:null
-			  }
-			  }, function(res) {
-				   _this.searchtext = ' '
-				  console.log(res.type);
-				  console.log(res.data);
-			  });
-			 //  _this.togglePopup()
-			  // _this.timer = setInterval(_this.startroute,5000)
-		  },
+			bindInput(e, x) {
+				var keywords = '';
+				if (x) {
+					keywords = e
+				} else {
+					keywords = e.detail.value;
+					_this.sechboxtt = e.detail.value;
+				}
+
+
+				console.log(_this.province)
+				var danqianzb = [];
+				var yuan = [];
+				if (keywords) {
+					var myAmapFun = new AMapWXfile.AMapWX({
+						key: '9751ba7066e405d0f351b49dcc8b9704'
+					});
+					// danqianzb
+					myAmapFun.getInputtips({
+						keywords: keywords,
+						location: '',
+						success: function(data) {
+							console.log(data)
+							if (data && data.tips) {
+
+								var duibi = data.tips
+								for (var i = 0; i < duibi.length; i++) {
+									if (duibi[i].district.indexOf(_this.province) == 0) {
+										danqianzb.push(duibi[i])
+									} else {
+										yuan.push(duibi[i])
+									}
+								}
+								_this.danqianzb = danqianzb
+								console.log(danqianzb);
+								_this.tips = yuan
+							}
+						}
+					})
+					_this.close = false
+
+					_this.notsearch = false
+				} else {
+					_this.close = true
+					_this.notsearch = true
+					_this.focusss = false
+				}
+			},
+			bindSearch(e) {
+				console.log(e)
+				let lat = e.location.split(',')[1]
+				let lon = e.location.split(',')[0]
+				let endname = e.district + e.address
+				let bgname = _this.bgname;
+				let bglat = _this.bglatitude;
+				let bglon = _this.bglongitude;
+				// uni.navigateTo({ 
+				// 	url: '/pages/index_daohang/index?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
+				// }); 
+				_this.topoint = {
+					latitude: lat,
+					longitude: lon
+				}
+				_this.focusss = false
+				var key = "b7ac380a83e2a2b753f0023d3931ba33";
+				sdkwx.showRoute({
+					theme: 0,
+					trafficEnabled: true,
+					start: {
+						coordinate: {
+							latitude: bglat,
+							longitude: bglon
+						},
+						name: bgname,
+						poiId: null
+					},
+					end: {
+						coordinate: {
+							latitude: lat,
+							longitude: lon
+						},
+						name: endname,
+						poiId: null
+					}
+				}, function(res) {
+					_this.searchtext = ' '
+					console.log(res.type);
+					console.log(res.data);
+				});
+				//  _this.togglePopup()
+				// _this.timer = setInterval(_this.startroute,5000)
+			},
 			getLocation() {
-				var _this = this ; 
+				var _this = this;
 				uni.getLocation({
 					type: 'wgs84',
 					success: function(res) {
@@ -568,15 +618,16 @@
 						_this.bglongitude = res.longitude;
 						_this.latitude = res.latitude;
 						_this.longitude = res.longitude;
-						_this.clatitude =  res.latitude;
+						_this.clatitude = res.latitude;
 						_this.clongitude = res.longitude;
-						
-						var bglat= _this.bglat
-						var bglon= _this.bglon 
-						var endlat= _this.endlat  
-						var endlon= _this.endlon 
+
+						var bglat = _this.bglat
+						var bglon = _this.bglon
+						var endlat = _this.endlat
+						var endlon = _this.endlon
 						console.log(bglat);
-						var reuwl = 'https://restapi.amap.com/v3/direction/walking?origin=116.434307,39.90909&destination=116.434446,39.90816&key=c72fe234cb17e66258687a914002c17a'
+						var reuwl =
+							'https://restapi.amap.com/v3/direction/walking?origin=116.434307,39.90909&destination=116.434446,39.90816&key=c72fe234cb17e66258687a914002c17a'
 						console.log(reuwl)
 						// let pl = []
 						// for(let i in points){
@@ -587,20 +638,28 @@
 						// } 
 						// if(l==0)
 						// pls.push({points:pl,color:'#0e82ff',width:6})
-						var pls = [
-							{points:[{latitude:res.latitude,longitude: res.longitude},{latitude:endlat,longitude:endlon}],color:'#1a76ff',width:6}
-						]
-						
-						console.log(pls) 
+						var pls = [{
+							points: [{
+								latitude: res.latitude,
+								longitude: res.longitude
+							}, {
+								latitude: endlat,
+								longitude: endlon
+							}],
+							color: '#1a76ff',
+							width: 6
+						}]
+
+						console.log(pls)
 						_this.mypolylines = pls
 						// {latitude: eval(aao[1]), longitude: eval(aao[0])}
-						
+
 					}
 				});
-				
-				
-				
-			}, 
+
+
+
+			},
 			nowLocation() {
 				uni.getLocation({
 					type: 'wgs84',
@@ -610,24 +669,24 @@
 					}
 				});
 			},
-			scan(){
-				  
+			scan() {
+
 				// console.log(1111)
 				uni.scanCode({
-					success:function(res){
+					success: function(res) {
 						uni.navigateTo({
-							url:"/pages/machine/bind?frompage="+res.result
-						}) 
-					}  
+							url: "/pages/machine/bind?frompage=" + res.result
+						})
+					}
 				});
-				
+
 			},
-			searchAddress(e){
-				_this.focusss = true ; 
+			searchAddress(e) {
+				_this.focusss = true;
 				console.log('on click')
 			},
-			startroute(){
-				_this.getDrivingLine(_this.topoint.latitude,_this.topoint.longitude)
+			startroute() {
+				_this.getDrivingLine(_this.topoint.latitude, _this.topoint.longitude)
 				_this.getLocation()
 			},
 			addAddress(type) {
@@ -638,69 +697,79 @@
 						data.lat = res.latitude;
 						data.address = res.address;
 						data.type = type;
-						
+
 					}
 				});
 			},
-			
+
 		}
 	}
 </script>
 
 <style>
 	@import "./css/index.css";
-	.yangshi{
+
+	.yangshi {
 		color: #0e82ff;
 	}
-	.flex-style{
-	  display: -webkit-box;
-	  display: -webkit-flex;
-	  display: flex;
+
+	.flex-style {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
 	}
-	.flex-item{
-	  height: 35px; 
-	  line-height: 35px;
-	  text-align: center;
-	  -webkit-box-flex: 1;
-	  -webkit-flex: 1;
-	  flex: 1
+
+	.flex-item {
+		height: 35px;
+		line-height: 35px;
+		text-align: center;
+		-webkit-box-flex: 1;
+		-webkit-flex: 1;
+		flex: 1
 	}
-	.flex-item.active{
-	  color:#0091ff;
+
+	.flex-item.active {
+		color: #0091ff;
 	}
-	.map_box{
-	  position:absolute;
-	  top: 35px;
-	  bottom: 90px;
-	  left: 0px;
-	  right: 0px;
+
+	.map_box {
+		position: absolute;
+		top: 35px;
+		bottom: 90px;
+		left: 0px;
+		right: 0px;
 	}
-	#navi_map{
-	  width: 100%;
-	  height: 100%;
+
+	#navi_map {
+		width: 100%;
+		height: 100%;
 	}
-	.text_box{
-	  position:absolute;
-	  height: 90px;
-	  bottom: 0px;
-	  left: 0px;
-	  right: 0px;
+
+	.text_box {
+		position: absolute;
+		height: 90px;
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
 	}
-	.text_box .text{
-	  margin: 15px;
-	  font-size: 15px;
+
+	.text_box .text {
+		margin: 15px;
+		font-size: 15px;
 	}
-	.detail_button{
-	  position:absolute;
-	  bottom: 30px;
-	  right: 10px;
-	  padding: 3px 5px;
-	  color: #fff;
-	  background: #0091ff;
-	  width:50px;
-	  text-align:center;
-	  border-radius:5px;
+
+	.detail_button {
+		position: absolute;
+		bottom: 30px;
+		right: 10px;
+		padding: 3px 5px;
+		color: #fff;
+		background: #0091ff;
+		width: 50px;
+		text-align: center;
+		border-radius: 5px;
 	}
+
 	.testdiv {
 		width: 750rpx;
 		height: 1600rpx;

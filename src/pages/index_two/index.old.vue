@@ -105,7 +105,7 @@
 			initPolygon() {
 				_this.initPath()
 				_this.polygon = new AMap.Polygon({
-					path: _this.path,  
+					path: _this.path,
 					fillColor: '#d4dff5', // 多边形填充颜色
 					borderWeight: 2, // 线条宽度，默认为 1
 					strokeColor: '#fff', // 线条颜色
@@ -125,14 +125,14 @@
 				MAP.add(_this.polygon);
 				MAP.setFitView([ _this.polygon ])
 				MAP.plugin(["AMap.PolyEditor"],function(){
-				_this.polylineEditor = new AMap.PolyEditor(MAP,_this.polygon); 
+				_this.polylineEditor = new AMap.PolyEditor(MAP,_this.polygon);
 				_this.polylineEditor.open();
-				}); 				
+				});
 			},
-			editorPolygon() {				 
+			editorPolygon() {
 			},
 			getMarker(data) {
-				
+
 			},
 			togglePopup() {
 				this.close = !this.close;

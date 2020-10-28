@@ -1,42 +1,46 @@
 <template>
 	<div>
-		
-		<div>
+
+		<div ref="title">
 			<div class="singbubox" :style="'position: fixed;height: 70px;width:'+kuan+';background-color: #ffffff;text-align: center;'">{{uanzhong}}</div>
-			<div class="box top-2" style="top: 180rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;" v-on:click="scan()">
-				<image  style="width: 70rpx;height: 70rpx;" src="../../static/image/new_one.png" mode="widthFix"></image> 
+			<div class="box top-2" style="top: 180rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;"
+			 v-on:click="scan()">
+				<image style="width: 70rpx;height: 70rpx;" src="../../static/image/new_one.png" mode="widthFix"></image>
 			</div>
-			<div class="box qiejis top-3" style="top: 300rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;" >   
-				<image  v-on:click="weixing()" style="width: 50rpx;height: 50rpx;" :src="texrbix"></image>
+			<div class="box qiejis top-3" style="top: 300rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;">
+				<image v-on:click="weixing()" style="width: 50rpx;height: 50rpx;" :src="texrbix"></image>
 			</div>
-			
-			<div @tap="qudaohang" v-if="daohang==true"  style="position: fixed;width: 70rpx;height: 70rpx;z-index:100;top: 400rpx;right: 35rpx;border-radius: 100px;background: #ffffff;">
-				<image  src="../../static/image/daohang.png" style="width: 70rpx;height: 70rpx;"></image> 
+
+			<div @tap="qudaohang" v-if="daohang==true" style="position: fixed;width: 70rpx;height: 70rpx;z-index:100;top: 400rpx;right: 35rpx;border-radius: 100px;background: #ffffff;">
+				<image src="../../static/image/daohang.png" style="width: 70rpx;height: 70rpx;"></image>
 			</div>
-			
-			<div @click="huilai()"  style="top: 400rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;">
-				<image style="width: 70rpx;height: 70rpx;" src="../../static/image/dangian.png"  mode="widthFix"></image>
+
+			<div @click="huilai()" style="top: 400rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;">
+				<image style="width: 70rpx;height: 70rpx;" src="../../static/image/dangian.png" mode="widthFix"></image>
 			</div>
-			<div class="box qiejis top-3"  style="top: 500rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;" @tap="goUrltdfg()">
-				<image  style="width: 70rpx;height: 70rpx;" src="../../static/image/new_for.png" mode="widthFix"></image>
+			<div class="box qiejis top-3" style="top: 500rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;"
+			 @tap="goUrltdfg()">
+				<image style="width: 70rpx;height: 70rpx;" src="../../static/image/new_for.png" mode="widthFix"></image>
 			</div>
-			<div class="box qiejis  top-3"  style="top: 600rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;" @tap="dianhua()" v-if="luyings==2">
-				<image  style="width: 70rpx;height: 70rpx;" src="../../static/image/new_fivw.png" mode="widthFix"></image>
+			<div class="box qiejis  top-3" style="top: 600rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;"
+			 @tap="dianhua()" v-if="luyings==2">
+				<image style="width: 70rpx;height: 70rpx;" src="../../static/image/new_fivw.png" mode="widthFix"></image>
 			</div>
-			<div class="box qiejis top-3" style="top: 700rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;" @click="luying()" v-if="luyings==2">
-				<image  style="width: 70rpx;height: 70rpx;" src="../../static/image/new_ji.png" mode=""></image>
+			<div class="box qiejis top-3" style="top: 700rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;"
+			 @click="luying()" v-if="luyings==2">
+				<image style="width: 70rpx;height: 70rpx;" src="../../static/image/new_ji.png" mode=""></image>
 			</div>
-			
+
 		</div>
-		
-		
-		
-	
-		
+
+
+
+
+
 		<div style="position: fixed;
 			z-index: 999;
 			left: 0;
-			top: 20rpx; 
+			top: 20rpx;
 			width: 100rpx;
 			height: 60rpx;
 			border-width: 1px;
@@ -44,20 +48,22 @@
 			border-style: solid;
 			background-color: #fff;
 			flex-direction: row;
-			justify-content: flex-start;" class="w-ctrl w-ctrltwo" @tap="openSel" v-if="guanbi"> 
+			justify-content: flex-start;"
+		 class="w-ctrl w-ctrltwo" @tap="openSel" v-if="guanbi">
 			<div class="w-box">
-				<image class="w-img" v-bind:src="change == 1 ?  '../../static/image/big_workcard@2xt.png' : '../../static/image/big_weatch@2xt.png'"  mode="aspectFit"></image> 
-			</div> 
+				<image class="w-img" v-bind:src="change == 1 ?  '../../static/image/big_workcard@2xt.png' : '../../static/image/big_weatch@2xt.png'"
+				 mode="aspectFit"></image>
+			</div>
 			<div class="w-arrow">
 				<image class="w-arrow-image" src="../../static/image/right.png" mode=""></image>
 			</div>
 		</div>
-		
-		
+
+
 		<div style="position: fixed;
 			z-index: 999;
 			left: 0;
-			top: 20rpx; 
+			top: 20rpx;
 			width: 100rpx;
 			height: 60rpx;
 			border-width: 1px;
@@ -65,80 +71,86 @@
 			border-style: solid;
 			background-color: #fff;
 			flex-direction: row;
-			justify-content: flex-start;" class="w-ctrl w-ctrltwo" v-else  @tap="goUrltwo()">
-			<div class="w-box" >
-				<image class="w-img" v-bind:src="change == 1 ? '../../static/image/big_workcard@2xt.png' : '../../static/image/big_weatch@2xt.png'  " mode="aspectFit"></image>
-			</div> 
+			justify-content: flex-start;"
+		 class="w-ctrl w-ctrltwo" v-else @tap="goUrltwo()">
+			<div class="w-box">
+				<image class="w-img" v-bind:src="change == 1 ? '../../static/image/big_workcard@2xt.png' : '../../static/image/big_weatch@2xt.png'  "
+				 mode="aspectFit"></image>
+			</div>
 			<!-- <div class="w-arrow">
 				<image class="w-arrow-image" src="../../static/image/right.png" mode=""></image>
 			</div> -->
-			
+
 		</div>
-		
+
 		<div class="sel-device" v-if="selOpen" style="box-shadow: 0px 7px 7px -7px #5E5E5E;">
 			<div class="topfalse"></div>
-			<radio-group> 
-				<div v-for="(item,index) in  machineLists" :key="index"  @tap="changes(index)" style="width: 90%;margin: 0px auto;">
-					<div v-if="int==index" class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;background-color: #f3f3f3;" >
+			<radio-group>
+				<div v-for="(item,index) in  machineLists" :key="index" @tap="changes(index)" style="width: 90%;margin: 0px auto;">
+					<div v-if="int==index" class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;background-color: #f3f3f3;">
 						<div class="neiimg">
 							<image class="dv-list-image" v-bind:src="imgconfig[item.type].icon" mode="aspectFit"></image>
 						</div>
 						<text style="color: #26A2FF;" class="dv-list-text ">{{item.alias}}</text>
 						<!-- <text>{{imgconfig[item.type].icon}}</text> -->
 					</div>
-					
-					<div v-else  class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;" >
+
+					<div v-else class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;">
 						<div class="neiimg">
 							<image class="dv-list-image" v-bind:src="imgconfig[item.type].icon" mode="aspectFit"></image>
 						</div>
 						<text class="dv-list-text ">{{item.alias}}</text>
-						 <!-- <text style="color: #26A2FF;" class="dv-list-text ">{{item.alias}}</text> -->
-						 <!-- <text>{{imgconfig[item.type].icon}}</text> -->
+						<!-- <text style="color: #26A2FF;" class="dv-list-text ">{{item.alias}}</text> -->
+						<!-- <text>{{imgconfig[item.type].icon}}</text> -->
 					</div>
 				</div>
-				
-				<div style="width: 90%;margin: 0px auto;" @click="quanbu()"> 
-					<div class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;" >
+
+				<div style="width: 90%;margin: 0px auto;" @click="quanbu()">
+					<div class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;">
 						<div class="neiimg">
-							<image class="dv-list-image" src="../../static/image/set@2x.png" mode="aspectFit"></image> 
+							<image class="dv-list-image" src="../../static/image/set@2x.png" mode="aspectFit"></image>
 						</div>
-						<text class="dv-list-text">全部设备</text> 
+						<text class="dv-list-text">全部设备</text>
 					</div>
 				</div>
 			</radio-group>
 			<div class="bottombox"></div>
-			<div class="dv-close" @tap="closeSel"> 
+			<div class="dv-close" @tap="closeSel">
 				<image class="dv-close-image" src="../../static/image/up.png"></image>
 			</div>
 		</div>
-		
-		<div v-if="manjia" ref="showshare" :style="close?'transform: translateY(750rpx);transition-duration: 0.5s;':'transform: translateY(-120rpx);transition-duration: 0.5s;'" class="create-wrap">
+
+		<div ref="showshare" :style="close?'transform: translateY(750rpx);transition-duration: 0.5s;':'transform: translateY(-120rpx);transition-duration: 0.5s;'"
+		 class="create-wrap">
 			<div class="show-btn" @click="togglePopup()">
 				<image class="show-btn-image" :src="close?'/static/image/up.png':'/static/image/down.png'" mode="scaleToFill"></image>
 			</div>
-			<div class="inner" ref="createInner" >
+			<div class="inner" ref="createInner">
 				<div class="search-box">
 					<image src="/static/image/home_icon_06.jpg" class="left-icon"></image>
-					<input type="text" class="search-input" placeholder-style="font-size:18px;" v-bind:value="searchtext" placeholder="查找地点、公交、地铁" v-on:touchstart="searchAddress" :focus="focusss"  @input="bindInput" @confirm="bindInputtwo"/>
-					<image src="/static/image/home_icon_03.jpg" class="right-icon" alt="" @click="sechbox()"></image> 
+					<input type="text" class="search-input" placeholder-style="font-size:18px;" v-bind:value="searchtext" placeholder="查找地点、公交、地铁"
+					 v-on:touchstart="searchAddress" :focus="focusss" @input="bindInput" @confirm="bindInputtwo" />
+					<text class="right-text">搜索</text>
 				</div>
-				
+
 				<div v-if="!notsearch">
-					<scroll-view style="height:300rpx" class="row" scroll-y="true" >
+					<scroll-view style="height:300rpx" class="row" scroll-y="true">
 						<!-- 当前位置周边 -->
-						<div @tap="bindSearch(item)" style="border-bottom-width: 1rpx;border-color: #f3f3f3;" class="row-item2" v-for="(item,index) in danqianzb" :key="index"  v-if="item.location.length!=0">
-						  <div class="row">
-							  <text style="font-size: 30rpx;width: 100%;padding: 30rpx 0rpx;" class="row-item3">{{item.name}}</text>
-							  <text style="font-size: 25rpx;width: 100%;color: #666666;" class="row-item3">{{item.address}}</text>
-						  </div>
+						<div @tap="bindSearch(item)" style="border-bottom-width: 1rpx;border-color: #f3f3f3;" class="row-item2" v-for="(item,index) in danqianzb"
+						 :key="index" v-if="item.location.length!=0">
+							<div class="row">
+								<text style="font-size: 30rpx;width: 100%;padding: 30rpx 0rpx;" class="row-item3">{{item.name}}</text>
+								<text style="font-size: 25rpx;width: 100%;color: #666666;" class="row-item3">{{item.address}}</text>
+							</div>
 						</div>
-						
-						
-						<div @tap="bindSearch(item)" style="border-bottom-width: 1rpx;border-color: #f3f3f3;" class="row-item2" v-for="(item,index) in tips" :key="index" v-if="item.location.length!=0">
-						  <div class="row">
-							  <text style="font-size: 30rpx;width: 100%;padding: 30rpx 0rpx;" class="row-item3">{{item.name}}</text>
-							  <text style="font-size: 25rpx;width: 100%;color: #666666;padding: 15rpx 0rpx;margin-top: 10rpx;" class="row-item3">{{item.district+item.address}}</text>
-						  </div>
+
+
+						<div @tap="bindSearch(item)" style="border-bottom-width: 1rpx;border-color: #f3f3f3;" class="row-item2" v-for="(item,index) in tips"
+						 :key="index" v-if="item.location.length!=0">
+							<div class="row">
+								<text style="font-size: 30rpx;width: 100%;padding: 30rpx 0rpx;" class="row-item3">{{item.name}}</text>
+								<text style="font-size: 25rpx;width: 100%;color: #666666;padding: 15rpx 0rpx;margin-top: 10rpx;" class="row-item3">{{item.district+item.address}}</text>
+							</div>
 						</div>
 					</scroll-view>
 				</div>
@@ -149,23 +161,23 @@
 							<text class="btn-list-text">{{item.name}}</text>
 						</div>
 					</div>
-					<div  class="btn-list" v-else>
+					<div class="btn-list" v-else>
 						<div class="item" v-for="(item,index) in menuListtwo" :key="index" @tap="goUrltwo()">
-							<image v-bind:src="item.src" alt="" class="icon"></image> 
+							<image v-bind:src="item.src" alt="" class="icon"></image>
 							<text class="btn-list-text">{{item.name}}</text>
 						</div>
 					</div>
-					  
+
 					<div class="tit"><text class="tit-text">常去地点</text></div>
 					<div class="ads-wrap">
 						<div class="row-two">
-							<div class="ads-wrap-item" style="padding-bottom: 10rpx;"  v-if="home==null" @click="addAddress(1,1)">
-								<image class="row-item-icon" src="/static/image/ahome@2x.png" alt="" ></image>
-								<text class="row-item-txt"  style="lines:1;text-overflow:ellipsis;width: 250rpx; ">我的家</text>
-							</div>
-							<div class="ads-wrap-item" v-else >
+							<div class="ads-wrap-item" style="padding-bottom: 10rpx;" v-if="home==null" @click="addAddress(1,1)">
 								<image class="row-item-icon" src="/static/image/ahome@2x.png" alt=""></image>
-								<text class="row-item-txt"  style="lines:1;text-overflow:ellipsis;width: 230rpx; "   @click="addAddress(1,1)">{{home.address}}</text>
+								<text class="row-item-txt" style="lines:1;text-overflow:ellipsis;width: 250rpx; ">我的家</text>
+							</div>
+							<div class="ads-wrap-item" v-else>
+								<image class="row-item-icon" src="/static/image/ahome@2x.png" alt=""></image>
+								<text class="row-item-txt" style="lines:1;text-overflow:ellipsis;width: 230rpx; " @click="addAddress(1,1)">{{home.address}}</text>
 								<image class="row-item-icon del-icon" src="/static/image/close@2x.png" @click="removeAddress(home.id)"></image>
 							</div>
 							<div class="ads-wrap-item" v-if="work==null" @click="addAddress(1,2)">
@@ -174,15 +186,15 @@
 							</div>
 							<div class="ads-wrap-item" v-else>
 								<image class="row-item-icon" src="/static/image/workplace@2x.png" alt=""></image>
-								<text class="row-item-txt"   style="lines:1;text-overflow:ellipsis;width: 250rpx; " @click="addAddress(1,2)" >{{work.address}}</text>
+								<text class="row-item-txt" style="lines:1;text-overflow:ellipsis;width: 250rpx; " @click="addAddress(1,2)">{{work.address}}</text>
 								<image class="row-item-icon del-icon" src="/static/image/close@2x.png" @click="removeAddress(work.id)"></image>
 							</div>
 						</div>
-						
+
 					</div>
-					
-					
-					 
+
+
+
 					<scroll-view class="rowtwo" :scroll-y="true">
 						<div class="listboxsadsa">
 							<div class="row-itemtwo" @click="addAddress(0,0)">
@@ -193,55 +205,43 @@
 								<div class="row-itetxt" @click="dianjidh(index)">
 									<text class="textlist">{{item.address}}</text>
 								</div>
-								<image class="imgboxle"  src="/static/image/close@2x.png" @click="removeAddress(item.id)"></image>
+								<image class="imgboxle" src="/static/image/close@2x.png" @click="removeAddress(item.id)"></image>
 							</div>
 						</div>
-					</scroll-view >
+					</scroll-view>
 				</div>
-				
-				
+
+
 				<div style="background-color: #eee;border-radius: .1rem;height:2rem;display: flex;align-items: center;justify-content: center;color:#999;	position: relative;top: 20rpx;">
 					预留广告位
 				</div>
-				
-				
+
+
 				<div class="nav-bar" style="z-index:1000;position: fixed;bottom:0;height:120rpx;">
 					<div class="nav-bar-item" @click="navTo('/pages/index/index')">
 						<image class="nav-bar-item-icon" src="../../static/image/s_home@3x.png"></image>
-						<text class="nav-bar-item-text"  style="font-size: 23rpx;">首页</text>
+						<text class="nav-bar-item-text" style="font-size: 23rpx;">首页</text>
 					</div>
 					<div class="nav-bar-item" @click="navTo('/pages/store/index')">
 						<image class="nav-bar-item-icon" src="../../static/image/store@3x.png"></image>
-						<text class="nav-bar-item-text"  style="font-size: 23rpx;">商城</text>
+						<text class="nav-bar-item-text" style="font-size: 23rpx;">商城</text>
 					</div>
 					<div class="nav-bar-item" @click="navTo('/pages/me/index')">
 						<image class="nav-bar-item-icon" src="../../static/image/me@3x.png"></image>
-						<text class="nav-bar-item-text"  style="font-size: 23rpx;">我的</text>
+						<text class="nav-bar-item-text" style="font-size: 23rpx;">我的</text>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		
-		
-		<map key='map2' 
-		:longitude="longitude" 
-		:latitude="latitude"
-		:enable-3D='true' 
-		:show-compass='true'
-		:show-location="true"  
-		:style="{width: '750rpx', height: phoneHeight + 'px'}" 
-		:markers="mymarkers" 
-		:polyline="mypolylines" 
-		:scale="scale"  
-		@markertap="markertap" 
-		:enable-traffic="true" 
-		:enable-satellite="satellite"
-		:circles="circles"
-		>
-		</map>  
-		
-		<div class="w-info"  v-if="yingchang"> 
+
+
+
+		<map key='map2' :longitude="longitude" :latitude="latitude" :enable-3D='true' :show-compass='true' :show-location="true"
+		 :style="{width: '750rpx', height: phoneHeight + 'px','padding-top':mapTop+'px'}" :markers="mymarkers" :polyline="mypolylines"
+		 :scale="scale" show-scale @markertap="markertap" :enable-traffic="true" :enable-satellite="satellite" :circles="circles">
+		</map>
+
+		<div class="w-info" v-if="yingchang">
 			<div class="w-close" @tap="closeWatchInfo">
 				<image class="w-close-image" src="../../static/image/close@2x.png" mode=""></image>
 			</div>
@@ -277,53 +277,54 @@
 				<text class="w-title">地址:</text>
 				<text class="w-txt">{{machineInfo.address}}</text>
 			</div>
-		</div> 
-		
-		 
-		 <div class="dao_box" v-if="dajmnbox" :style="'width:'+djsw+';height:'+djsh+';'">
-		 	<div class="neiboxls" :style="'width:'+djsw+';height:'+djsh+';'">
-		 		<div class="mengbanbox">
-		 			<div class="textvfd">录音中</div>
-		 			<div class="textvfd">{{dsiaos}}S</div>
-		 		</div>
-		 	 </div>
-		  </div> 
-		
+		</div>
+
+
+		<div class="dao_box" v-if="dajmnbox" :style="'width:'+djsw+';height:'+djsh+';'">
+			<div class="neiboxls" :style="'width:'+djsw+';height:'+djsh+';'">
+				<div class="mengbanbox">
+					<div class="textvfd">录音中</div>
+					<div class="textvfd">{{dsiaos}}S</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 </template>
- 
-<script> 
+
+<script>
 	import Binding from 'weex-bindingx';
 	import common from '@/common.js'
 	import zySearch from '../../components/zy-search/zy-search.vue'
 	import AMapWXfile from '@/plugins/amap-wx.js'
-	var key = "b7ac380a83e2a2b753f0023d3931ba33"; 
+	var key = "b7ac380a83e2a2b753f0023d3931ba33";
 	var sdkwx = uni.requireNativePlugin('AMap-NavSdkWX');
+	
 	var _this = null
 	export default {
 		data() {
 			return {
 				themeClass: 'block',
 				speechEngine: 'baidu', //语音识别引擎
-				hotList: ['栏目1','栏目2','栏目3','栏目4'],	//初始化推荐列表
-				satellite:false,
-				texrbix:'../../static/image/tuchengone.png',
-				imagett:false,
-				bglatitude:39.909,
-				bglongitude:116.39742,
+				hotList: ['栏目1', '栏目2', '栏目3', '栏目4'], //初始化推荐列表
+				satellite: false,
+				texrbix: '../../static/image/tuchengone.png',
+				imagett: false,
+				bglatitude: 39.909,
+				bglongitude: 116.39742,
 				map: null,
-				scale:17,
-				phoneHeight: 667,
+				scale: 17,
+				phoneHeight: null,
 				// 屏幕高度
 				screenHeight: 667,
 				latitude: 39.909,
-				notsearch:true,
+				notsearch: true,
 				longitude: 116.39742,
-				topoint:{},
-				mypolylines: [], 
-				mymarkers:[],
-				searchtext:'',
-				timer:'',
+				topoint: {},
+				mypolylines: [],
+				mymarkers: [],
+				searchtext: '',
+				timer: '',
 				tips: {},
 				testdiv: "testdiv",
 				topSize: 769,
@@ -334,324 +335,348 @@
 				scrollable: false,
 				refreshing: false,
 				contentOffsetY: 10,
-				machineLists:[],
-				machineInfo:{},
+				machineLists: [],
+				machineInfo: {},
 				createShow: true,
 				close: true,
-				addressList: [], 
+				addressList: [],
 				home: '',
 				work: null,
 				change: 0,
 				selOpen: false,
 				watchOpen: false,
-				circles:[],
-				imgList:[
-					
+				circles: [],
+				imgList: [
+
 				],
-				danqianzb:[],
-				accessToken:'',
-				menuList:[{
-					name:'位置',
+				danqianzb: [],
+				accessToken: '',
+				menuList: [{
+					name: '位置',
 					path: '',
-					src:'/static/image/location@2x.png'
-				},{
-					name:'警报',
-					path:'/pages/alarm/index',
-					src:'/static/image/alarm@2x.png'
-				},{
-					name:'运动',
-					path:'',
-					src:'/static/image/sport@2x.png'
-				},{
-					name:'围栏',
-					path:'/pages/enclosure/index',
-					src:'/static/image/fence@2x.png'
-				},{
-					name:'轨迹',
-					path:'/pages/trajectory/index',
-					src:'/static/image/trajectory@2x.png'
-				},{
-					name:'健康',
-					path:'/pages/health/index',
-					src:'/static/image/hearts@2x.png'
-				},{
-					name:'设置',
-					path:'/pages/setting/index',
-					src:'/static/image/set@2x.png'
-				},{
-					name:'设备详情',
-					path:'/pages/setting/details',
-					src:'/static/image/equipment@2x.png'
-				},{
-					name:'遥控拍照',
-					path:'/pages/camera/index',
-					src:'/static/image/photo@2x.png'
-				},], 
-				menuListtwo:[{
-					name:'位置',
+					src: '/static/image/location@2x.png'
+				}, {
+					name: '警报',
+					path: '/pages/alarm/index',
+					src: '/static/image/alarm@2x.png'
+				}, {
+					name: '运动',
 					path: '',
-					src:'../../static/image/location@2x.png'
-				},{
-					name:'警报',
-					path:'/pages/alarm/index',
-					src:'../../static/image/alarm@2x.png'
-				},{
-					name:'运动',
-					path:'',
-					src:'../../static/image/sport@2x.png'
-				},{
-					name:'围栏',
-					path:'/pages/enclosure/index',
-					src:'../../static/image/fence@2x.png'
-				},{
-					name:'轨迹',
-					path:'/pages/trajectory/index',
-					src:'../../static/image/trajectory@2x.png'
-				},{
-					name:'健康',
-					path:'/pages/health/index',
-					src:'../../static/image/hearts@2x.png'
-				},{
-					name:'设置',
-					path:'/pages/setting/index',
-					src:'../../static/image/set@2x.png'
-				},{
-					name:'设备详情',
-					path:'/pages/setting/details',
-					src:'../../static/image/equipment@2x.png'
-				},{
-					name:'遥控拍照',
-					path:'/pages/camera/index',
-					src:'../../static/image/photo@2x.png'
-				},
-				],  
+					src: '/static/image/sport@2x.png'
+				}, {
+					name: '围栏',
+					path: '/pages/enclosure/index',
+					src: '/static/image/fence@2x.png'
+				}, {
+					name: '轨迹',
+					path: '/pages/trajectory/index',
+					src: '/static/image/trajectory@2x.png'
+				}, {
+					name: '健康',
+					path: '/pages/health/index',
+					src: '/static/image/hearts@2x.png'
+				}, {
+					name: '设置',
+					path: '/pages/setting/index',
+					src: '/static/image/set@2x.png'
+				}, {
+					name: '设备详情',
+					path: '/pages/setting/details',
+					src: '/static/image/equipment@2x.png'
+				}, {
+					name: '遥控拍照',
+					path: '/pages/camera/index',
+					src: '/static/image/photo@2x.png'
+				}, ],
+				menuListtwo: [{
+					name: '位置',
+					path: '',
+					src: '../../static/image/location@2x.png'
+				}, {
+					name: '警报',
+					path: '/pages/alarm/index',
+					src: '../../static/image/alarm@2x.png'
+				}, {
+					name: '运动',
+					path: '',
+					src: '../../static/image/sport@2x.png'
+				}, {
+					name: '围栏',
+					path: '/pages/enclosure/index',
+					src: '../../static/image/fence@2x.png'
+				}, {
+					name: '轨迹',
+					path: '/pages/trajectory/index',
+					src: '../../static/image/trajectory@2x.png'
+				}, {
+					name: '健康',
+					path: '/pages/health/index',
+					src: '../../static/image/hearts@2x.png'
+				}, {
+					name: '设置',
+					path: '/pages/setting/index',
+					src: '../../static/image/set@2x.png'
+				}, {
+					name: '设备详情',
+					path: '/pages/setting/details',
+					src: '../../static/image/equipment@2x.png'
+				}, {
+					name: '遥控拍照',
+					path: '/pages/camera/index',
+					src: '../../static/image/photo@2x.png'
+				}, ],
 				latitude: 39.909,
 				longitude: 116.39742,
-				imgconfig:{
-					"1":{"icon":"/static/image/weatch@2x.png","pointimg":"/static/image/mapcnn@3x-watch.png"},
-					"2":{"icon":"/static/image/big_workcard@2x.png","pointimg":"/static/image/mapcnn@3x-aaa.png"},
-					"3":{"icon":"/static/image/big_car.png","pointimg":"/static/image/big_car.png"}
+				imgconfig: {
+					"1": {
+						"icon": "/static/image/weatch@2x.png",
+						"pointimg": "/static/image/mapcnn@3x-watch.png"
+					},
+					"2": {
+						"icon": "/static/image/big_workcard@2x.png",
+						"pointimg": "/static/image/mapcnn@3x-aaa.png"
+					},
+					"3": {
+						"icon": "/static/image/big_car.png",
+						"pointimg": "/static/image/big_car.png"
+					}
 				},
-				guanbi:true,
-				sechboxtt:'',
-				focusss:false,
-				bgname:'',
-				endnames:'',
-				endlon : 116.39742,
-				endlan : 39.909,
-				manjia:false,
-				imagetttt:false,
-				imei:'',
-				id:'',
-				deviceid:'',
-				phone:'',
-				typelist:'',
-				int:0,
-				luyings:1,
-				pds:1,
-				province:'',
-				daohang:false,
-				uanzhong:'首页',
-				kuan:'',
-				djsw:'',
-				djsh:'',
-				dsiaos:'30',
-				dajmnbox:false,
-				yingchang:false
+				guanbi: true,
+				sechboxtt: '',
+				focusss: false,
+				bgname: '',
+				endnames: '',
+				endlon: 116.39742,
+				endlan: 39.909,
+				manjia: false,
+				imagetttt: false,
+				imei: '',
+				id: '',
+				deviceid: '',
+				phone: '',
+				typelist: '',
+				int: 0,
+				luyings: 1,
+				pds: 1,
+				province: '',
+				daohang: false,
+				uanzhong: '首页',
+				kuan: '',
+				djsw: '',
+				djsh: '',
+				dsiaos: '30',
+				dajmnbox: false,
+				yingchang: false,
+				windowHeight: null,
+				mapTop: null
 			}
 		},
-		onHide(){
-			_this.manjia = false
+		onHide() {
+			this.manjia = false
 		},
 		onReady() {
-			let  that = this
+			let that = this
 			uni.getSystemInfo({
 				success(res) {
-					that.phoneHeight = res.windowHeight - 70;
-					that.kuan = res.windowWidth +'px'
+					that.windowHeight = res.windowHeight;
+					that.kuan = res.windowWidth + 'px'
 					console.log(res)
 					that.djsw = res.windowWidth + 'px'
-					that.djsh = res.windowHeight  + 'px'
+					that.djsh = res.windowHeight + 'px'
 				}
 			});
-		}, 
-		onShow(){
-			var _this = this ;
-			setTimeout(function(){
+			const dom = weex.requireModule('dom')
+			const result = dom.getComponentRect(this.$refs.title, option => {
+				this.mapTop = option.size.height
+			});
+			setTimeout(() => {
+				const result1 = dom.getComponentRect(this.$refs.showshare, option => {
+					console.log(option)
+					console.log(2222)
+					that.phoneHeight = option.size ? option.size.top-this.mapTop : this.windowHeight-this.mapTop
+					console.log(this.windowHeight,this.phoneHeight,this.mapTop,option.size.top)
+				})
+			}, 400)
+		},
+		onShow() {
+			var _this = this;
+			setTimeout(function() {
 				_this.manjia = true
-				_this.close=true
-			},500)  
-			
+				_this.close = true
+			}, 500)
+
 		},
 		onLoad() {
 			_this = this;
-			var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
-			myAmapFun.getRegeo({ 
-			      success: function(data){
-					  _this.province = data[0].regeocodeData.addressComponent.province 
-			        // console.log(data.regeocodeData.addressComponent)
-					console.log(data[0].regeocodeData.addressComponent.province) 
-			      },
-			      fail: function(info){
-			        //失败回调
-			        console.log(info)
-			      }
-			    })
+			var myAmapFun = new AMapWXfile.AMapWX({
+				key: '9751ba7066e405d0f351b49dcc8b9704'
+			});
+			myAmapFun.getRegeo({
+				success: function(data) {
+					_this.province = data[0].regeocodeData.addressComponent.province
+					// console.log(data.regeocodeData.addressComponent)
+					console.log(data[0].regeocodeData.addressComponent.province)
+				},
+				fail: function(info) {
+					//失败回调
+					console.log(info)
+				}
+			})
 			common.request('machine/getaccesstoken', {}, function(res) {
 				_this.accessToken = res.data.info
-				console.log(res) 
+				console.log(res)
 			})
 			_this.getLocation()
 			_this.getMachineList();
 			_this.getMachineInfo();
 			_this.getAddress();
-			
+
 			console.log(_this.machineLists)
 		},
-		distroyed: function () {
-		　　clearInterval(_this.timer)
-		}, 
-		watch: {}, 
+		distroyed: function() {
+			clearInterval(_this.timer)
+		},
+		watch: {},
 		methods: {
-			dianjidh(e){
+			dianjidh(e) {
 				console.log(e)
-				var _this = this ; 
+				var _this = this;
 				var addressList = _this.addressList
 				// lng
 				// lat
 				var endname = _this.addressList[e].address
-				var _this = this ;
+				var _this = this;
 				let lat = addressList[e].lat
 				let lon = addressList[e].lng
-				let bgname = _this.bgname ;
+				let bgname = _this.bgname;
 				let bglat = _this.bglatitude;
-				let bglon =  _this.bglongitude ; 
+				let bglon = _this.bglongitude;
 				uni.navigateTo({
-					url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
-				});  
-				
+					url: '/pages/index_daohang/indexccnew?bglat=' + bglat + '&bglon=' + bglon + '&endlat=' + lat + '&endlon=' + lon
+				});
+
 				console.log(addressList[e])
 			},
-			qudaohang(){
-				var _this = this ;  
+			qudaohang() {
+				var _this = this;
 				let lat = _this.endlan
 				let lon = _this.endlon
-				let bgname = _this.bgname ;
+				let bgname = _this.bgname;
 				let bglat = _this.bglatitude;
-				let bglon =  _this.bglongitude ; 
+				let bglon = _this.bglongitude;
 				console.log(lon)
 				console.log(lat)
 				console.log(bglat)
 				console.log(bglon)
-				uni.navigateTo({ 
-					url: '/pages/index_daohang/index?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
-				}); 
-				_this.daohang = false  
+				uni.navigateTo({
+					url: '/pages/index_daohang/index?bglat=' + bglat + '&bglon=' + bglon + '&endlat=' + lat + '&endlon=' + lon
+				});
+				_this.daohang = false
 			},
-			huilai(){
-				var _this = this 
+			huilai() {
+				var _this = this
 				uni.getLocation({
-				    type: 'wgs84',
-				    success: function (res) {
-				        console.log('当前位置的经度：' + res.longitude);
-				        console.log('当前位置的纬度：' + res.latitude);
-						_this.longitude =  res.longitude
+					type: 'wgs84',
+					success: function(res) {
+						console.log('当前位置的经度：' + res.longitude);
+						console.log('当前位置的纬度：' + res.latitude);
+						_this.longitude = res.longitude
 						_this.latitude = res.latitude
-				    }
+					}
 				});
 			},
 			getSearchText(e) {
 				uni.showToast({
-					title:'回调的搜索信息: ' + e,
-					icon:"none"
+					title: '回调的搜索信息: ' + e,
+					icon: "none"
 				})
 			},
-			weixing(){
-				if(_this.satellite==true){
+			weixing() {
+				if (_this.satellite == true) {
 					_this.satellite = !_this.satellite
 					_this.texrbix = '../../static/image/tuchengone.png'
-				}else{
+				} else {
 					_this.satellite = !_this.satellite
-					_this.texrbix = '../../static/image/tuchengtwo.png' 
+					_this.texrbix = '../../static/image/tuchengtwo.png'
 				}
-				
+
 			},
-			goUrltwo(){
+			goUrltwo() {
 				uni.showToast({
-				    title: '请绑定设备',
-				    duration: 2000,
-					icon:"none"
+					title: '请绑定设备',
+					duration: 2000,
+					icon: "none"
 				});
 			},
-			dianhua(){
+			dianhua() {
 				uni.showActionSheet({
-				    itemList: ['单向通话', '双向通话'],
-				    success: function (res) {
-				        if(res.tapIndex==0){
-							common.request('machine/onewaycall',{
-								deviceid: _this.deviceid 
-							}, function (res) {
+					itemList: ['单向通话', '双向通话'],
+					success: function(res) {
+						if (res.tapIndex == 0) {
+							common.request('machine/onewaycall', {
+								deviceid: _this.deviceid
+							}, function(res) {
 								uni.showToast({
-								    title: res.data.info,
-								    duration: 2000
+									title: res.data.info,
+									duration: 2000
 								});
 							})
-						}else{
-							common.request('machine/twowaycall',{
-								deviceid: _this.deviceid 
-							}, function (res) {
-								console.log( res.data.info)
+						} else {
+							common.request('machine/twowaycall', {
+								deviceid: _this.deviceid
+							}, function(res) {
+								console.log(res.data.info)
 								uni.showToast({
-								    title: res.data.info,
-								    duration: 2000
+									title: res.data.info,
+									duration: 2000
 								});
 							})
 						}
-				    },
-				    fail: function (res) {
-				        console.log(res.errMsg);
-				    }
+					},
+					fail: function(res) {
+						console.log(res.errMsg);
+					}
 				});
-				
-				
-			}, 
-			luying(){
+
+
+			},
+			luying() {
 				uni.showActionSheet({
-				    itemList: ['录音', '录音列表'], 
-				    success: function (res) {
-				        if(res.tapIndex==0){
-							common.request('machine/record',{
-								deviceid: _this.deviceid 
-							}, function (res) {
-								console.log(res) 
+					itemList: ['录音', '录音列表'],
+					success: function(res) {
+						if (res.tapIndex == 0) {
+							common.request('machine/record', {
+								deviceid: _this.deviceid
+							}, function(res) {
+								console.log(res)
 								_this.dajmnbox = true
-								if(res.data.status!=1){
+								if (res.data.status != 1) {
 									uni.showToast({
 										icon: 'none',
 										position: 'center',
 										title: res.data.info
 									});
-								}else
-								var djs = 30 ;
-								var times = setInterval(function(){
-									djs-- 
+								} else
+									var djs = 30;
+								var times = setInterval(function() {
+									djs--
 									_this.dsiaos = djs
-									if(djs<=0){
-										djs = 30 
+									if (djs <= 0) {
+										djs = 30
 										_this.dajmnbox = false
 										clearInterval(times)
 									}
-								},1000)
+								}, 1000)
 								// uni.showToast({
 								//     title: res.data.info,
 								//     duration: 2000
 								// });
 							})
-						}else{
+						} else {
 							console.log(1111111111)
 							uni.navigateTo({
-								url: '/pages/trajectory/luyingindex?deviceid='+_this.deviceid
-							});  
+								url: '/pages/trajectory/luyingindex?deviceid=' + _this.deviceid
+							});
 							// var data = {
 							// 	deviceid: _this.deviceid ,
 							// 	token: uni.getStorageSync('token')
@@ -665,10 +690,10 @@
 							// 	innerAudioContext.onPlay(() => {
 							// 		uni.showLoading({
 							// 			title: '播放中'
-							// 		});  
+							// 		});
 							// 		setTimeout(function(){
 							// 			 uni.hideLoading();
-							// 		},10000) 
+							// 		},10000)
 							// 	});
 							// 	innerAudioContext.onError((res) => {
 							// 	  console.log(res.errMsg);
@@ -676,268 +701,293 @@
 							// 	});
 							// })
 						}
-				    },
-				    fail: function (res) {
-				        console.log(res.errMsg);
-				    }
+					},
+					fail: function(res) {
+						console.log(res.errMsg);
+					}
 				});
 				// common.request('machine/record',{
-				// 	deviceid: _this.deviceid 
+				// 	deviceid: _this.deviceid
 				// }, function (res) {
-				// 	console.log(_this.deviceid ) 
+				// 	console.log(_this.deviceid )
 				// 	uni.showToast({
 				// 	    title: res.data.info,
 				// 	    duration: 2000
 				// 	});
-				// }) 
+				// })
 			},
-			daohangbtn(){
+			daohangbtn() {
 				var endlon = _this.endlon;
 				var endlan = _this.endlan;
-				var bg = _this.bglatitude ;
-				var bgt = _this.bglongitude ; 
-				var bgname = _this.bgname ;
-				_this.imagett = false 
-				
+				var bg = _this.bglatitude;
+				var bgt = _this.bglongitude;
+				var bgname = _this.bgname;
+				_this.imagett = false
+
 				_this.imagetttt = false
 				uni.navigateTo({
-					url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
-				});  
+					url: '/pages/index_daohang/indexccnew?bglat=' + bglat + '&bglon=' + bglon + '&endlat=' + lat + '&endlon=' + lon
+				});
 			},
-			sechbox(){ 
+			sechbox() {
 				// console.log(_this.sechboxtt);
 				// var e = _this.sechboxtt ;
-				// var x = 1 ; 
+				// var x = 1 ;
 				// _this.bindInput(e,x)
-				// _this.focusss = false 
+				// _this.focusss = false
 			},
 			navTo(url) {
 				uni.reLaunch({
 					url: url
 				});
 			},
-		  bindInput(e,x){
-			  var keywords = '' ; 
-			  if(x){
-				 keywords = e 
-			  }else{
-				keywords = e.detail.value;
-				 _this.sechboxtt = e.detail.value;  
-			  }
-			  
-			  
-			console.log(_this.province)
-			var danqianzb = [] ; 
-			var yuan = [] ; 
-			if(keywords){
-				var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
-				// danqianzb
-				myAmapFun.getInputtips({
-				  keywords: keywords,
-				  location: '',
-				  success: function(data){
-					console.log(data)
-					if(data && data.tips){
-						var  duibi = data.tips 
-						for(var i = 0 ; i <duibi.length ; i++){
-							if(duibi[i].district.indexOf(_this.province)==0){
-								danqianzb.push(duibi[i])
-							}else{
-								yuan.push(duibi[i])
-							} 
+			bindInput(e, x) {
+				var keywords = '';
+				if (x) {
+					keywords = e
+				} else {
+					keywords = e.detail.value;
+					_this.sechboxtt = e.detail.value;
+				}
+
+
+				console.log(_this.province)
+				var danqianzb = [];
+				var yuan = [];
+				if (keywords) {
+					var myAmapFun = new AMapWXfile.AMapWX({
+						key: '9751ba7066e405d0f351b49dcc8b9704'
+					});
+					// danqianzb
+					myAmapFun.getInputtips({
+						keywords: keywords,
+						location: '',
+						success: function(data) {
+							console.log(data)
+							if (data && data.tips) {
+								var duibi = data.tips
+								for (var i = 0; i < duibi.length; i++) {
+									if (duibi[i].district.indexOf(_this.province) == 0) {
+										danqianzb.push(duibi[i])
+									} else {
+										yuan.push(duibi[i])
+									}
+								}
+								_this.danqianzb = danqianzb
+								console.log(danqianzb);
+								_this.tips = yuan
+							}
 						}
-						_this.danqianzb = danqianzb 
-						console.log(danqianzb);
-						_this.tips = yuan
-					}
-				  }
-				})
-				_this.close=false
-				
-				_this.notsearch=false
-			}else{
-				_this.close=true
-				_this.notsearch=true
-				_this.focusss = false 
-			}
-		  },
-		  bindInputtwo(e){
-			  _this.bindInput(e.detail)
-			  console.log(e.detail) 
-		  },
-		  bindSearch(e){
-			 console.log(e)
-			  let lat = e.location.split(',')[1]
-			  let lon = e.location.split(',')[0]
-			  let endname = e.district+e.address 
-			  let bgname = _this.bgname ;
-			  let bglat = _this.bglatitude;
-			  let bglon =  _this.bglongitude ; 
-			 // uni.navigateTo({ 
-			 // 	url: '/pages/index_daohang/index?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
-			 // }); 
-			  
-			  // sdkwx.showRoute({
-			  // theme:0,//主题取之范围0-2分别表示蓝⾊，浅⾊， 暗⾊
-			  // start:{//起点
-			  // coordinate:{
-			  // latitude:bglat,
-			  // longitude:bglon
-			  // },
-			  // name:bgname,
-			  // poiId:null//"B000A28DAE"
-			  // },
-			  // end:{//终点
-			  // coordinate:{
-			  // latitude:lat,
-			  // longitude:lon
-			  // },
-			  // name:endname,
-			  // poiId:null//B000A8UIN8"
-			  // },
-			  // multipleRouteNaviMode:true,//YES:多路线导航模式, NO:单路线导
-			  // needCalculateRouteWhenPresent:true,//设置启动导航组件是否重
-			  // }, function(res) {
-			  // console.log(res.type);//判断回调接⼝
-			  // console.log(res.data);//回调接⼝数据
-			  // });
-			  
-			  uni.navigateTo({
-			  	url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
-			  }); 
-			  _this.togglePopup()
-			  // _this.timer = setInterval(_this.startroute,5000)
-		  },
-		  
-			// 获取设备详情
-			getMachineInfo(){
-				common.request('machine/index', {deviceid: _this.deviceid }, function(res) {
-					console.log(res)
-					 
-					_this.machineInfo = res.data.info
-					
-				})
-				
+					})
+					_this.close = false
+
+					_this.notsearch = false
+				} else {
+					_this.close = true
+					_this.notsearch = true
+					_this.focusss = false
+				}
 			},
-			 
-			markertap(e){
+			bindInputtwo(e) {
+				_this.bindInput(e.detail)
+				console.log(e.detail)
+			},
+			bindSearch(e) {
 				console.log(e)
-				var mymarkers = _this.mymarkers ;
-				var ind = Number(e.detail.markerId)	
-				 _this.longitude = mymarkers[ind].longitude;
-				 _this.latitude = mymarkers[ind].latitude;
-					
+				let lat = e.location.split(',')[1]
+				let lon = e.location.split(',')[0]
+				let endname = e.district + e.address
+				let bgname = _this.bgname;
+				let bglat = _this.bglatitude;
+				let bglon = _this.bglongitude;
+				// uni.navigateTo({
+				// 	url: '/pages/index_daohang/index?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
+				// });
+
+				// sdkwx.showRoute({
+				// theme:0,//主题取之范围0-2分别表示蓝⾊，浅⾊， 暗⾊
+				// start:{//起点
+				// coordinate:{
+				// latitude:bglat,
+				// longitude:bglon
+				// },
+				// name:bgname,
+				// poiId:null//"B000A28DAE"
+				// },
+				// end:{//终点
+				// coordinate:{
+				// latitude:lat,
+				// longitude:lon
+				// },
+				// name:endname,
+				// poiId:null//B000A8UIN8"
+				// },
+				// multipleRouteNaviMode:true,//YES:多路线导航模式, NO:单路线导
+				// needCalculateRouteWhenPresent:true,//设置启动导航组件是否重
+				// }, function(res) {
+				// console.log(res.type);//判断回调接⼝
+				// console.log(res.data);//回调接⼝数据
+				// });
+
+				uni.navigateTo({
+					url: '/pages/index_daohang/indexccnew?bglat=' + bglat + '&bglon=' + bglon + '&endlat=' + lat + '&endlon=' + lon
+				});
+				_this.togglePopup()
+				// _this.timer = setInterval(_this.startroute,5000)
+			},
+
+			// 获取设备详情
+			getMachineInfo() {
+				common.request('machine/index', {
+					deviceid: _this.deviceid
+				}, function(res) {
+					console.log(res)
+
+					_this.machineInfo = res.data.info
+
+				})
+
+			},
+
+			markertap(e) {
+				console.log(e)
+				var mymarkers = _this.mymarkers;
+				var ind = Number(e.detail.markerId)
+				_this.longitude = mymarkers[ind].longitude;
+				_this.latitude = mymarkers[ind].latitude;
+
 				console.log(mymarkers[ind]);
-				var myAmapFun = new AMapWXfile.AMapWX({key:'9751ba7066e405d0f351b49dcc8b9704'});
-				_this.imagett = true ;
-				
-				_this.imagetttt = true ;
-				var endlon = mymarkers[ind].longitude ; 
+				var myAmapFun = new AMapWXfile.AMapWX({
+					key: '9751ba7066e405d0f351b49dcc8b9704'
+				});
+				_this.imagett = true;
+
+				_this.imagetttt = true;
+				var endlon = mymarkers[ind].longitude;
 				var endlan = mymarkers[ind].latitude;
-				_this.endlon =  mymarkers[ind].longitude  ;
-				_this.endlan = mymarkers[ind].latitude; 
-				let desdis = endlon+','+ endlan
-				var bg = _this.bglatitude ;
-				var bgt = _this.bglongitude ; 
-				let sourcedis =bgt +","+ bg ; 
+				_this.endlon = mymarkers[ind].longitude;
+				_this.endlan = mymarkers[ind].latitude;
+				let desdis = endlon + ',' + endlan
+				var bg = _this.bglatitude;
+				var bgt = _this.bglongitude;
+				let sourcedis = bgt + "," + bg;
 				_this.scale = 3
-				_this.daohang = true 
-				myAmapFun.getDrivingRoute({origin:sourcedis,destination:desdis,success:function(data){
-					let pathtemp = data.paths[0]
-					let pls = []; 
-					for(let l in pathtemp.steps){
-						let step = pathtemp.steps[l]
-						let line = step.polyline
-						let points = step.polyline.split(';')
-						let pl = []
-						for(let i in points){
-							let point = points[i]
-							let aao = point.split(',')
-							let p = {latitude: eval(aao[1]), longitude: eval(aao[0])}
-							pl.push(p)
+				_this.daohang = true
+				myAmapFun.getDrivingRoute({
+					origin: sourcedis,
+					destination: desdis,
+					success: function(data) {
+						let pathtemp = data.paths[0]
+						let pls = [];
+						for (let l in pathtemp.steps) {
+							let step = pathtemp.steps[l]
+							let line = step.polyline
+							let points = step.polyline.split(';')
+							let pl = []
+							for (let i in points) {
+								let point = points[i]
+								let aao = point.split(',')
+								let p = {
+									latitude: eval(aao[1]),
+									longitude: eval(aao[0])
+								}
+								pl.push(p)
+							}
+							if (l == 0)
+								pls.push({
+									points: pl,
+									color: '#1a76ff',
+									width: 6
+								})
+							else
+								pls.push({
+									points: pl,
+									color: '#1a76ff',
+									width: 6
+								})
+							//_this.polylines=[{latitude: 0, longitude: 0}]
 						}
-						if(l==0)
-						pls.push({points:pl,color:'#1a76ff',width:6})
-						else
-						pls.push({points:pl,color:'#1a76ff',width:6})
-						//_this.polylines=[{latitude: 0, longitude: 0}]
+						_this.mypolylines = pls
+						// console.log(_this.mypolylines)
+					},
+					error: function(data) {
+						console.log(data)
 					}
-					_this.mypolylines=pls
-					// console.log(_this.mypolylines)
-				},error:function(data){
-					console.log(data)
-				}})
+				})
 			},
 			// 获取设备列表
-			getMachineList() { 
-				common.request('machine/machine_list', {}, function(res) { 
-					var newboxs = [] 
-					
+			getMachineList() {
+				common.request('machine/machine_list', {}, function(res) {
+					var newboxs = []
+
 					console.log(res)
-					if(res.data.info.length==0){ 
+					if (res.data.info.length == 0) {
 						_this.guanbi = false
-					}else{
-						_this.guanbi = true 
+					} else {
+						_this.guanbi = true
 					}
-					 
+
 					_this.luyings = res.data.info[0].type
 					_this.machineLists = res.data.info;
-					
+
 					// luyings
 					var initx = res.data.info[0];
-					var endlon = initx.machineInfo.longitude ; 
+					var endlon = initx.machineInfo.longitude;
 					var endlan = initx.machineInfo.latitude;
-					
-					
-					_this.phone =  res.data.info[0].machineInfo.sos1 
-					var bg = _this.bglatitude ; 
-					var bgt = _this.bglongitude ; 
-					let desdis = endlon+','+ endlan
-					let sourcedis =bgt +","+ bg ; 
+
+
+					_this.phone = res.data.info[0].machineInfo.sos1
+					var bg = _this.bglatitude;
+					var bgt = _this.bglongitude;
+					let desdis = endlon + ',' + endlan
+					let sourcedis = bgt + "," + bg;
 					console.log(desdis)
 					console.log(sourcedis)
-					var myAmapFun = new AMapWXfile.AMapWX({key:'9751ba7066e405d0f351b49dcc8b9704'});
+					var myAmapFun = new AMapWXfile.AMapWX({
+						key: '9751ba7066e405d0f351b49dcc8b9704'
+					});
 					myAmapFun.getDrivingRoute({
-					  success: function(data){
-						  // console.log(data[0].name) ; 
-						  _this.bgname = data[0].name
-					  }
+						success: function(data) {
+							// console.log(data[0].name) ;
+							_this.bgname = data[0].name
+						}
 					})
-					
-					
+
+
 					var machinemarkers = [];
-					var circles = []   
-					
-					for(var i = 0;i<_this.machineLists.length;i++){
+					var circles = []
+
+					for (var i = 0; i < _this.machineLists.length; i++) {
 						let machine = _this.machineLists[i];
 						let icon = _this.imgconfig[machine.type]["pointimg"]
 						console.log(11111111111111111)
 						console.log(icon)
-						machinemarkers[i]= {
-							id:i,latitude:machine.machineInfo.latitude,
-							longitude:machine.machineInfo.longitude,
-							iconPath:icon,
-							width:40,
-							height:40 
+						machinemarkers[i] = {
+							id: i,
+							latitude: machine.machineInfo.latitude,
+							longitude: machine.machineInfo.longitude,
+							iconPath: icon,
+							width: 40,
+							height: 40
 						}
-						if(machine.type==1){
+						if (machine.type == 1) {
 							circles[i] = {
-								latitude:machine.machineInfo.latitude,
-								longitude:machine.machineInfo.longitude,
+								latitude: machine.machineInfo.latitude,
+								longitude: machine.machineInfo.longitude,
 							}
-						}else{
+						} else {
 							circles[i] = {
-								latitude:machine.machineInfo.latitude,
-								longitude:machine.machineInfo.longitude,
+								latitude: machine.machineInfo.latitude,
+								longitude: machine.machineInfo.longitude,
 							}
 						}
-						
+
 					}
-					
-					console.log(machinemarkers) 
+
+					console.log(machinemarkers)
 					_this.mymarkers = machinemarkers
-					_this.circles = circles 
-					_this.deviceid = res.data.info[0].machineInfo.deviceid 
+					_this.circles = circles
+					_this.deviceid = res.data.info[0].machineInfo.deviceid
 					_this.$forceUpdate()
 					_this.getRole()
 				})
@@ -948,13 +998,13 @@
 				_this.close = true
 				console.log(item.url)
 				uni.navigateTo({
-					url: item.url+"?deviceid="+_this.deviceid
-				}); 
+					url: item.url + "?deviceid=" + _this.deviceid
+				});
 			},
-			goUrltdfg(){
+			goUrltdfg() {
 				uni.navigateTo({
-					url: '/pages/alarm/index?deviceid='+_this.deviceid
-				});  
+					url: '/pages/alarm/index?deviceid=' + _this.deviceid
+				});
 			},
 			goUrlt(item) {
 				console.log(item)
@@ -971,78 +1021,78 @@
 				_this.selOpen = true
 				_this.watchOpen = true
 				_this.close = true
-				
+
 			},
 			// 关闭选择框
 			closeSel() {
-				_this.selOpen =  false 
+				_this.selOpen = false
 			},
 			// 获取功能
 			getRole() {
-				common.request('/machine/auth_role',{
-					deviceid: _this.deviceid 
-				}, function (res) {
-					console.log(res)  
+				common.request('/machine/auth_role', {
+					deviceid: _this.deviceid
+				}, function(res) {
+					console.log(res)
 					_this.menuList = res.data.info
-				}) 
+				})
 			},
-			quanbu(){
-				var _this = this ; 
-				var mymarkers = _this.mymarkers ;
-				_this.mymarkers  = mymarkers
+			quanbu() {
+				var _this = this;
+				var mymarkers = _this.mymarkers;
+				_this.mymarkers = mymarkers
 				_this.scale = 5
-				_this.selOpen = false  ;  
+				_this.selOpen = false;
 				_this.uanzhong = '首页'
-			}, 
-			changes(index) { 
-				console.log(_this.machineLists) 
-				console.log(_this.circles[index])   
+			},
+			changes(index) {
+				console.log(_this.machineLists)
+				console.log(_this.circles[index])
 				_this.yingchang = true
 				_this.uanzhong = _this.machineLists[index].alias
-				var mymarkers = _this.mymarkers ;
+				var mymarkers = _this.mymarkers;
 				console.log(333333333333333)
-				
+
 				// mymarkers[index].callout = {
 				// 	content:'杀了对方是客服撒旦发射点是的烦烦烦发生的撒旦发射点' ,
 				// 	color:'#ffffff',
 				// 	fontSize:20,
 				// 	bgColor:'#ff4564',
-				// 	display:'ALWAYS' 
+				// 	display:'ALWAYS'
 				// }
 				console.log(mymarkers[index])
-				_this.mymarkers  = mymarkers
+				_this.mymarkers = mymarkers
 				_this.change = index;
 				_this.int = index
 				_this.deviceid = _this.machineLists[index]
 				console.log(_this.machineLists[index].alias)
-				_this.luyings  = _this.machineLists[index].type 
+				_this.luyings = _this.machineLists[index].type
 				_this.pds = _this.machineLists[index].type
 				_this.machineInfo = _this.machineLists[_this.change].machineInfo;
 				_this.deviceid = _this.machineLists[index].deviceid
-				_this.imei = _this.machineInfo.deviceid 
-				_this.latitude = _this.machineInfo.latitude 
+				_this.imei = _this.machineInfo.deviceid
+				_this.latitude = _this.machineInfo.latitude
 				_this.longitude = _this.machineInfo.longitude
-				_this.phone = _this.machineInfo.sos1  
-				
+				_this.phone = _this.machineInfo.sos1
+
 				_this.getRole();
-				_this.$forceUpdate(); 
+				_this.$forceUpdate();
 				_this.scale = 15
-				_this.mypolylines = [] ;
-				_this.selOpen = false  ; 
-				var newbox = []  
-				for(var x = 0 ; x < _this.circles.length ; x++){
-					var bc = {}  
-					if(x == index){
+				_this.mypolylines = [];
+				_this.selOpen = false;
+				var newbox = []
+				for (var x = 0; x < _this.circles.length; x++) {
+					var bc = {}
+					if (x == index) {
 						console.log(_this.circles[x])
 						bc = {
 							latitude: _this.machineInfo.latitude,
 							longitude: _this.machineInfo.longitude,
 						}
 						newbox.push(bc)
-					}else{
+					} else {
 						newbox.push(bc)
 					}
-					 
+
 				}
 				console.log(newbox)
 				_this.circles = newbox
@@ -1050,77 +1100,95 @@
 			togglePopup() {
 				_this.selOpen = false
 				console.log(this.close)
-				if(this.close){
-					_this.imagett= false
-					_this.luyings =1
-				}else{
-					if(_this.imagetttt ==true){
-						_this.imagett= true
-					}else{
-						_this.imagett= false
+				if (this.close) {
+					_this.imagett = false
+					_this.luyings = 1
+				} else {
+					if (_this.imagetttt == true) {
+						_this.imagett = true
+					} else {
+						_this.imagett = false
 					}
-					if(_this.pds ==2){
-						_this.luyings= 2
-					}else{
-						_this.luyings =1
+					if (_this.pds == 2) {
+						_this.luyings = 2
+					} else {
+						_this.luyings = 1
 					}
 				}
 				this.close = !this.close;
-				
-				if(this.close){
-					this.notsearch=true
+
+				if (this.close) {
+					this.notsearch = true
 					this.searchtext = ''
 				}
 			},
-			getAddress(x) { 
-				// typelist 
-				var x = x ;  
-				common.request('index/getAddress', {}, function(res) { 
+			getAddress(x) {
+				// typelist
+				var x = x;
+				common.request('index/getAddress', {}, function(res) {
 					console.log(res)
-					if(x==2){
+					if (x == 2) {
 						_this.work = res.data.info.list[0];
 						_this.addressList = res.data.info.list;
-					}else{
+					} else {
 						console.log(1)
 						_this.home = res.data.info.home;
 						_this.work = res.data.info.work;
 						_this.addressList = res.data.info.list;
 					}
-					
-					
+
+
 				})
 			},
-			getDrivingLine(latitude,longitude){
-						let desdis = longitude+','+latitude
-						let sourcedis = _this.longitude+","+_this.latitude
-						var amap = new AMapWXfile.AMapWX({key:'9751ba7066e405d0f351b49dcc8b9704'});
-						amap.getDrivingRoute({origin:sourcedis,destination:desdis,success:function(data){
-							console.log(data)
-							let pathtemp = data.paths[0]
-							console.log(data) 
-							let pls = [];
-							for(let l in pathtemp.steps){
-								let step = pathtemp.steps[l]
-								let line = step.polyline
-								let points = step.polyline.split(';')
-								let pl = []
-								for(let i in points){
-									let point = points[i]
-									let aao = point.split(',')
-									let p = {latitude: eval(aao[1]), longitude: eval(aao[0])}
-									pl.push(p)
-								} 
-								if(l==0)
-								pls.push({points:pl,color:'#0e82ff',width:6})
-								else
-								pls.push({points:pl,color:'rgba(0,0,255,0.3)',width:6})
-								//_this.polylines=[{latitude: 0, longitude: 0}]
+			getDrivingLine(latitude, longitude) {
+				let desdis = longitude + ',' + latitude
+				let sourcedis = _this.longitude + "," + _this.latitude
+				var amap = new AMapWXfile.AMapWX({
+					key: '9751ba7066e405d0f351b49dcc8b9704'
+				});
+				amap.getDrivingRoute({
+					origin: sourcedis,
+					destination: desdis,
+					success: function(data) {
+						console.log(data)
+						let pathtemp = data.paths[0]
+						console.log(data)
+						let pls = [];
+						for (let l in pathtemp.steps) {
+							let step = pathtemp.steps[l]
+							let line = step.polyline
+							let points = step.polyline.split(';')
+							let pl = []
+							for (let i in points) {
+								let point = points[i]
+								let aao = point.split(',')
+								let p = {
+									latitude: eval(aao[1]),
+									longitude: eval(aao[0])
+								}
+								pl.push(p)
 							}
-							_this.mypolylines=pls
-							console.log(_this.mypolylines)
-						},error:function(data){
-							console.log(data)
-						}})
+							if (l == 0)
+								pls.push({
+									points: pl,
+									color: '#0e82ff',
+									width: 6
+								})
+							else
+								pls.push({
+									points: pl,
+									color: 'rgba(0,0,255,0.3)',
+									width: 6
+								})
+							//_this.polylines=[{latitude: 0, longitude: 0}]
+						}
+						_this.mypolylines = pls
+						console.log(_this.mypolylines)
+					},
+					error: function(data) {
+						console.log(data)
+					}
+				})
 			},
 			getLocation() {
 				uni.getLocation({
@@ -1131,17 +1199,19 @@
 						_this.latitude = res.latitude;
 						_this.longitude = res.longitude;
 						console.log(res);
-						
+
 					}
 				});
-				var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
+				var myAmapFun = new AMapWXfile.AMapWX({
+					key: '9751ba7066e405d0f351b49dcc8b9704'
+				});
 				myAmapFun.getRegeo({
-				  success: function(data){
-					  // console.log(data[0].name) ; 
-					  _this.bgname = data[0].name
-				  }
+					success: function(data) {
+						// console.log(data[0].name) ;
+						_this.bgname = data[0].name
+					}
 				})
-			}, 
+			},
 			nowLocation() {
 				uni.getLocation({
 					type: 'wgs84',
@@ -1151,28 +1221,28 @@
 					}
 				});
 			},
-			scan(){
-				  
+			scan() {
+
 				// console.log(1111)
 				uni.scanCode({
-					success:function(res){
+					success: function(res) {
 						uni.navigateTo({
-							url:"/pages/machine/bind?frompage="+res.result
-						}) 
-					}  
+							url: "/pages/machine/bind?frompage=" + res.result
+						})
+					}
 				});
-				
+
 			},
-			searchAddress(e){
-				_this.focusss = true ; 
+			searchAddress(e) {
+				_this.focusss = true;
 				console.log('on click')
 			},
-			startroute(){
-				_this.getDrivingLine(_this.topoint.latitude,_this.topoint.longitude)
+			startroute() {
+				_this.getDrivingLine(_this.topoint.latitude, _this.topoint.longitude)
 				_this.getLocation()
 			},
-			addAddress(type,x) {
-				var x = x ; 
+			addAddress(type, x) {
+				var x = x;
 				console.log(x)
 				uni.chooseLocation({
 					success: function(res) {
@@ -1206,13 +1276,13 @@
 				})
 			}
 		}
-	} 
+	}
 </script>
 
 <style>
-	
 	@import "./css/index.css";
-	.mengbanbox{
+
+	.mengbanbox {
 		background-color: #ffffff;
 		width: 500rpx;
 		padding: 50rpx 0rpx;
@@ -1224,8 +1294,9 @@
 		align-items: center;
 		flex-direction: row;
 	}
-	.textvfd{
-		text-align: center; 
+
+	.textvfd {
+		text-align: center;
 		display: block;
 		width: 500rpx;
 		text-align: center;
@@ -1235,15 +1306,17 @@
 		align-items: center;
 		flex-direction: row;
 	}
-	.dao_box{
+
+	.dao_box {
 		position: fixed;
-		z-index:1000;
+		z-index: 1000;
 		top: 0px;
 		bottom: 0px;
-		background-color: rgba(0,0,0,0.5);
-		border-width:2px ;
+		background-color: rgba(0, 0, 0, 0.5);
+		border-width: 2px;
 	}
-	.neiboxls{
+
+	.neiboxls {
 		display: flex;
 		display: -webkit-flex;
 		flex-wrap: nowrap;
@@ -1251,17 +1324,19 @@
 		align-items: center;
 		flex-direction: row;
 	}
-	.zjbns{ 
+
+	.zjbns {
 		width: 50rpx;
 		height: 50rpx;
-		border-color:#ff4564;
+		border-color: #ff4564;
 		border-width: 1px;
 		position: fixed;
 		margin: auto;
 		bottom: -50rpx;
-		z-index:10;
+		z-index: 10;
 	}
-	.singbubox{
+
+	.singbubox {
 		display: flex;
 		display: -webkit-flex;
 		flex-wrap: nowrap;
@@ -1270,14 +1345,16 @@
 		flex-direction: row;
 		font-size: 15rpx;
 	}
-	.qiejis{
+
+	.qiejis {
 		display: flex;
 		display: -webkit-flex;
 		flex-wrap: nowrap;
 		justify-content: center;
 		align-items: center;
 	}
-	.row-itemtwo{
+
+	.row-itemtwo {
 		border-bottom-width: 1px;
 		border-color: #F3F3F3;
 		display: flex;
@@ -1289,20 +1366,23 @@
 		width: 300rpx;
 		height: 60rpx;
 	}
-	.textlist{
+
+	.textlist {
 		font-size: 27rpx;
 		line-height: 40rpx;
-		lines:1;
-		text-overflow:ellipsis;
+		lines: 1;
+		text-overflow: ellipsis;
 		color: #555555;
 	}
-	.imgboxle{
+
+	.imgboxle {
 		width: 30rpx;
 		height: 30rpx;
 		margin-right: 20rpx;
-		
+
 	}
-	.row-itetxt{
+
+	.row-itetxt {
 		display: block;
 		width: 230rpx;
 		border-width: 1px;
@@ -1311,17 +1391,19 @@
 		margin-bottom: 10rpx;
 		line-height: 100rpx;
 	}
-	.rowtwo{
+
+	.rowtwo {
 		height: 180rpx;
 		width: 650rpx;
 		border-width: 0rpx;
 		position: relative;
 		top: -5rpx;
 		left: 19rpx;
-		overflow:scroll;
-		position: relative; 
+		overflow: scroll;
+		position: relative;
 	}
-	.listboxsadsa{
+
+	.listboxsadsa {
 		position: absolute;
 		top: 0;
 		display: flex;
@@ -1330,11 +1412,12 @@
 		justify-content: space-between;
 		flex-direction: row;
 		width: 650rpx;
-		overflow-y:scroll;
+		overflow-y: scroll;
 	}
+
 	.testdiv {
 		width: 750rpx;
 		height: 1600rpx;
 		position: fixed;
-	} 
+	}
 </style>

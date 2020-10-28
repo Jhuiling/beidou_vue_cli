@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			</radio-group>
-			<div class="dv-close" @tap="closeSel"> 
+			<div class="dv-close" @tap="closeSel">
 				<image class="dv-close-image" src="../../static/image/up.png"></image>
 			</div>
 		</div>
@@ -124,7 +124,7 @@
 								<image class="row-item-icon del-icon" src="/static/image/close@2x.png" @click="removeAddress(work.id)"></image>
 							</div>
 						</div>
-						
+
 					</div>
 					<div class="row" v-for="(item,index) in addressList" :key="index">
 							<div class="row-item">
@@ -200,7 +200,7 @@
 				selOpen: false,
 				watchOpen: true,
 				imgList:[
-					
+
 				],
 				menuList:[{
 					name:'位置',
@@ -266,22 +266,22 @@
 				common.request('machine/localhost', {}, function(res) {
 					_this.addressList = res.data.info
 				})
-				
+
 			},
 			// 获取设备详情
 			getMachineInfo(){
 				common.request('machine/index', {}, function(res) {
 					_this.machineInfo = res.data.info
 				})
-				
+
 			},
 			// 获取设备列表
 			getMachineList() {
 				common.request('machine/machine_list', {}, function(res) {
 					_this.machineLists = res.data.info;
 					if(!uni.getStorageSync('deviceid')) {
-						uni.setStorageSync('deviceid',_this.machineLists[0].machineInfo.deviceid) 
-					} 
+						uni.setStorageSync('deviceid',_this.machineLists[0].machineInfo.deviceid)
+					}
 					// _this.machineInfo = _this.machineLists[_this.change].machineInfo
 					_this.$forceUpdate()
 					_this.getRole()
