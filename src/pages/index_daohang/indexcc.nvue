@@ -268,7 +268,6 @@
 
 			},
 			daohangbtn(){
-
 				uni.navigateTo({
 					url: '/pages/index_daohang/indexccnew'
 				});

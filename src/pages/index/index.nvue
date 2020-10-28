@@ -545,6 +545,7 @@
 				let bgname = _this.bgname ;
 				let bglat = _this.bglatitude;
 				let bglon =  _this.bglongitude ;
+				console.log(6666)
 				uni.navigateTo({
 					url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
 				});

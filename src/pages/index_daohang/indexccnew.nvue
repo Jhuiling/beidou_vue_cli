@@ -130,10 +130,6 @@
 			}
 		},
 		onLoad(e) {
-			console.log(e)
-			for (let i in sdkwx) {
-				console.log(i + ':' + sdkwx[i])
-			}
 			var _this = this;
 
 			_this.bglat = e.bglat
@@ -236,7 +232,7 @@
 		watch: {},
 		methods: {
 			mapUpdate() {
-				this.timer = setInterval(this.dangqian, 5000)
+				this.timer = setInterval(this.dangqian, 3500)
 			},
 			daohangqu() {
 				var _this = this;
@@ -487,8 +483,16 @@
 				}
 			},
 			dangqian() {
-				this.longitude = Number(this.longitude) - 0.000001;
-				this.latitude = Number(this.latitude) - 0.000001;
+				var _this = this
+				uni.getLocation({
+					type: 'gcj02',
+					success: function(res) {
+						_this.longitude = Number(res.longitude) - 0.000001;
+						_this.latitude = Number(res.latitude) - 0.000001;
+					}
+				});
+				// this.longitude = Number(this.longitude) - 0.000001;
+				// this.latitude = Number(this.latitude) - 0.000001;
 				// :longitude="longitude"
 				// :latitude="latitude"
 			},
