@@ -88,7 +88,7 @@
             <image class="p-tit-img" src="/static/image/g_single@2x.png">
             </image>
             <view class="p-txt p">{{
-              item.is_online == 0 ? "在线" : "离线"
+              item.is_online == 0 ? "离线" : "在线"
             }}</view>
           </view>
         </view>
@@ -272,10 +272,11 @@ export default {
       console.log("eeeeeeeeeeeeeee", e);
       _this.ys = e;
       _this.filtrateList();
+          // types: e,
+      // 
       common.request(
         "machine/machine_list",
         {
-          types: e,
           ...value,
         },
         function (res) {

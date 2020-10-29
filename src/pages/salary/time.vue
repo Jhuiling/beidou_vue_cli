@@ -38,9 +38,9 @@
 						</view>
 					</view>
 					<view class="time-chose-box">
-						<view class="time-title">最早打卡时间</view>
+						<view class="time-title">上班最早打卡时间</view>
 						<view class="time-title">上班时间</view>
-						<view class="time-title">最晚打卡时间</view>
+						<view class="time-title">上班最晚打卡时间</view>
 					</view>
 					<view class="time-chose-box">
 						<view class="time">
@@ -63,9 +63,9 @@
 						</view>
 					</view>
 					<view class="time-chose-box">
-						<view class="time-title">最早打卡时间</view>
+						<view class="time-title">下班最早打卡时间</view>
 						<view class="time-title">下班时间</view>
-						<view class="time-title">最晚打卡时间</view>
+						<view class="time-title">下班最晚打卡时间</view>
 					</view>
 				</view>
 			</view>
@@ -95,9 +95,9 @@
 						</view>
 					</view>
 					<view class="time-chose-box">
-						<view class="time-title">最早打卡时间</view>
+						<view class="time-title">加班最早打卡时间</view>
 						<view class="time-title">加班开始</view>
-						<view class="time-title">最晚打卡时间</view>
+						<view class="time-title">加班最晚打卡时间</view>
 					</view>
 					<view class="time-chose-box">
 						<view class="time">
@@ -194,7 +194,7 @@
 						e_start: '08:00',
 						e_time: '08:00',
 						e_end: '08:00'
-					}
+					},
 				},
 				overtimeCheck: false,
 				overtimeArr: {
@@ -245,6 +245,7 @@
 			},
 			onClickItem(e) {
 				var current = e.currentIndex + 1;
+				console.log("current",current)
 				this.timeItem = current;
 				for (var i = 1; i <= current; i++) {
 					this.timeChose[i] = {};

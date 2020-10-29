@@ -97,11 +97,11 @@
 					console.log(res)
 					// console.log(res)
 					// this.html = res.data;
-					// if (res.data.info.type) {
-					// 	_this.urlbtx = true
-					// } else {
-					// 	_this.urlbtx = false
-					// }
+					if (res.data.info.type) {
+						_this.urlbtx = true
+					} else {
+						_this.urlbtx = false
+					}
 					// console.log(res.data.info.type)
 				});
 			}
@@ -145,39 +145,32 @@
 					});
 					return false
 				}
+					console.log("设别绑定",_this.alias,_this.deviceid,_this.use_user)
+				
 				common.request('machine/bind_machine', {
 					alias: _this.alias,
 					deviceid: _this.deviceid,
 					use_user: _this.use_user
 				}, function(res) {
-					console.log(_this.alias)
-					console.log(_this.deviceid)
-					console.log(_this.use_user)
-					common.request('machine/bind_fetch', {
-						deviceid: _this.deviceid
-					}, function(res) {
 						console.log("绑定设备",res)
-						if (res.data.status == 1) {
-							if (res.data.info.type) {
-								_this.urlbtx = true
-							} else {
-								_this.urlbtx = false
-							}
-							// console.log(res.data.info.type)
-							uni.navigateTo({
-								url: '/pages/index/index'
-							})
-						} else {
-							// console.log(res)
-							uni.showToast({
-								title: res.data.info,
-								duration: 2000,
-								icon: "none"
-							});
-						}
-
-					});
-
+					if (res.data.status == 1) {
+						// if (res.data.info.type) {
+						// 	_this.urlbtx = true
+						// } else {
+						// 	_this.urlbtx = false
+						// }
+						// console.log(res.data.info.type)
+						uni.navigateTo({
+							url: '/pages/index/index'
+						})
+					} else {
+						// console.log(res)
+						uni.showToast({
+							title: res.data.info,
+							duration: 2000,
+							icon: "none"
+						});
+					}
 				});
 			},
 			goAdmin() {

@@ -102,7 +102,6 @@
 				
 				var postData = {};
 				var timeData = uni.getStorageSync('timeData');
-				
 				var location = uni.getStorageSync('location');
 				var range = uni.getStorageSync('range');
 				if(_this.id>0){
@@ -119,7 +118,8 @@
 				postData.range = range;
 				postData.timeData = JSON.stringify(timeData) ;
 				postData.location = JSON.stringify(location);
-				// console.log(JSON.stringify(timeData))
+				console.log(postData);
+				console.log(JSON.stringify(timeData))
 				common.request('Salary/create',postData,function(res){
 					console.log(postData)
 					uni.showToast({
