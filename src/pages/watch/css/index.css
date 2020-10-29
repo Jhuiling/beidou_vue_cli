@@ -265,7 +265,22 @@
 	margin-bottom: 10rpx;
 	text-align: center;
 }
-
+.tip-box{
+	background-color: #FF5B4A;
+	border-radius: 50%;
+	position: absolute;
+	top: 0;
+	right: 25rpx;
+	text-align: center;
+}
+.tip{
+	font-size: 22rpx;
+	color: #FFFFFF;
+	width: 30rpx;
+	height: 30rpx;
+	line-height: 30rpx;
+	text-align: center;
+}
 .icon {
 	width: 75rpx;
 	height: 75rpx;

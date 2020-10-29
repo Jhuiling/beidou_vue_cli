@@ -148,8 +148,12 @@
 				<div class="list-box" v-if="notsearch">
 					<div class="btn-list" v-if="guanbi">
 						<div class="item" v-for="(item,index) in menuList" :key="index" @tap="goUrl(item)">
+							
 							<image v-bind:src="item.icon" alt="" class="icon"></image>
 							<text class="btn-list-text">{{item.name}}</text>
+							<view class="tip-box"v-if="item.name==='警报'&&noView">
+								<text class="tip" >{{noView}}</text>
+							</view>
 						</div>
 					</div>
 					<div  class="btn-list" v-else>
@@ -469,7 +473,8 @@
 				mapTop:null,
 				windowHeight:null,
 				titleBoxHeight:null,
-				isShow:true
+				isShow:true,
+				noView:0
 			}
 		},
 		onHide(){
@@ -973,12 +978,13 @@
 					_this.deviceid = res.data.info[0].machineInfo.deviceid
 					_this.$forceUpdate()
 					_this.getRole()
+					_this.getAlarm()
 				})
 				_this.getAddress();
 			},
 			// 路由跳转
 			goUrl(item) {
-				_this.close = true
+				_this.close = true;
 				console.log(item.url)
 				uni.navigateTo({
 					url: item.url+"?deviceid="+_this.deviceid
@@ -1021,8 +1027,22 @@
 					_this.menuList = res.data.info
 				})
 			},
+			getAlarm(){
+				common.request('/machine/police_list', {
+					deviceid: _this.deviceid
+				}, function(res) {
+					let alarmList = res.data.info.data
+					if(alarmList.length){
+						let newAlarmList=alarmList.filter((item)=>{
+							return item.is_view!=1
+						})
+						_this.noView = alarmList.length
+					}
+					
+				})
+			},
 			quanbu(){
-				var _this = this ;
+				var _this = this 
 				var mymarkers = _this.mymarkers ;
 				_this.mymarkers  = mymarkers
 				_this.scale = 5
@@ -1052,6 +1072,7 @@
 				_this.phone = _this.machineInfo.sos1
 
 				_this.getRole();
+				_this.getAlarm()
 				_this.$forceUpdate();
 				_this.scale = 15
 				_this.mypolylines = [] ;
