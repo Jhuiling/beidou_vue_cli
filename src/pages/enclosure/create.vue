@@ -1,8 +1,9 @@
 <template>
-  <view>
-    <web-view :src="'/hybrid/html/enclosure.html?deviceid='+deviceid+'&token='+token+'&longitude='+longitude+'&latitude='+latitude" @pagestart="onPageStart" @onPostMessage="handlePostMessage"
-		 @pagefinish="onPageFinish" @error="onError" @receivedtitle="onReceivedTitle"></web-view> 
-    <!-- <view class="page">
+	<view>
+		<web-view :src="'/hybrid/html/enclosure.html?deviceid='+deviceid+'&token='+token+'&longitude='+longitude+'&latitude='+latitude"
+		 @pagestart="onPageStart" @onPostMessage="handlePostMessage" @pagefinish="onPageFinish" @error="onError"
+		 @receivedtitle="onReceivedTitle"></web-view>
+		<!-- <view class="page">
 
     <uni-nav-bar
       left-icon="back"
@@ -79,93 +80,97 @@
       </view>
     </view>
     </view>-->
-  </view>
+	</view>
 </template>
 
 <script>
-var _this, WV;
-import uniSection from "@/components/uni-section/uni-section.vue";
-import uniIcons from "@/components/uni-icons/uni-icons.vue";
-import cuProgress from "@/components/cu-progress/cu-progress.vue";
-import common from "common.js";
-export default {
-  components: {
-    uniSection,
-    uniIcons,
-    cuProgress
-  },
-  data() {
-    return {
-      beginNum: 100,
-      endNum: 4000,
-      currentNum: 0,
-      close: true,
-      height: 300,
-      pageX: 0,
-      pixelRatio: 2,
-      windowHeight: 1280,
-	  deviceid:'',
-	  token:'',
-	  longitude:'',
-	  latitude:''
-    };
-  },
-  onReady() {},
-  onLoad(e) {
-	  console.log(11111111111111)
-	  console.log(e.deviceid)
-	  this.deviceid  = e.deviceid
-	  var _this = this 
-	  // this.createEnclosure();
-	  uni.getLocation({
-	      type: 'wgs84',
-	      success: function (res) {
-			  _this.longitude = res.longitude 
-			  _this.latitude = res.latitude
-	          console.log('当前位置的经度：' + res.longitude);
-	          console.log('当前位置的纬度：' + res.latitude);
-	      }
-	  });
-	  uni.getStorage({
-	      key: 'token',
-	      success: function (res) {
-			  _this.token = res.data
-	          // console.log('这是获取key中的内容',res.data) 
-	      }
-	  }) 
-  },
-  onShow() {},
-  mounted() {
-    _this = this;
-    // _this.createEnclosure();
-    // #ifdef APP-PLUS
-    // uni.getSystemInfo({
-    //   success: function(res) {
-    //     _this.pixelRatio = res.pixelRatio;
-    //     _this.windowHeight = res.windowHeight;
-    //   }
-    // });
-    // setTimeout(() => {
-    //   var currentWebview = this.$mp.page.$getAppWebview(); //获取当前页面的webview对象
-    //   WV = currentWebview.children()[0];
-    //   console.log(this.windowHeight - 200);
-    //   WV.setStyle({ top: 94, height: _this.windowHeight - 160 });
-    // }, 1000);
-    // #endif
-  },
-  methods: {
-    handlePostMessage: function(data) {
+	var _this, WV;
+	import uniSection from "@/components/uni-section/uni-section.vue";
+	import uniIcons from "@/components/uni-icons/uni-icons.vue";
+	import cuProgress from "@/components/cu-progress/cu-progress.vue";
+	import common from "common.js";
+	export default {
+		components: {
+			uniSection,
+			uniIcons,
+			cuProgress
+		},
+		data() {
+			return {
+				beginNum: 100,
+				endNum: 4000,
+				currentNum: 0,
+				close: true,
+				height: 300,
+				pageX: 0,
+				pixelRatio: 2,
+				windowHeight: 1280,
+				deviceid: '',
+				token: '',
+				longitude: '',
+				latitude: ''
+			};
+		},
+		onReady() {},
+		onLoad(e) {
+			console.log(11111111111111)
+			console.log(e.deviceid)
+			this.deviceid = e.deviceid
+			var _this = this
+			// this.createEnclosure();
+			if (e.longitude && e.latitude) {
+				_this.longitude = e.longitude
+				_this.latitude = e.latitude
+			} else {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						_this.longitude = res.longitude
+						_this.latitude = res.latitude
+					}
+				});
+			}
+
+			uni.getStorage({
+				key: 'token',
+				success: function(res) {
+					_this.token = res.data
+					// console.log('这是获取key中的内容',res.data) 
+				}
+			})
+		},
+		onShow() {},
+		mounted() {
+			_this = this;
+			// _this.createEnclosure();
+			// #ifdef APP-PLUS
+			// uni.getSystemInfo({
+			//   success: function(res) {
+			//     _this.pixelRatio = res.pixelRatio;
+			//     _this.windowHeight = res.windowHeight;
+			//   }
+			// });
+			// setTimeout(() => {
+			//   var currentWebview = this.$mp.page.$getAppWebview(); //获取当前页面的webview对象
+			//   WV = currentWebview.children()[0];
+			//   console.log(this.windowHeight - 200);
+			//   WV.setStyle({ top: 94, height: _this.windowHeight - 160 });
+			// }, 1000);
+			// #endif
+		},
+		methods: {
+			handlePostMessage: function(data) {
 				// 获取网页的参数
 			},
- 
- 
+
+
 			onPageStart: function(e) {
 				console.log(e);
 				// 监听页面加载成功
 				this.PageStart = true;
 				// 其实页面也可以使用这个方法传参
 				//this.$refs.webview.evalJs("setLoginToken('我就是个参数啊')");
- 
+
 			},
 			onPageFinish: function(e) {
 				this.pagefinish = e.url;
@@ -177,7 +182,7 @@ export default {
 				// currentWebview.setStyle({
 				// 	titleNView: tn
 				// });
- 
+
 			},
 			onReceivedTitle: function(e) {
 				if (e.title) {
@@ -193,59 +198,62 @@ export default {
 				var webview = weex.requireModule('webview');
 				webview.reload(this.$refs.webview);
 			},
-    setHeight() {
-      WV.setStyle({ top: 90, height: _this.height });
-    },
-    // 返回
-    goBack() {
-      uni.navigateBack({
-        data: 1
-      });
-    },
-    togglePopup() {
-      _this.close = !this.close;
-      if (_this.close) {
-        WV.setStyle({
-          top: 94,
-          height: _this.windowHeight - 160,
-          zindex: -999
-        });
-      } else {
-        WV.setStyle({
-          top: 94,
-          height: _this.windowHeight - 530,
-          zindex: -999
-        });
-      }
-    },
-    setProgress(val) {
-      _this.pageX = val.value;
-      _this.currentNum =
-        _this.beginNum + ((_this.endNum - _this.beginNum) / 100) * val.value;
-    },
-    // 创建围栏
-    createEnclosure() {
-      let data = {
-        deviceid: this.deviceid,
-        latitude: "40.031118",
-        longitude: "116.335354",
-        range: "400",
-        is_police: "1",
-        type: 1
-      };
-	  console.log(this.deviceid)
-      common.request("machine/enclosure_create", data, function(res) {
-        console.log(data);
-      });
-    }
-  }
-};
+			setHeight() {
+				WV.setStyle({
+					top: 90,
+					height: _this.height
+				});
+			},
+			// 返回
+			goBack() {
+				uni.navigateBack({
+					data: 1
+				});
+			},
+			togglePopup() {
+				_this.close = !this.close;
+				if (_this.close) {
+					WV.setStyle({
+						top: 94,
+						height: _this.windowHeight - 160,
+						zindex: -999
+					});
+				} else {
+					WV.setStyle({
+						top: 94,
+						height: _this.windowHeight - 530,
+						zindex: -999
+					});
+				}
+			},
+			setProgress(val) {
+				_this.pageX = val.value;
+				_this.currentNum =
+					_this.beginNum + ((_this.endNum - _this.beginNum) / 100) * val.value;
+			},
+			// 创建围栏
+			createEnclosure() {
+				let data = {
+					deviceid: this.deviceid,
+					latitude: "40.031118",
+					longitude: "116.335354",
+					range: "400",
+					is_police: "1",
+					type: 1
+				};
+				console.log(this.deviceid)
+				common.request("machine/enclosure_create", data, function(res) {
+					console.log(data);
+				});
+			}
+		}
+	};
 </script>
 
 <style lang="less" scoped>
-.uni-transition {
-  bottom: calc(var(--window-bottom) + 0);
-}
+	.uni-transition {
+		bottom: calc(var(--window-bottom) + 0);
+	}
 
-@import url("./css/create.less");
+	@import url("./css/create.less");
 </style>

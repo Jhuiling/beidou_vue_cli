@@ -749,6 +749,14 @@
 				"backgroundColor": "#FFFFFF",
 				"navigationBarBackgroundColor": "#FFFFFF"
 			}
+		},
+		{
+			"path": "pages/search/index",
+			"style": {
+				"navigationBarTitleText": "搜索位置",
+				"backgroundColor": "#FFFFFF",
+				"navigationBarBackgroundColor": "#FFFFFF"
+			}
 		}
 	],
 	"globalStyle": {

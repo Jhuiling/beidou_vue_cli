@@ -142,6 +142,7 @@
 				    <el-slider
 				      v-model="value1"
 					 :show-tooltip="false"
+					 @change="sliderChange"
 					  >
 				    </el-slider>
 				  </div>
@@ -156,8 +157,19 @@
 					<div class="begin"  id="starttwp" onclick="resumeAnimation()">
 						<img src="./image/gj_start@2x.png" alt="">
 					</div>
-					<div class="accelerate" id="resume" onclick="kuaijing()">
+					<!-- <div class="accelerate" id="resume" onclick="kuaijing()">
 						<img src="./image/fast@2x.png" alt="">
+					</div> -->
+				</div>
+				<div class="traje-menu">
+					<div class="speed" id="resume" onclick="changeSpeed(200)">
+						慢
+					</div>
+					<div class="speed" id="resume" onclick="changeSpeed(2000)">
+						中
+					</div>
+					<div class="speed" id="resume" onclick="changeSpeed(5000)">
+						快
 					</div>
 				</div>
 			</div>
@@ -210,6 +222,9 @@
 		  	
 	  },
 	  methods:{
+		  sliderChange(e){
+			  console.log(e)
+		  },
 		  handleConfirm(value){
 		  	 var _this = this ;
 		  	 var standardDate = value 
@@ -360,7 +375,14 @@
 				marker.moveAlong(xing, 5000);
 				app.value1 = (100*xing.length)/xing.length
 			}	
-	  
+	 function changeSpeed(speed=200){
+		 console.log(lineArr)
+		 var xing = lineArr.slice(dijige) ;
+		 var qianmian =  lineArr.slice(0,dijige+1) ;
+		 passedPolylinetwo.setPath(qianmian) 
+		 marker.moveAlong(xing, speed);
+		 app.value1 = (100*xing.length)/xing.length
+	 }
 	function getQueryString(deviceid) {
 		var reg = new RegExp('(^|&)' + deviceid + '=([^&]*)(&|$)', 'i');
 		var r = window.location.search.substr(1).match(reg);

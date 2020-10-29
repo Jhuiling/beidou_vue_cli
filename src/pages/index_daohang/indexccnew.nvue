@@ -131,7 +131,6 @@
 		},
 		onLoad(e) {
 			var _this = this;
-
 			_this.bglat = e.bglat
 			_this.bglon = e.bglon
 			_this.endlat = e.endlat
@@ -250,6 +249,7 @@
 					var bgname = _this.bgname;
 					_this.imagett = false
 					var key = "b7ac380a83e2a2b753f0023d3931ba33";
+					console.log(88888)
 					sdkwx.showRoute({
 						theme: 0,
 						trafficEnabled: true,

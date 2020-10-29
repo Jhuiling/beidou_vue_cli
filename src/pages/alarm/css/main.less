@@ -12,25 +12,45 @@ uni-page-body {
 		align-items: center;
 		align-content: center;
 		justify-content: center;
-		padding: 40rpx 0rpx;  
+		padding: 40rpx 10rpx;  
         font-size: 26rpx;
         line-height: 60rpx;
         text-align: center;
         border-bottom: 1px solid #eee;
+		justify-content: space-between;
 
         .time {
             height: 60rpx;
-            width: 320rpx;
+            width: 280rpx;
             border-radius: 30rpx;
             background: #eee;
             display: inline-block;
+			font-size: 26rpx;
         }
 
         text {
-            margin: 0 20rpx;
+            margin: 0 10rpx;
         }
+		.search-btn{
+			padding: 0 20rpx;
+			border-radius: 40rpx;
+			background: skyblue;
+			color: #FFFFFF;
+		}
     }
-
+	.mask{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 9;
+		text{
+			position: absolute;
+			top: 400rpx;
+			left: 50%;
+			transform: translateX(-50%);
+			color: #999999;
+		}
+	}
     .event-list {
         width: 680rpx;
         font-size: 26rpx;

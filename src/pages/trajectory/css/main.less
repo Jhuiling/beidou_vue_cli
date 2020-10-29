@@ -4,19 +4,17 @@ uni-page-body {
 
 .page {
     width: 100%;
-
     .timearea {
-		padding: 40rpx 0rpx;
+		padding: 60rpx 10rpx 20rpx;
         font-size: 26rpx;
         line-height: 60rpx;
         text-align: center;
-        border-bottom: 1px solid #eee;
+        border: 1px solid #eee;
 		display: flex;
 		display: -webkit-flex;
 		flex-wrap: nowrap;
 		align-items: center;
-		justify-content: center;
-
+		justify-content: space-between;
         .time {
             height: 60rpx;
             width: 280rpx;
@@ -26,10 +24,28 @@ uni-page-body {
         }
 
         text {
-            margin: 0 40rpx;
+            margin: 0 10rpx;
         }
+		.search-btn{
+			padding: 0 20rpx;
+			border-radius: 40rpx;
+			background: skyblue;
+			color: #FFFFFF;
+		}
     }
-
+	.mask{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 9;
+		text{
+			position: absolute;
+			top: 400rpx;
+			left: 50%;
+			transform: translateX(-50%);
+			color: #999999;
+		}
+	}
     .event-list{
         width: 680rpx;
         height: 100rpx;

@@ -17,6 +17,9 @@
 			<div @click="huilai()"  style="top: 400rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;">
 				<image style="width: 70rpx;height: 70rpx;" src="../../static/image/dangian.png"  mode="widthFix"></image>
 			</div>
+			<div class="box qiejis top-3" v-on:click="dangqian()" style="text-align: center;width: 70rpx;height: 70rpx; top: 400rpx;background-color: #FFFFFF;right: 35rpx;"  >
+				<image style="width: 70rpx;height: 70rpx;" class="image" src="../../static/image/dangian.png" mode="widthFix"></image>
+			</div>
 			<div class="box qiejis top-3"  style="top: 500rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;" @tap="goUrltdfg()">
 				<image  style="width: 70rpx;height: 70rpx;" src="../../static/image/new_for.png" mode="widthFix"></image>
 			</div>
@@ -241,7 +244,7 @@
 		:circles="circles"
 		>
 		</map> -->
-		<map key='map2' :longitude="longitude" :latitude="latitude" :enable-3D='true' :show-compass='true' :show-location="true"
+		<map key='map2' v-if="isShow" :longitude="longitude" :latitude="latitude" :enable-3D='true' :show-compass='true' :show-location="true"
 		 :style="{width: '750rpx', height: phoneHeight-titleBoxHeight+ 'px','padding-top':mapTop-titleBoxHeight+'px'}" :markers="mymarkers" :polyline="mypolylines"
 		 :scale="scale" show-scale @markertap="markertap" :enable-traffic="true" :enable-satellite="satellite" :circles="circles">
 		</map>
@@ -465,7 +468,8 @@
 				yingchang:false,
 				mapTop:null,
 				windowHeight:null,
-				titleBoxHeight:null
+				titleBoxHeight:null,
+				isShow:true
 			}
 		},
 		onHide(){
@@ -532,6 +536,13 @@
 		},
 		watch: {},
 		methods: {
+			dangqian(){
+				this.isShow=false
+				this.$nextTick(()=>{
+					this.scale = 17
+					this.isShow=true
+				})
+			},
 			dianjidh(e){
 				console.log(e)
 				var _this = this ;
