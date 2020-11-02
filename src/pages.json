@@ -3,15 +3,6 @@
 		// car_bd
 		// localtion_car
 		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "首页",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		}, 
-		{
 			"path": "pages/index/qidong",
 			"style": {
 				"navigationBarTitleText": "首页",
@@ -20,6 +11,16 @@
 				}
 			}
 		}, 
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, 
+		
 		
 		
 		{
