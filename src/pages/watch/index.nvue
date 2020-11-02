@@ -18,6 +18,9 @@
 			<div @click="huilai()" style="top: 400rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;">
 				<image style="width: 70rpx;height: 70rpx;" src="../../static/image/dangian.png" mode="widthFix"></image>
 			</div>
+			<div class="box qiejis top-3" v-on:click="dangqian()" style="text-align: center;width: 70rpx;height: 70rpx; top: 400rpx;background-color: #FFFFFF;right: 35rpx;">
+				<image style="width: 70rpx;height: 70rpx;" class="image" src="../../static/image/dangian.png" mode="widthFix"></image>
+			</div>
 			<div class="box qiejis top-3" style="top: 500rpx;background-color: #FFFFFF;width: 70rpx;height: 70rpx;right: 35rpx;border-width: 2rpx;border-color: #1296db;"
 			 @tap="goUrltdfg()">
 				<image style="width: 70rpx;height: 70rpx;" src="../../static/image/new_for.png" mode="widthFix"></image>
@@ -159,6 +162,9 @@
 						<div class="item" v-for="(item,index) in menuList" :key="index" @tap="goUrl(item)">
 							<image v-bind:src="item.icon" alt="" class="icon"></image>
 							<text class="btn-list-text">{{item.name}}</text>
+							<view class="tip-box"v-if="item.name==='警报'&&noView">
+								<text class="tip" >{{noView}}</text>
+							</view>
 						</div>
 					</div>
 					<div class="btn-list" v-else>
@@ -236,7 +242,7 @@
 
 
 
-		<map key='map2' :longitude="longitude" :latitude="latitude" :enable-3D='true' :show-compass='true' :show-location="true"
+		<map key='map2' v-if="isShow" :longitude="longitude" :latitude="latitude" :enable-3D='true' :show-compass='true' :show-location="true"
 		 :style="{width: '750rpx', height: phoneHeight + 'px','padding-top':mapTop+'px'}" :markers="mymarkers" :polyline="mypolylines"
 		 :scale="scale" show-scale @markertap="markertap" :enable-traffic="true" :enable-satellite="satellite" :circles="circles">
 		</map>
@@ -299,7 +305,7 @@
 	import AMapWXfile from '@/plugins/amap-wx.js'
 	var key = "b7ac380a83e2a2b753f0023d3931ba33";
 	var sdkwx = uni.requireNativePlugin('AMap-NavSdkWX');
-	
+
 	var _this = null
 	export default {
 		data() {
@@ -468,7 +474,9 @@
 				dajmnbox: false,
 				yingchang: false,
 				windowHeight: null,
-				mapTop: null
+				mapTop: null,
+				isShow:true,
+				noView:0
 			}
 		},
 		onHide() {
@@ -493,8 +501,8 @@
 				const result1 = dom.getComponentRect(this.$refs.showshare, option => {
 					console.log(option)
 					console.log(2222)
-					that.phoneHeight = option.size ? option.size.top-this.mapTop : this.windowHeight-this.mapTop
-					console.log(this.windowHeight,this.phoneHeight,this.mapTop,option.size.top)
+					that.phoneHeight = option.size ? option.size.top - this.mapTop : this.windowHeight - this.mapTop
+					console.log(this.windowHeight, this.phoneHeight, this.mapTop, option.size.top)
 				})
 			}, 400)
 		},
@@ -538,6 +546,13 @@
 		},
 		watch: {},
 		methods: {
+			dangqian(){
+				this.isShow=false
+				this.$nextTick(()=>{
+					this.scale = 17
+					this.isShow=true
+				})
+			},
 			dianjidh(e) {
 				console.log(e)
 				var _this = this;
@@ -990,6 +1005,7 @@
 					_this.deviceid = res.data.info[0].machineInfo.deviceid
 					_this.$forceUpdate()
 					_this.getRole()
+					_this.getAlarm()
 				})
 				_this.getAddress();
 			},
@@ -1029,11 +1045,26 @@
 			},
 			// 获取功能
 			getRole() {
+				console.log(_this.deviceid)
 				common.request('/machine/auth_role', {
 					deviceid: _this.deviceid
 				}, function(res) {
 					console.log(res)
 					_this.menuList = res.data.info
+				})
+			},
+			getAlarm(){
+				common.request('/machine/police_list', {
+					deviceid: _this.deviceid
+				}, function(res) {
+					let alarmList = res.data.info.data
+					if(alarmList.length){
+						let newAlarmList=alarmList.filter((item)=>{
+							return item.is_view!=1
+						})
+						_this.noView = alarmList.length
+					}
+					
 				})
 			},
 			quanbu() {
@@ -1075,6 +1106,7 @@
 				_this.phone = _this.machineInfo.sos1
 
 				_this.getRole();
+				_this.getAlarm();
 				_this.$forceUpdate();
 				_this.scale = 15
 				_this.mypolylines = [];

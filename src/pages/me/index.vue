@@ -504,6 +504,7 @@
 				uni.showActionSheet({
 				    itemList: ['绑定已有设备', '绑定新设备','绑定汽车'],
 				    success: function (res) {
+						console.log("扫一扫时间",res)
 						if(res.tapIndex==0){
 							uni.scanCode({
 								success:function(res){
@@ -514,13 +515,29 @@
 								}  
 							});
 						}else if(res.tapIndex==1){
-							uni.navigateTo({
-								url:"/pages/machine/bind"
-							}) 
+							uni.scanCode({
+								success:function(res){
+									console.log("扫码====",res)
+									uni.navigateTo({
+										url:"/pages/machine/bind?deviceid="+res.result
+									}) 
+								}  
+							});
+							// uni.navigateTo({
+							// 	url:"/pages/machine/bind"
+							// }) 
 						}else{
-							uni.navigateTo({
-								url:"/pages/car_bd/car_bd"
-							}) 
+							uni.scanCode({
+								success:function(res){
+									console.log("扫码====",res)
+									uni.navigateTo({
+										url:"/pages/car_bd/car_bd?deviceid="+res.result
+									}) 
+								}  
+							});
+							// uni.navigateTo({
+							// 	url:"/pages/car_bd/car_bd"
+							// }) 
 						}
 				    },
 				    fail: function (res) {
