@@ -104,8 +104,8 @@
 			<view class="kaoqingda" style="width: 100%;margin: 10rpx auto;position: relative;display: flex;display: -webkit-flex;align-items: center;align-content: center;flex-direction: row;">
 				<image src="/static/image/dabj.png" style="width:100%;height: 160rpx;"></image>
 				<view style="position: absolute;width: 100%;top: 0;left: 30rpx;">
-					<view style="font-size: 32rpx;padding: 10rpx 0rpx;"  v-if="isSalary" @click="doSalary">考勤打卡</view>
-					<view  style="font-size: 32rpx;padding: 10rpx 0rpx;"  v-else  @click="joinSalary"  >加入考勤组 </view>
+					<!-- <view style="font-size: 32rpx;padding: 10rpx 0rpx;"  v-if="isSalary" @click="doSalary">考勤打卡</view> -->
+					<view  style="font-size: 32rpx;padding: 10rpx 0rpx;"   @click="joinSalary"  >加入考勤组 </view>
 					<view  style="font-size: 25rpx;color: #555555;">当前为上下班打卡模式</view>
 					<view  style="font-size: 25rpx;color: #555555;display: flex;display: -webkit-flex;flex-wrap: nowrap;align-items: center;align-content: center;"><image src="../../static/image/dwya.png" style="width: 40rpx;height: 40rpx;"></image>{{address}}</view>
 				</view>
@@ -581,9 +581,15 @@
 				this.scrollTop = event.target.scrollTop
 			},
 			joinSalary() {
-				uni.navigateTo({
-					url: '/pages/salary/joinSalary?id=6'
+				uni.scanCode({
+					success:function(res){
+						console.log("扫码====kaoqin",res)
+						uni.navigateTo({
+							url: '/pages/salary/joinSalary?id=' + res.result
+						});
+					}  
 				});
+				
 			},
 			doSalary() {
 				uni.navigateTo({

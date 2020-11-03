@@ -33,6 +33,7 @@
 			common.request('Salary/joinSalary', {
 				id: e.id
 			}, function(res) {
+				console.log(res,"=============")
 				_this.id = res.data.info.id
 				_this.src = res.data.info.fans.head_path;
 				_this.nickName = res.data.info.fans.nick_name;
@@ -89,7 +90,8 @@
 	}
 
 	.clock-btn {
-		background: url('/static/image/kaoqin-btn_07.jpg') 0% 0% / contain no-repeat;
+		// background: url('/static/image/kaoqin-btn_07.jpg') 0% 0% / contain no-repeat;
+		background:#0F91FF;
 		width: 240rpx;
 		height: 240rpx;
 		border-radius: 50%;
