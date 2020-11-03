@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<web-view :src="'/hybrid/html/enclosure.html?deviceid='+deviceid+'&token='+token+'&longitude='+longitude+'&latitude='+latitude"
-		 @pagestart="onPageStart" @onPostMessage="handlePostMessage" @pagefinish="onPageFinish" @error="onError"
+		 @pagestart="onPageStart" @onPostMessage="handlePostMessage" @pagefinish="onPageFinish" 
 		 @receivedtitle="onReceivedTitle"></web-view>
 		<!-- <view class="page">
 
