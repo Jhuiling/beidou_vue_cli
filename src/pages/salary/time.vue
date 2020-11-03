@@ -37,7 +37,7 @@
                 @change="bindTimeChange($event, count, 's_start')"
               >
                 <image src="../../static/image/timming@3x.png"></image>
-                <text>{{ timeChose[count].s_start }}</text>
+                <text>{{ timeChose1[count].s_start }}</text>
               </picker>
             </view>
             <view class="time">
@@ -48,7 +48,7 @@
                 @change="bindTimeChange($event, count, 's_time')"
               >
                 <image src="../../static/image/timming@3x.png"></image>
-                <text>{{ timeChose[count].s_time }}</text>
+                <text>{{ timeChose1[count].s_time }}</text>
               </picker>
             </view>
             <view class="time">
@@ -59,7 +59,7 @@
                 @change="bindTimeChange($event, count, 's_end')"
               >
                 <image src="../../static/image/timming@3x.png"></image>
-                <text>{{ timeChose[count].s_end }}</text>
+                <text>{{ timeChose1[count].s_end }}</text>
               </picker>
             </view>
           </view>
@@ -77,7 +77,7 @@
                 @change="bindTimeChange($event, count, 'e_start')"
               >
                 <image src="../../static/image/timming@3x.png"></image>
-                <text>{{ timeChose[count].e_start }}</text>
+                <text>{{ timeChose1[count].e_start }}</text>
               </picker>
             </view>
             <view class="time">
@@ -88,7 +88,7 @@
                 @change="bindTimeChange($event, count, 'e_time')"
               >
                 <image src="../../static/image/timming@3x.png"></image>
-                <text>{{ timeChose[count].e_time }}</text>
+                <text>{{ timeChose1[count].e_time }}</text>
               </picker>
             </view>
             <view class="time">
@@ -99,7 +99,7 @@
                 @change="bindTimeChange($event, count, 'e_end')"
               >
                 <image src="../../static/image/timming@3x.png"></image>
-                <text>{{ timeChose[count].e_end }}</text>
+                <text>{{ timeChose1[count].e_end }}</text>
               </picker>
             </view>
           </view>
@@ -258,7 +258,7 @@ export default {
         },
       },
       items: ["一天2次", "一天4次", "一天6次"],
-      timeItem: 3,
+      timeItem: 1,
       timeChose: {
         1: {
           s_start: "08:00",
@@ -268,24 +268,35 @@ export default {
           e_time: "08:00",
           e_end: "08:00",
         },
-        2: {
-          s_start: "08:00",
-          s_time: "08:00",
-          s_end: "08:00",
-          e_start: "08:00",
-          e_time: "08:00",
-          e_end: "08:00",
-        },
-        3: {
-          s_start: "08:00",
-          s_time: "08:00",
-          s_end: "08:00",
-          e_start: "08:00",
-          e_time: "08:00",
-          e_end: "08:00",
-        },
+        
       },
-
+	  timeChose1: {
+	    1: {
+	      s_start: "08:00",
+	      s_time: "08:00",
+	      s_end: "08:00",
+	      e_start: "08:00",
+	      e_time: "08:00",
+	      e_end: "08:00",
+	    },
+		// 2: {
+		//   s_start: "08:00",
+		//   s_time: "08:00",
+		//   s_end: "08:00",
+		//   e_start: "08:00",
+		//   e_time: "08:00",
+		//   e_end: "08:00",
+		// },
+	 //  3: {
+	 //    s_start: "08:00",
+	 //    s_time: "08:00",
+	 //    s_end: "08:00",
+	 //    e_start: "08:00",
+	 //    e_time: "08:00",
+	 //    e_end: "08:00",
+	 //  },
+	  },
+	  
       overtimeCheck: false,
       overtimeArr: {
         s_start: "08:00",
@@ -305,8 +316,9 @@ export default {
     if (timeData) {
       this.week = timeData.week;
       this.timeItem = timeData.timeItem;
-      this.current = timeData.timeItem;
+      this.current = timeData.timeItem-1;
       this.timeChose = timeData.timeChose;
+	  this.timeChose1 = timeData.timeChose;
       this.overtimeCheck = timeData.overtimeCheck;
       if (timeData.overtimeArr) {
         this.overtimeArr = timeData.overtimeArr;
@@ -345,11 +357,24 @@ export default {
         this.timeChose[i].e_start = "08:00";
         this.timeChose[i].e_time = "08:00";
         this.timeChose[i].e_end = "08:00";
+		this.timeChose1[i] = {};
+		this.timeChose1[i].s_start = "08:00";
+		this.timeChose1[i].s_time = "08:00";
+		this.timeChose1[i].s_end = "08:00";
+		this.timeChose1[i].e_start = "08:00";
+		this.timeChose1[i].e_time = "08:00";
+		this.timeChose1[i].e_end = "08:00";
       }
     },
     bindTimeChange(value, count, type) {
       console.log(value, count, type);
-      this.timeChose[count][type] = value.detail.value;
+	  let time = value.detail.value;
+	
+	   // this.timeChose1[Number(count)][type] = "";
+      this.timeChose1[Number(count)][type] =time ;
+	  console.log( this.timeChose[Number(count)][type])
+	  this.timeChose[count][type] = value.detail.value;
+	  this.$forceUpdate()
       if (count == 0) {
         console.info(value);
         this.overtimeArr[type] = value.detail.value;
