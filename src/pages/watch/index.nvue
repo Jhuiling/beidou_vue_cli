@@ -434,18 +434,21 @@
 				latitude: 39.909,
 				longitude: 116.39742,
 				imgconfig: {
-					"1": {
-						"icon": "/static/image/weatch@2x.png",
-						"pointimg": "/static/image/mapcnn@3x-watch.png"
-					},
-					"2": {
-						"icon": "/static/image/big_workcard@2x.png",
-						"pointimg": "/static/image/mapcnn@3x-aaa.png"
-					},
-					"3": {
-						"icon": "/static/image/big_car.png",
-						"pointimg": "/static/image/big_car.png"
-					}
+					// "1": {
+					// 	"icon": "/static/image/weatch@2x.png",
+					// 	"pointimg": "/static/image/mapcnn@3x-watch.png"
+					// },
+					// "2": {
+					// 	"icon": "/static/image/big_workcard@2x.png",
+					// 	"pointimg": "/static/image/mapcnn@3x-aaa.png"
+					// },
+					// "3": {
+					// 	"icon": "/static/image/big_car.png",
+					// 	"pointimg": "/static/image/big_car.png"
+					// }
+					"1":{"icon":"/static/image/weatch@2x.png","pointimg":"/static/image/map_watch.png","checkedIcon":"/static/image/mapcnn@3x-watch.png"},
+					"2":{"icon":"/static/image/big_workcard@2x.png","pointimg":"/static/image/map_card.png","checkedIcon":"/static/image/mapcnn@3x-aaa.png"},
+					"3":{"icon":"/static/image/big_car.png","pointimg":"/static/image/map_car.png","checkedIcon":"/static/image/map_car.png"}
 				},
 				guanbi: true,
 				sechboxtt: '',
@@ -888,6 +891,7 @@
 				let sourcedis = bgt + "," + bg;
 				_this.scale = 3
 				_this.daohang = true
+				this.switchIcon(ind)
 				myAmapFun.getDrivingRoute({
 					origin: sourcedis,
 					destination: desdis,
@@ -1111,6 +1115,7 @@
 				_this.scale = 15
 				_this.mypolylines = [];
 				_this.selOpen = false;
+				this.switchIcon(_this.mymarkers[index].id)
 				var newbox = []
 				for (var x = 0; x < _this.circles.length; x++) {
 					var bc = {}
@@ -1128,6 +1133,18 @@
 				}
 				console.log(newbox)
 				_this.circles = newbox
+			},
+			switchIcon(id){
+				let mymarkers = JSON.parse(JSON.stringify(this.mymarkers))
+				let newMarkers = mymarkers.map((item,index)=>{
+					if(item.id==id){
+						item.iconPath = this.imgconfig[_this.machineLists[index].type]['checkedIcon'] 
+					}else{
+						item.iconPath = this.imgconfig[_this.machineLists[index].type]["pointimg"]
+					}
+					return item
+				})
+				this.mymarkers = newMarkers
 			},
 			togglePopup() {
 				_this.selOpen = false

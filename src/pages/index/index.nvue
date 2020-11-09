@@ -87,7 +87,6 @@
 							<image class="dv-list-image" v-bind:src="imgconfig[item.type].icon" mode="aspectFit"></image>
 						</div>
 						<text style="color: #26A2FF;" class="dv-list-text ">{{item.alias}}</text>
-						<!-- <text>{{imgconfig[item.type].icon}}</text> -->
 					</div>
 
 					<div v-else  class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;" >
@@ -95,8 +94,6 @@
 							<image class="dv-list-image" v-bind:src="imgconfig[item.type].icon" mode="aspectFit"></image>
 						</div>
 						<text class="dv-list-text ">{{item.alias}}</text>
-						 <!-- <text style="color: #26A2FF;" class="dv-list-text ">{{item.alias}}</text> -->
-						 <!-- <text>{{imgconfig[item.type].icon}}</text> -->
 					</div>
 				</div>
 
@@ -445,9 +442,12 @@
 				latitude: 39.909,
 				longitude: 116.39742,
 				imgconfig:{
-					"1":{"icon":"/static/image/weatch@2x.png","pointimg":"/static/image/mapcnn@3x-watch.png"},
-					"2":{"icon":"/static/image/big_workcard@2x.png","pointimg":"/static/image/mapcnn@3x-aaa.png"},
-					"3":{"icon":"/static/image/big_car.png","pointimg":"/static/image/big_car.png"}
+					// "1":{"icon":"/static/image/weatch@2x.png","pointimg":"/static/image/mapcnn@3x-watch.png"},
+					// "2":{"icon":"/static/image/big_workcard@2x.png","pointimg":"/static/image/mapcnn@3x-aaa.png"},
+					// "3":{"icon":"/static/image/big_car.png","pointimg":"/static/image/big_car.png"},
+					"1":{"icon":"/static/image/weatch@2x.png","pointimg":"/static/image/map_watch.png","checkedIcon":"/static/image/mapcnn@3x-watch.png"},
+					"2":{"icon":"/static/image/big_workcard@2x.png","pointimg":"/static/image/map_card.png","checkedIcon":"/static/image/mapcnn@3x-aaa.png"},
+					"3":{"icon":"/static/image/big_car.png","pointimg":"/static/image/map_car.png","checkedIcon":"/static/image/map_car.png"}
 				},
 				guanbi:true,
 				sechboxtt:'',
@@ -932,6 +932,7 @@
 				let sourcedis =bgt +","+ bg ;
 				// _this.scale = 3
 				_this.daohang = true
+				this.switchIcon(ind)
 				// myAmapFun.getDrivingRoute({origin:sourcedis,destination:desdis,success:function(data){
 				// 	let pathtemp = data.paths[0]
 				// 	let pls = [];
@@ -999,8 +1000,6 @@
 					for(var i = 0;i<_this.machineLists.length;i++){
 						let machine = _this.machineLists[i];
 						let icon = _this.imgconfig[machine.type]["pointimg"]
-						console.log(11111111111111111)
-						console.log(icon)
 						machinemarkers[i]= {
 							id:i,latitude:machine.machineInfo.latitude,
 							longitude:machine.machineInfo.longitude,
@@ -1074,6 +1073,7 @@
 					deviceid: _this.deviceid
 				}, function (res) {
 					console.log(res)
+					console.log(_this.mymarkers)
 					_this.menuList = res.data.info
 				})
 			},
@@ -1101,17 +1101,12 @@
 				_this.uanzhong = '首页'
 			},
 			changes(index) {
-				console.log(_this.machineLists)
-				console.log(_this.circles[index])
 				_this.yingchang = true
 				_this.uanzhong = _this.machineLists[index].alias
-				var mymarkers = _this.mymarkers ;
-				console.log(mymarkers[index])
-				_this.mymarkers  = mymarkers
+				// var mymarkers = _this.mymarkers ;
+				// _this.mymarkers  = mymarkers
 				_this.change = index;
 				_this.int = index
-				_this.deviceid = _this.machineLists[index]
-				console.log(_this.machineLists[index])
 				_this.luyings  = _this.machineLists[index].type
 				_this.pds = _this.machineLists[index].type
 				_this.machineInfo = _this.machineLists[_this.change].machineInfo;
@@ -1128,6 +1123,7 @@
 				_this.mypolylines = [] ;
 				_this.selOpen = false  ;
 				var newbox = []
+				this.switchIcon(_this.mymarkers[index].id)
 				for(var x = 0 ; x < _this.circles.length ; x++){
 					var bc = {}
 					if(x == index){
@@ -1144,6 +1140,18 @@
 				}
 				console.log(newbox)
 				_this.circles = newbox
+			},
+			switchIcon(id){
+				let mymarkers = JSON.parse(JSON.stringify(this.mymarkers))
+				let newMarkers = mymarkers.map((item,index)=>{
+					if(item.id==id){
+						item.iconPath = this.imgconfig[_this.machineLists[index].type]['checkedIcon'] 
+					}else{
+						item.iconPath = this.imgconfig[_this.machineLists[index].type]["pointimg"]
+					}
+					return item
+				})
+				this.mymarkers = newMarkers
 			},
 			togglePopup() {
 				_this.selOpen = false
