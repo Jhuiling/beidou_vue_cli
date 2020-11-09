@@ -236,9 +236,10 @@
 			daohangqu() {
 				var _this = this;
 				var yanshi = _this.yanshi;
+				var endlon = _this.endlon;
+				var endlan = _this.endlat;
 				if (yanshi == 1) {
-					var endlon = _this.endlon;
-					var endlan = _this.endlat;
+					
 					// _this.bglat = e.bglat
 					// _this.bglon = e.bglon
 					// _this.endlat = e.endlat
@@ -279,48 +280,14 @@
 					// uni.getLocation({
 					// 	success: res => {
 					// 		console.log('location success', res)
-					// 		uni.openLocation({
-					// 			latitude: res.latitude, 
-					// 			longitude: res.longitude,
-					// 			scale: 18
-					// 		})
+							
 					// 	}
 					// })
-					var endlon = _this.endlon;
-					var endlan = _this.endlat;
-					// _this.bglat = e.bglat
-					// _this.bglon = e.bglon
-					// _this.endlat = e.endlat
-					// _this.endlon = e.endlon
-					
-					var bg = _this.bglat;
-					var bgt = _this.bglon;
-					var bgname = _this.bgname;
-					var key = "b7ac380a83e2a2b753f0023d3931ba33";
-					sdkwx.showRoute({
-						theme: 0,
-						trafficEnabled: true,
-						start: {
-							coordinate: {
-								latitude: bg,
-								longitude: bgt
-							},
-							name: bgname,
-							poiId: null
-						},
-						end: {
-							coordinate: {
-								latitude: endlan,
-								longitude: endlon
-							},
-							name: '',
-							poiId: null
-						},
-						multipleRouteNaviMode: false
-					}, function(res) {
-						console.log(res.type);
-						console.log(res.data);
-					});
+					uni.openLocation({
+						latitude: Number(_this.endlat), 
+						longitude: Number(_this.endlon),
+						scale: 18
+					})
 				}
 			},
 			goToCar: function(e) {

@@ -47,7 +47,13 @@
             },
             /* ios打包配置 */
             "ios" : {
-                "idfa" : false
+                "idfa" : false,
+				"urlschemewhitelist": [  
+					"iosamap",
+					"baidumap",  
+					"iosamap",  
+					"qqmap"  
+				]  
             },
             /* SDK配置 */
             "sdkConfigs" : {

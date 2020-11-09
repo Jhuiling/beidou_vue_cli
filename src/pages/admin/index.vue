@@ -31,12 +31,16 @@
     export default {
 		data() {
 			return {
-				userList :[]
+				userList :[],
+				deviceid:null
 			}
 		},
 		mounted () {
 			_this = this;
 			this.getUserList()
+		},
+		onLoad(e) {
+			this.deviceid = e.deviceid
 		},
         methods: {
 			
@@ -48,9 +52,11 @@
 			// 获取用户列表
 			getUserList () {
 				let data = {
-					deviceid:uni.getStorageSync('deviceid'),
+					deviceid:this.deviceid||uni.getStorageSync('deviceid'),
 				}
+				console.log(data.deviceid)
 				common.request('machine/details', data, function(res) {
+					console.log(res)
 					_this.userList = res.data.info.adminList
 				})
 			},

@@ -292,11 +292,16 @@
 		</div>
 
 
-		 <div class="dao_box" v-if="dajmnbox" :style="'width:'+djsw+';height:'+djsh+';'">
+		 <div class="dao_box" v-if="dajmnbox" :style="'width:'+djsw+';height:'+djsh+';'"  @touchmove.stop.prevent @touchend.stop @click="dajmnbox=false;stopRecord()">
 		 	<div class="neiboxls" :style="'width:'+djsw+';height:'+djsh+';'">
-		 		<div class="mengbanbox">
-		 			<div class="textvfd">录音中</div>
-		 			<div class="textvfd">{{dsiaos}}S</div>
+		 		<div class="mengbanbox" :style="'width:'+djsw">
+		 			<image src="../../static/image/icon(2)/icon/sound@2x.png" mode="" style="width: 90rpx;height: 90rpx;"></image>
+		 			<text>00:{{dsiaos}}</text>
+		 			<div class="record-controller">
+						<image src="../../static/image/icon(2)/icon/r_stop@2x.png" mode="" style="width: 120rpx;height: 120rpx;" v-if="recordStatus" @click="stopRecord"></image>
+						<image src="../../static/image/icon(2)/icon/recording@2x.png" mode="" style="width: 120rpx;height: 120rpx;" @click="startRecord" v-if="!recordStatus"></image>
+						<image src="../../static/image/icon(2)/icon/makesure@2x.png" mode="" style="width: 120rpx;height: 120rpx;" @click="saveRecord"></image>
+					</div>
 		 		</div>
 		 	 </div>
 		  </div>
@@ -474,6 +479,8 @@
 				windowHeight:null,
 				titleBoxHeight:null,
 				isShow:true,
+				timers:null,
+				recordStatus:false,
 				noView:0
 			}
 		},
@@ -539,7 +546,13 @@
 		distroyed: function () {
 		　　clearInterval(_this.timer)
 		},
-		watch: {},
+		watch: {
+			"dajmnbox":(val)=>{
+				if(val){
+					_this.dsiaos=30
+				}
+			}
+		},
 		methods: {
 			dangqian(){
 				this.isShow=false
@@ -660,33 +673,7 @@
 				    itemList: ['录音', '录音列表'],
 				    success: function (res) {
 				        if(res.tapIndex==0){
-							common.request('machine/record',{
-								deviceid: _this.deviceid
-							}, function (res) {
-								console.log(res)
-								_this.dajmnbox = true
-								if(res.data.status!=1){
-									uni.showToast({
-										icon: 'none',
-										position: 'center',
-										title: res.data.info
-									});
-								}else
-								var djs = 30 ;
-								var times = setInterval(function(){
-									djs--
-									_this.dsiaos = djs
-									if(djs<=0){
-										djs = 30
-										_this.dajmnbox = false
-										clearInterval(times)
-									}
-								},1000)
-								// uni.showToast({
-								//     title: res.data.info,
-								//     duration: 2000
-								// });
-							})
+							_this.startRecord()
 						}else{
 							console.log(1111111111)
 							uni.navigateTo({
@@ -730,6 +717,69 @@
 				// 	    duration: 2000
 				// 	});
 				// })
+			},
+			startRecord(e){
+				if(e){
+					e.stopPropagation()
+				}
+				common.request('machine/record',{
+					deviceid: _this.deviceid
+				}, function (res) {
+					console.log(res)
+					_this.dajmnbox =_this.dajmnbox||true
+					// if(res.data.status!=1){
+					// 	uni.showToast({
+					// 		icon: 'none',
+					// 		position: 'center',
+					// 		title: res.data.info
+					// 	});
+					// }else{
+					// 	_this.recordStatus=true
+					// 	if(_this.timer){
+					// 		clearInterval(_this.timer)
+					// 	}
+					// 	_this.timers = setInterval(()=>{
+					// 		_this.dsiaos--
+					// 		if(djs<=0){
+					// 			_this.dajmnbox = false
+					// 			_this.recordStatus=false
+					// 		}
+					// 	},1000)
+					// }
+					_this.recordStatus=true
+					if(_this.timer){
+						clearInterval(_this.timers)
+					}
+					_this.timers = setInterval(()=>{
+						_this.dsiaos--
+						if(_this.dsiaos<=0){
+							_this.dajmnbox = false
+							_this.recordStatus=false
+							uni.showToast({
+								title:'录音已保存',
+								success: () => {
+									_this.saveRecord()	
+								}
+							})
+						}
+					},1000)
+				})
+			},
+			stopRecord(e){
+				if(e){
+					e.stopPropagation()
+				}
+				_this.recordStatus=false
+				clearInterval(_this.timers)
+			},
+			saveRecord(e){
+				if(e){
+					e.stopPropagation()
+				}
+				_this.stopRecord()
+				uni.navigateTo({
+					url: '/pages/trajectory/luyingindex?deviceid='+_this.deviceid
+				});
 			},
 			daohangbtn(){
 				var endlon = _this.endlon;
@@ -1262,15 +1312,24 @@
 	@import "./css/index.css";
 	.mengbanbox{
 		background-color: #ffffff;
-		width: 500rpx;
+		height: 500rpx;
 		padding: 50rpx 0rpx;
 		border-radius: 10rpx;
 		display: flex;
 		display: -webkit-flex;
-		flex-wrap: wrap;
-		justify-content: center;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.record-controller{
+		width: 600rpx;
+		display: flex;
+		display: -webkit-flex;
 		align-items: center;
 		flex-direction: row;
+		justify-content: space-around;
+		padding: 20rpx 40rpx;
+		
 	}
 	.textvfd{
 		text-align: center;
@@ -1296,7 +1355,7 @@
 		display: -webkit-flex;
 		flex-wrap: nowrap;
 		justify-content: center;
-		align-items: center;
+		align-items: flex-end;
 		flex-direction: row;
 	}
 	.zjbns{

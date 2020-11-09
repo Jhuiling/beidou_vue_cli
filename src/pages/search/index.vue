@@ -1,5 +1,5 @@
 <template>
-	<view class="container">
+	<!-- <view class="container">
 		<view class="header">
 			<input type="text" v-model="keywords" class="input" @input="handlerInput" />
 		</view>
@@ -9,7 +9,7 @@
 				<view class="address">{{item.address.length?item.address:item.district}}</view>
 			</view>
 		</view>
-	</view>
+	</view> -->
 </template>
 
 <script>
@@ -25,6 +25,21 @@
 		},
 		onLoad(e) {
 			this.deviceid  = e.deviceid
+			setTimeout(()=>{
+				uni.chooseLocation({
+					success: function(res) {
+						let {longitude,latitude}=res
+						uni.redirectTo({
+							url:"/pages/enclosure/create?deviceid="+this.deviceid+'&longitude='+longitude+'&latitude='+latitude
+						})
+					},
+					fail:function(res){
+						uni.redirectTo({
+							url:"/pages/enclosure/create?deviceid="+this.deviceid
+						})
+					}
+				});
+			},1000)
 		},
 		methods: {
 			handlerInput() {

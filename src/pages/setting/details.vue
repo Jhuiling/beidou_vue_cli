@@ -165,7 +165,7 @@
 			},
             goAdmin() {
                 uni.navigateTo({
-                    url:'/pages/admin/index'
+                    url:'/pages/admin/index?deviceid='+this.deviceid
                 })
             },
             goBack() {

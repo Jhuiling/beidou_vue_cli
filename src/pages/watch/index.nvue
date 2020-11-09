@@ -286,10 +286,10 @@
 		</div>
 
 
-		<div class="dao_box" v-if="dajmnbox" :style="'width:'+djsw+';height:'+djsh+';'">
+		<div class="dao_box" v-if="dajmnbox" :style="'width:'+djsw+';height:'+djsh+';'" @touchmove.stop.prevent @touchend.stop>
 			<div class="neiboxls" :style="'width:'+djsw+';height:'+djsh+';'">
 				<div class="mengbanbox">
-					<div class="textvfd">录音中</div>
+					<div class="textvfd">录音中111</div>
 					<div class="textvfd">{{dsiaos}}S</div>
 				</div>
 			</div>
