@@ -41,7 +41,7 @@
 			var daoh = uni.getStorageSync('daoh');
 			if(daoh==1){
 				uni.navigateTo({
-					url: '/pages/index/index',
+					url: '/pages/index/guide',
 				});  
 			} 
 		},
@@ -52,7 +52,7 @@
 				    data: '1',
 				    success: function () {
 				        uni.navigateTo({
-				        	url: '/pages/index/index',
+				        	url: '/pages/index/guide',
 				        }); 
 				    }
 				});

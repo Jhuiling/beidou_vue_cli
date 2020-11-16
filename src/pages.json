@@ -10,7 +10,16 @@
 					"titleNView": false
 				}
 			}
-		}, 
+		},
+		{
+			"path": "pages/index/guide",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
 		{
 			"path": "pages/index/index",
 			"style": {
@@ -19,19 +28,16 @@
 					"titleNView": false
 				}
 			}
-		}, 
-		
-		
-		
+		},
 		{
 			"path": "pages/localtion_car/index",
 			"style": {
 				"navigationBarTitleText": "位置",
 				"app-plus": {
-					"titleNView": false 
+					"titleNView": false
 				}
 			}
-		}, 
+		},
 		{
 			"path": "pages/localtion_car/xiangqing",
 			"style": {
@@ -40,14 +46,14 @@
 					"titleNView": false
 				}
 			}
-		}, 
+		},
 		{
 			"path": "pages/car_bd/car_bd",
 			"style": {
 				"navigationBarTitleText": "汽车绑定",
 				"app-plus": {
 					"titleNView": false
-				} 
+				}
 			}
 		},
 		// input_device
@@ -68,7 +74,7 @@
 					"titleNView": true
 				}
 			}
-		}, 
+		},
 		{
 			"path": "pages/personnel/index",
 			"style": {
@@ -77,8 +83,7 @@
 					"titleNView": true
 				}
 			}
-		}, 
-		
+		},
 		{
 			"path": "pages/index_daohang/indexcc",
 			"style": {
@@ -87,7 +92,7 @@
 					"titleNView": true
 				}
 			}
-		}, 
+		},
 		{
 			"path": "pages/index_daohang/indexccnew",
 			"style": {
@@ -96,8 +101,7 @@
 					"titleNView": true
 				}
 			}
-		}, 
-		
+		},
 		{
 			"path": "pages/jurisdiction/index",
 			"style": {
@@ -106,10 +110,7 @@
 					"titleNView": true
 				}
 			}
-		}, 
-		
-		
-		
+		},
 		{
 			"path": "pages/question_list/index",
 			"style": {
@@ -129,15 +130,15 @@
 				}
 			}
 		},
-		 {
-		 	"path": "pages/index_daohang/index",
-		 	"style": {
-		 		"navigationBarTitleText": "导航",
-		 		"app-plus": {
-		 			"titleNView": false
-		 		}
-		 	}
-		 }, 
+		{
+			"path": "pages/index_daohang/index",
+			"style": {
+				"navigationBarTitleText": "导航",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
 		{
 			"path": "pages/question/index",
 			"style": {
@@ -184,7 +185,8 @@
 					"titleNView": true
 				}
 			}
-		},{
+		},
+		{
 			"path": "pages/trajectory/tingliu",
 			"style": {
 				"navigationBarTitleText": "停留统计",
@@ -231,25 +233,24 @@
 				}
 			}
 		},
-			
-			{
-				"path": "pages/trajectory/guijitz",
-				"style": { 
-					"navigationBarTitleText": "轨迹",
-					"app-plus": {
-						"titleNView": false
-					}
-				}
-			},	
 		{
-			"path": "pages/trajectory/details",
-			"style": { 
+			"path": "pages/trajectory/guijitz",
+			"style": {
 				"navigationBarTitleText": "轨迹",
 				"app-plus": {
 					"titleNView": false
 				}
 			}
-		},	
+		},
+		{
+			"path": "pages/trajectory/details",
+			"style": {
+				"navigationBarTitleText": "轨迹",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
 		{
 			"path": "pages/watch/index",
 			"style": {
@@ -259,9 +260,8 @@
 				}
 			}
 		},
-		
 		{
-			"path": "pages/localtion/index", 
+			"path": "pages/localtion/index",
 			"style": {
 				"navigationBarTitleText": "首页",
 				"app-plus": {
@@ -297,7 +297,6 @@
 				}
 			}
 		},
-		
 		{
 			"path": "pages/enclosure/create",
 			"style": {
@@ -326,7 +325,6 @@
 				}
 			}
 		},
-		
 		{
 			"path": "pages/enclosure/jiance",
 			"style": {
@@ -336,7 +334,6 @@
 				}
 			}
 		},
-		
 		{
 			"path": "pages/demo/index",
 			"style": {
@@ -346,9 +343,6 @@
 				}
 			}
 		},
-		
-		
-			
 		{
 			"path": "pages/machine/bind",
 			"style": {
@@ -385,7 +379,6 @@
 				}
 			}
 		},
-		
 		{
 			"path": "pages/health/index",
 			"style": {
@@ -404,7 +397,6 @@
 				}
 			}
 		},
-
 		{
 			"path": "pages/camera/index",
 			"style": {
@@ -469,7 +461,7 @@
 			}
 		},
 		{
-			"path": "pages/setting/details", 
+			"path": "pages/setting/details",
 			"style": {
 				"navigationBarTitleText": "设备详情",
 				"app-plus": {
@@ -478,7 +470,7 @@
 			}
 		},
 		{
-			"path": "pages/setting/shezhi", 
+			"path": "pages/setting/shezhi",
 			"style": {
 				"navigationBarTitleText": "设置",
 				"app-plus": {
@@ -515,7 +507,6 @@
 			}
 		},
 		// luyingindex.vue
-		
 		{
 			"path": "pages/alarm/index",
 			"style": {
@@ -625,7 +616,7 @@
 			}
 		},
 		{
-			"path": "pages/salary/fansGroup", 
+			"path": "pages/salary/fansGroup",
 			"style": {
 				"navigationBarTitleText": "考勤组成员",
 				"backgroundColor": "#FFFFFF",
@@ -633,7 +624,7 @@
 			}
 		},
 		{
-			"path": "pages/salary/create", 
+			"path": "pages/salary/create",
 			"style": {
 				"navigationBarTitleText": "新建考勤组",
 				"backgroundColor": "#FFFFFF",
@@ -641,7 +632,7 @@
 			}
 		},
 		{
-			"path": "pages/salary/edit", 
+			"path": "pages/salary/edit",
 			"style": {
 				"navigationBarTitleText": "考勤组设置",
 				"backgroundColor": "#FFFFFF",
@@ -661,7 +652,7 @@
 			}
 		},
 		{
-			"path": "pages/salary/salaryQrCode", 
+			"path": "pages/salary/salaryQrCode",
 			"style": {
 				"navigationBarTitleText": "考勤组二维码",
 				"backgroundColor": "#FFFFFF",
@@ -669,7 +660,7 @@
 			}
 		},
 		{
-			"path": "pages/salary/joinSalary", 
+			"path": "pages/salary/joinSalary",
 			"style": {
 				"navigationBarTitleText": "加入考勤组",
 				"backgroundColor": "#FFFFFF",
@@ -677,7 +668,7 @@
 			}
 		},
 		{
-			"path": "pages/salary/time", 
+			"path": "pages/salary/time",
 			"style": {
 				"navigationBarTitleText": "上班时间",
 				"backgroundColor": "#FFFFFF",
@@ -685,7 +676,7 @@
 			}
 		},
 		{
-			"path": "pages/salary/address", 
+			"path": "pages/salary/address",
 			"style": {
 				"navigationBarTitleText": "考勤位置",
 				"backgroundColor": "#FFFFFF",
@@ -712,7 +703,7 @@
 			}
 		},
 		{
-			"path": "pages/salary/rule", 
+			"path": "pages/salary/rule",
 			"style": {
 				"navigationBarTitleText": "考勤组规则",
 				"backgroundColor": "#FFFFFF",
@@ -741,7 +732,7 @@
 				"navigationBarTitleText": "考勤记录",
 				"backgroundColor": "#FFFFFF",
 				"navigationBarBackgroundColor": "#FFFFFF"
-			} 
+			}
 		},
 		{
 			"path": "pages/salary/salaryRecord",
@@ -765,7 +756,7 @@
 		"navigationBarTitleText": "北斗导航",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#e9e9e9",
-		"pageOrientation":"auto"
+		"pageOrientation": "auto"
 	}
 	// ,
 	// "tabBar": {
