@@ -212,11 +212,11 @@ export default {
             cycleValue:'day',
             histogramData2: {
             },
+			currentIndex:0
         }
     },
 	onLoad(e){
-		this.deviceid = e.deviceid 
-		console.log(e.deviceid)
+		this.deviceid = e.deviceid
 	},
     mounted() {
         _this = this;
@@ -230,6 +230,16 @@ export default {
             _this.setBg = false
         }
     },
+	watch:{
+		cycleValue:function(val){
+			this.showChart = false
+			if(this.currentIndex===1){
+				this.fnGetSleep()
+			}else{
+				this.fnGetCharts()
+			}
+		}
+	},
     methods: {
         goBack() {
             uni.navigateBack({
@@ -243,22 +253,27 @@ export default {
         },
         changeCycle(item) {
             this.cycleValue = item.value
+			
         },
         fnSwichCharts(event) {
+			_this.showChart = false
+			this.currentIndex = event.detail.current
             if(event.detail.current == 1) {
                 _this.showTime = true
                 _this.fnGetSleep()
             }  else {
                 _this.showTime = false
+				_this.fnGetCharts()
             }
+			
         },
         fnGetSleep() {
             _this.showChart = false
             common.request('machine/health_chart', {
                 deviceid:_this.deviceid,
                 type:4,
+				format:_this.cycleValue
             }, function(res) {
-				console.log(_this.deviceid)
                 let data = {
                         opts:{
                             xAxis:
@@ -266,13 +281,13 @@ export default {
                                 itemCount:7
                             }
                         },
-                        label : res.data.info.title,
+                        label : res.data.info.title||'',
                         value:[{
                             name:'深度睡眠',
-                            data:res.data.info.sleepdeep
+                            data:res.data.info.sleepdeep||[]
                         },{
                             name:'浅度睡眠',
-                            data:res.data.info.sleeplow
+                            data:res.data.info.sleeplow||[]
                         }]
                     }
                     _this.histogramData2 = data
@@ -288,11 +303,13 @@ export default {
 			})
         },
         fnGetCharts() {
+			console.log(_this.type,_this.cycleValue,_this.deviceid)
             common.request('machine/health_chart', {
                 deviceid:_this.deviceid,
                 type:_this.type,
                 format:_this.cycleValue
             }, function(res) {
+				console.log(res)
                 let data = {}
                 if(_this.type == 1) {
                     data = {
@@ -322,10 +339,10 @@ export default {
                                 itemCount:7
                             }
                         },
-                        label : res.data.info.title,
+                        label : res.data.info.title||[],
                         value:[{
                             name:'步数',
-                            data:res.data.info.value
+                            data:res.data.info.value||[]
                         }]
                     }
                 } else {
