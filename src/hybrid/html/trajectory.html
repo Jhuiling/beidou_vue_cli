@@ -218,7 +218,8 @@
 		  // var jiange =  lrhj
 		  // console.log(jiange)
 		  // _this.jiange = jiange 
-		  // 	console.log(getQueryString('start_time')) 
+		  this.start_time = getQueryString('start_time')
+		  this.end_time = getQueryString('end_time')
 		  	
 	  },
 	  methods:{
@@ -284,7 +285,7 @@
 	})
 	// start_time: getQueryString('start_time') ,
 	var  datas = {
-			start_time: '2019-01-01 00:00:00' ,
+			start_time: getQueryString('start_time')||'2019-01-01 00:00:00' ,
 			end_time: getQueryString('end_time') ,
 			deviceid:getQueryString('deviceid') ,
 			token: getQueryString('token')
@@ -363,7 +364,7 @@
 			   				// strokeOpacity: 1,     //线透明度
 			   				strokeWeight: 6,      //线宽
 			   				// strokeStyle: "solid"  //线样式
-			   			});   
+			   			});
 		};
 		request.send();
 	}

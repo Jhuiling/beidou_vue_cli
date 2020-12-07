@@ -39,7 +39,9 @@
 				selOpen: false,
 				watchOpen: true,
 				token:'',
-				deviceid:''
+				deviceid:'',
+				start_time:'',
+				end_time:''
 			}
 		},
 		onLoad(e) {
@@ -48,6 +50,7 @@
 			_this.end_time=e.end_time
 			_this.token = e.token 
 			_this.deviceid = e.deviceid
+			console.log(_this.start_time,_this.end_time,_this.token,_this.deviceid)
 		},
 		onShow() {
 		},
