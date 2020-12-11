@@ -901,12 +901,12 @@
 
 			// 获取设备详情
 			getMachineInfo(){
-				common.request('machine/index', {deviceid: _this.deviceid }, function(res) {
-					console.log(_this.deviceid)
-
-					_this.machineInfo = res.data.info
-
-				})
+				return new Promise((resolve,reject)=>{
+					common.request('machine/index', {deviceid: _this.deviceid }, function(res) {
+						_this.machineInfo = res.data.info
+						resolve()
+					})
+				}) 
 
 			},
 
@@ -1100,7 +1100,7 @@
 				 _this.yingchang = false
 				_this.uanzhong = '首页'
 			},
-			changes(index) {
+			async changes(index) {
 				_this.yingchang = true
 				_this.uanzhong = _this.machineLists[index].alias
 				// var mymarkers = _this.mymarkers ;
@@ -1109,8 +1109,8 @@
 				_this.int = index
 				_this.luyings  = _this.machineLists[index].type
 				_this.pds = _this.machineLists[index].type
-				_this.machineInfo = _this.machineLists[_this.change].machineInfo;
 				_this.deviceid = _this.machineLists[index].deviceid
+				await _this.getMachineInfo()
 				_this.imei = _this.machineInfo.deviceid
 				_this.latitude = _this.machineInfo.latitude
 				_this.longitude = _this.machineInfo.longitude

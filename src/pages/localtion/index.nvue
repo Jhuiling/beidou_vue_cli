@@ -207,6 +207,7 @@
 				var deviceid = _this.deviceid;
 				common.request('machine/index', {deviceid:deviceid}, function(res) {
 					var x =  res.data.info ; 
+					console.log(x)
 				if(!res.data.info.latitude){
 					uni.getLocation({
 						type: 'wgs84',
