@@ -119,7 +119,7 @@
 			<div class="inner" ref="createInner" >
 				<div class="search-box">
 					<image src="/static/image/home_icon_06.jpg" class="left-icon"></image>
-					<input type="text" class="search-input" placeholder-style="font-size:18px;" v-bind:value="searchtext" placeholder="查找地点、公交、地铁" v-on:touchstart="searchAddress" :focus="focusss"  @input="bindInput" @confirm="bindInputtwo"/>
+					<input type="text" class="search-input" placeholder-style="font-size:18px;" v-bind:value="searchtext" disabled  placeholder="查找地点、公交、地铁" v-on:touchstart="searchAddress" :focus="focusss"  @input="bindInput" @confirm="bindInputtwo"/>
 					<text class="right-text">搜索</text>
 				</div>
 
@@ -562,7 +562,7 @@
 				})
 			},
 			dianjidh(e){
-				console.log(e)
+				console.log(99999999)
 				var _this = this ;
 				var addressList = _this.addressList
 				// lng
@@ -856,7 +856,7 @@
 			  console.log(e.detail)
 		  },
 		  bindSearch(e){
-			 console.log(e)
+			 console.log(e,9999999)
 			  let lat = e.location.split(',')[1]
 			  let lon = e.location.split(',')[0]
 			  let endname = e.district+e.address
@@ -898,6 +898,15 @@
 			  _this.togglePopup()
 			  // _this.timer = setInterval(_this.startroute,5000)
 		  },
+			jumpNavigation(e){
+				let lat = e.latitude
+				let lon = e.longitude
+				let bglat = this.bglatitude;
+				let bglon =  this.bglongitude ;
+				uni.navigateTo({
+					url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
+				});
+			},
 
 			// 获取设备详情
 			getMachineInfo(){
@@ -1270,8 +1279,14 @@
 
 			},
 			searchAddress(e){
-				_this.focusss = true ;
+				// _this.focusss = true ;
 				console.log('on click')
+				let self = this
+				uni.chooseLocation({
+					success: function(res) {
+						self.jumpNavigation(res)
+					}
+				});
 			},
 			startroute(){
 				_this.getDrivingLine(_this.topoint.latitude,_this.topoint.longitude)

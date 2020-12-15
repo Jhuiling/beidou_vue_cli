@@ -28,7 +28,7 @@
 			<div class="inner" ref="createInner">
 				<div class="search-box">
 					<image src="/static/image/home_icon_06.jpg" class="left-icon"></image>
-					<input type="text" class="search-input" .v-bind:value="searchtext" placeholder="查找地点、公交、地铁" v-on:touchstart="searchAddress" :focus="focusss"  @input="bindInput"/>
+					<input type="text" class="search-input" .v-bind:value="searchtext" disabled placeholder="查找地点、公交、地铁" v-on:touchstart="searchAddress" :focus="focusss"  @input="bindInput"/>
 					<text class="right-text">搜索</text>
 					<!-- <text style="font-size: 20rpx;background-color:rgb(82,125,225);color: #ffffff;width: 100rpx;text-align: center;height: 50rpx;line-height: 50rpx;border-radius: 10rpx;">确定</text> -->
 				</div>
@@ -575,8 +575,24 @@
 
 			},
 			searchAddress(e){
-				_this.focusss = true ;
+				// _this.focusss = true ;
 				console.log('on click')
+				let self = this
+				uni.chooseLocation({
+					success: function(res) {
+						self.jumpNavigation(res)
+					}
+				});
+			},
+			jumpNavigation(e){
+				let lat = e.latitude
+				let lon = e.longitude
+				let bglat = this.bglatitude;
+				let bglon =  this.bglongitude ;
+				uni.navigateTo({
+					url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
+				});
+				this.topoint={latitude:lat,longitude:lon}
 			},
 			startroute(){
 				_this.getDrivingLine(_this.topoint.latitude,_this.topoint.longitude)
