@@ -244,7 +244,7 @@
 
 		<map key='map2' v-if="isShow" :longitude="longitude" :latitude="latitude" :enable-3D='true' :show-compass='true' :show-location="true"
 		 :style="{width: '750rpx', height: phoneHeight + 'px','padding-top':mapTop+'px'}" :markers="mymarkers" :polyline="mypolylines"
-		 :scale="scale" show-scale @markertap="markertap" :enable-traffic="true" :enable-satellite="satellite" :circles="circles">
+		 :scale="scale" show-scale :enable-traffic="true" :enable-satellite="satellite" :circles="circles">
 		</map>
 
 		<div class="w-info" v-if="yingchang">
@@ -480,7 +480,8 @@
 				mapTop: null,
 				isShow:true,
 				noView:0,
-				type:0
+				type:0,
+				allmymarkers:[]
 			}
 		},
 		onHide() {
@@ -855,16 +856,14 @@
 			},
 
 			// 获取设备详情
-			getMachineInfo() {
-				common.request('machine/index', {
-					deviceid: _this.deviceid
-				}, function(res) {
-					console.log(res)
-
-					_this.machineInfo = res.data.info
-
-				})
-
+			getMachineInfo(){
+				return new Promise((resolve,reject)=>{
+					common.request('machine/index', {deviceid: _this.deviceid }, function(res) {
+						_this.machineInfo = res.data.info
+						resolve()
+					})
+				}) 
+			
 			},
 
 			markertap(e) {
@@ -1004,7 +1003,7 @@
 					}
 
 					console.log(machinemarkers)
-					_this.mymarkers = machinemarkers
+					_this.allmymarkers = machinemarkers
 					_this.circles = circles
 					_this.deviceid = res.data.info[0].machineInfo.deviceid
 					_this.$forceUpdate()
@@ -1073,21 +1072,18 @@
 			},
 			quanbu() {
 				var _this = this;
-				var mymarkers = _this.mymarkers;
+				var mymarkers = _this.allmymarkers ;
 				_this.mymarkers = mymarkers
 				_this.scale = 5
 				_this.selOpen = false;
 				_this.uanzhong = '首页'
 				this.type = 0
 			},
-			changes(index) {
-				console.log(_this.machineLists)
-				console.log(_this.circles[index])
+			async changes(index) {
 				this.type =_this.machineLists[index].type
 				_this.yingchang = true
 				_this.uanzhong = _this.machineLists[index].alias
-				var mymarkers = _this.mymarkers;
-				console.log(333333333333333)
+				var mymarkers = [_this.allmymarkers[index]] ;
 
 				// mymarkers[index].callout = {
 				// 	content:'杀了对方是客服撒旦发射点是的烦烦烦发生的撒旦发射点' ,
@@ -1096,16 +1092,15 @@
 				// 	bgColor:'#ff4564',
 				// 	display:'ALWAYS'
 				// }
-				console.log(mymarkers[index])
 				_this.mymarkers = mymarkers
 				_this.change = index;
 				_this.int = index
 				_this.deviceid = _this.machineLists[index]
-				console.log(_this.machineLists[index].alias)
 				_this.luyings = _this.machineLists[index].type
 				_this.pds = _this.machineLists[index].type
 				_this.machineInfo = _this.machineLists[_this.change].machineInfo;
 				_this.deviceid = _this.machineLists[index].deviceid
+				await _this.getMachineInfo()
 				_this.imei = _this.machineInfo.deviceid
 				_this.latitude = _this.machineInfo.latitude
 				_this.longitude = _this.machineInfo.longitude
@@ -1117,7 +1112,7 @@
 				_this.scale = 15
 				_this.mypolylines = [];
 				_this.selOpen = false;
-				this.switchIcon(_this.mymarkers[index].id)
+				// this.switchIcon(_this.mymarkers[index].id)
 				var newbox = []
 				for (var x = 0; x < _this.circles.length; x++) {
 					var bc = {}
