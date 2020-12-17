@@ -54,7 +54,7 @@
 			justify-content: flex-start;"
 		 class="w-ctrl w-ctrltwo" @tap="openSel" v-if="guanbi">
 			<div class="w-box">
-				<image class="w-img" v-bind:src="change == 1 ?  '../../static/image/big_workcard@2xt.png' : '../../static/image/big_weatch@2xt.png'"
+				<image class="w-img" v-bind:src="type === 0 ? '../../static/image/icon/all.png' : imgconfig[type].icon"
 				 mode="aspectFit"></image>
 			</div>
 			<div class="w-arrow">
@@ -111,7 +111,7 @@
 				<div style="width: 90%;margin: 0px auto;" @click="quanbu()">
 					<div class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;">
 						<div class="neiimg">
-							<image class="dv-list-image" src="../../static/image/set@2x.png" mode="aspectFit"></image>
+							<image class="dv-list-image" src="../../static/image/icon/all.png" mode="aspectFit"></image>
 						</div>
 						<text class="dv-list-text">全部设备</text>
 					</div>
@@ -131,7 +131,7 @@
 			<div class="inner" ref="createInner">
 				<div class="search-box">
 					<image src="/static/image/home_icon_06.jpg" class="left-icon"></image>
-					<input type="text" class="search-input" placeholder-style="font-size:18px;" v-bind:value="searchtext" placeholder="查找地点、公交、地铁"
+					<input type="text" class="search-input" placeholder-style="font-size:18px;" v-bind:value="searchtext" disabled placeholder="查找地点、公交、地铁"
 					 v-on:touchstart="searchAddress" :focus="focusss" @input="bindInput" @confirm="bindInputtwo" />
 					<text class="right-text">搜索</text>
 				</div>
@@ -446,9 +446,9 @@
 					// 	"icon": "/static/image/big_car.png",
 					// 	"pointimg": "/static/image/big_car.png"
 					// }
-					"1":{"icon":"/static/image/weatch@2x.png","pointimg":"/static/image/map_watch.png","checkedIcon":"/static/image/mapcnn@3x-watch.png"},
-					"2":{"icon":"/static/image/big_workcard@2x.png","pointimg":"/static/image/map_card.png","checkedIcon":"/static/image/mapcnn@3x-aaa.png"},
-					"3":{"icon":"/static/image/big_car.png","pointimg":"/static/image/map_car.png","checkedIcon":"/static/image/map_car.png"}
+					"1":{"icon":"/static/image/icon/watch1.png","pointimg":"/static/image/map/watch1.png","checkedIcon":"/static/image/map/watch1.png"},
+					"2":{"icon":"/static/image/icon/workcard.png","pointimg":"/static/image/map/workcard.png","checkedIcon":"/static/image/map/workcard.png"},
+					"3":{"icon":"/static/image/icon/car1.png","pointimg":"/static/image/map/car1.png","checkedIcon":"/static/image/map/car1.png"}
 				},
 				guanbi: true,
 				sechboxtt: '',
@@ -479,7 +479,8 @@
 				windowHeight: null,
 				mapTop: null,
 				isShow:true,
-				noView:0
+				noView:0,
+				type:0
 			}
 		},
 		onHide() {
@@ -1077,10 +1078,12 @@
 				_this.scale = 5
 				_this.selOpen = false;
 				_this.uanzhong = '首页'
+				this.type = 0
 			},
 			changes(index) {
 				console.log(_this.machineLists)
 				console.log(_this.circles[index])
+				this.type =_this.machineLists[index].type
 				_this.yingchang = true
 				_this.uanzhong = _this.machineLists[index].alias
 				var mymarkers = _this.mymarkers;
@@ -1282,8 +1285,23 @@
 
 			},
 			searchAddress(e) {
-				_this.focusss = true;
+				// _this.focusss = true;
 				console.log('on click')
+				let self = this
+				uni.chooseLocation({
+					success: function(res) {
+						self.jumpNavigation(res)
+					}
+				});
+			},
+			jumpNavigation(e){
+				let lat = e.latitude
+				let lon = e.longitude
+				let bglat = this.bglatitude;
+				let bglon =  this.bglongitude ;
+				uni.navigateTo({
+					url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
+				});
 			},
 			startroute() {
 				_this.getDrivingLine(_this.topoint.latitude, _this.topoint.longitude)
