@@ -758,27 +758,27 @@
 		"backgroundColor": "#e9e9e9",
 		"pageOrientation": "auto"
 	}
-	// ,
-	// "tabBar": {
-	// 	"color": "#999",
-	// 	"selectedColor": "#37f",
-	// 	"borderStyle": "black",
-	// 	"backgroundColor": "#ffffff",
-	// 	"list": [{
-	// 		"pagePath": "pages/index/index",
-	// 		"iconPath": "static/image/home@3x.png",
-	// 		"selectedIconPath": "static/image/s_home@3x.png",
-	// 		"text": "首页"
-	// 	}, {
-	// 		"pagePath": "pages/store/index",
-	// 		"iconPath": "static/image/store@3x.png",
-	// 		"selectedIconPath": "static/image/s_store@3x.png",
-	// 		"text": "商城"
-	// 	}, {
-	// 		"pagePath": "pages/me/index",
-	// 		"iconPath": "static/image/me@3x.png",
-	// 		"selectedIconPath": "static/image/s_me@3x.png",
-	// 		"text": "我的"
-	// 	}]
-	// }
+	,
+	"tabBar": {
+		"color": "#999",
+		"selectedColor": "#37f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/image/home@3x.png",
+			"selectedIconPath": "static/image/s_home@3x.png",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/store/index",
+			"iconPath": "static/image/store@3x.png",
+			"selectedIconPath": "static/image/s_store@3x.png",
+			"text": "商城"
+		}, {
+			"pagePath": "pages/me/index",
+			"iconPath": "static/image/me@3x.png",
+			"selectedIconPath": "static/image/s_me@3x.png",
+			"text": "我的"
+		}]
+	}
 }

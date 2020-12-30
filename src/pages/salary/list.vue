@@ -10,6 +10,10 @@
 					<image style="width: 30rpx; height: 30rpx;margin-left:30rpx;margin-right: 10rpx" src="/static/image/me_group@3x.png"></image>
 					<text style="font-size: 28rpx;line-height:35px">{{item.number}}</text>
 				</navigator>
+				<navigator :url="'fansGroup?id='+item.id">
+					<image style="width: 30rpx; height: 30rpx;margin-left:30rpx;margin-right: 10rpx" src="/static/image/me_group@3x.png"></image>
+					<text style="font-size: 28rpx;line-height:35px">{{item.number}}</text>
+				</navigator>
 			</cmd-cell-item>
 		</view>
 	</view>
