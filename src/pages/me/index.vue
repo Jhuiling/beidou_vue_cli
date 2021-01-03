@@ -810,6 +810,9 @@ export default {
         success: function (res) {
           console.log("扫一扫时间", res);
           if (res.tapIndex == 0) {
+            // uni.navigateTo({
+            //   url: "/pages/machine/bind?deviceid=" + "353520180332244",
+            // });
             uni.scanCode({
               success: function (res) {
                 console.log("扫码====", res);
@@ -873,9 +876,9 @@ export default {
         if (res.data.info.salary) {
           _this.isSalary = true;
           _this.salaryId = res.data.info.salary.sal_id;
-        }else{
-			 _this.isSalary = false;
-		}
+        } else {
+          _this.isSalary = false;
+        }
       });
     },
 

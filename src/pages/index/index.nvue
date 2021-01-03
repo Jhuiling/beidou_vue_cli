@@ -39,7 +39,7 @@
 		<div style="position: fixed;
 			z-index: 999;
 			left: 0;
-			top: 40rpx;
+			top: 60rpx;
 			width: 100rpx;
 			height: 60rpx;
 			border-width: 1px;
@@ -47,8 +47,12 @@
 			border-style: solid;
 			background-color: #fff;
 			flex-direction: row;
+			display:flex;
+			align-item:center;
 			justify-content: flex-start;" class="w-ctrl w-ctrltwo" @tap="openSel" v-if="guanbi">
-			<div class="w-box">
+			<div class="w-box"  style="	display:flex;
+			align-item:center;
+			justify-content: center;">
 				<image class="w-img" v-bind:src="type === 0 ? '../../static/image/icon/all.png' : imgconfig[type].icon"  mode="aspectFit"></image>
 			</div>
 			<div class="w-arrow">
@@ -60,7 +64,7 @@
 		<div style="position: fixed;
 			z-index: 999;
 			left: 0;
-			top: 40rpx;
+			top: 60rpx;
 			width: 100rpx;
 			height: 60rpx;
 			border-width: 1px;
@@ -68,8 +72,12 @@
 			border-style: solid;
 			background-color: #fff;
 			flex-direction: row;
+			display:flex;
+			align-item:center;
 			justify-content: flex-start;" class="w-ctrl w-ctrltwo" v-else  @tap="goUrltwo()">
-			<div class="w-box" >
+			<div class="w-box"  style="	display:flex;
+			align-item:center;
+			justify-content: center;">
 				<image class="w-img" v-bind:src="change == 1 ? '../../static/image/big_workcard@2xt.png' : '../../static/image/big_weatch@2xt.png'  " mode="aspectFit"></image>
 			</div>
 			<!-- <div class="w-arrow">

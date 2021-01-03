@@ -25,7 +25,7 @@
 					</view>
 				</view>
 				<view class="item use-people">
-					<view class="title">选择使用人</view>
+					<view class="title">选择设备图标</view>
 					<view class="use-list">
 						<view class="renbox">
 							<image :src="use_user==1?'../../static/image/people_a@3x.png':'../../static/image/people_sa@3x.png'" @click="aliassss(1)"></image>
