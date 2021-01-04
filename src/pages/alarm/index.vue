@@ -4,9 +4,16 @@
 		<view class="page">
 
 			<view class="timearea">
-				<input class="time" v-model="start_time" />
+				<!-- <input class="time" v-model="start_time" />
 				<text>至</text>
 				<view class="time">
+					{{end_time}}
+				</view> -->
+				<view class="time" @tap="setTime(1)">
+					{{start_time}}
+				</view>
+				<text>至</text>
+				<view class="time" @tap="setTime(0)">
 					{{end_time}}
 				</view>
 				<view class="search-btn" @tap="getAlarmList">搜索</view>
@@ -93,7 +100,7 @@
 				} else {
 					_this.end_time = e.selectRes
 				}
-				_this.getAlarmList();
+				// _this.getAlarmList();
 			},
 			getAlarmList() {
 				console.log(_this.deviceid)
@@ -111,8 +118,6 @@
 			},
 			// 查看详情
 			goDetails(item) {
-				console.log(item)
-				return false
 				uni.navigateTo({
 					url: '/pages/alarm/details?id=' + item.id + "&longitude=" + item.longitude + "&latitude=" + item.latitude +
 						"&deviceid=" + _this.deviceid

@@ -52,30 +52,34 @@ export default {
     };
   },
 
-  mounted() {
+  onLoad() {
     var daoh = uni.getStorageSync("daoh");
     var indexCheck = uni.getStorageSync("indexCheck");
     if (daoh == 1) {
       if (indexCheck == 0||indexCheck == undefined) {
-        uni.navigateTo({
+        uni.redirectTo({
           url: "/pages/index/guide",
         });
       } else {
-        uni.navigateTo({
+        uni.redirectTo({
           url: "/pages/index/index",
         });
       }
     }
+	uni.setStorage({
+	    key: "daoh",
+	    data: "1",
+	})
   },
   methods: {
     dianji() {
       var indexCheck = uni.getStorageSync("indexCheck");
       if (indexCheck == 0||indexCheck == undefined) {
-        uni.navigateTo({
+        uni.redirectTo({
           url: "/pages/index/guide",
         });
       } else {
-        uni.navigateTo({
+        uni.redirectTo({
           url: "/pages/index/index",
         });
       }

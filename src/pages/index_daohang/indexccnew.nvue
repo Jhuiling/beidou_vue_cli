@@ -1,7 +1,7 @@
 <template>
 	<div>
 
-		<div style="position:fixed;z-index:0;!important" class="create-wrap">
+		<!-- <div style="position:fixed;z-index:0;!important" class="create-wrap">
 			<div class="buttonboxss" style="display: flex;display: -webkit-flex;flex-wrap: nowrap;justify-content: space-between;flex-direction: row;width: 100%;">
 				<div class="flex-item" style="color:#FFFFFF;height: 70px;text-align: center;display: flex;display-webkit-flex;flex-wrap: nowrap;align-items: center;justify-content: center;align-content: center;	flex-direction: row;"
 				 @tap="goToCar">
@@ -15,13 +15,11 @@
 				 @tap="goToRide">
 					<text :style="yanshi==3?'color:#1a76ff;':'color:#333333;'">骑行</text>
 				</div>
-
-				<!-- <a href="www.baidu.com">比赛的比分</a> -->
 			</div>
 
-		</div>
+		</div> -->
 
-		<div style="position:fixed;z-index:10;bottom: 70px;background-color: #FFFFFF;width: 750rpx;display: flex;display: -webkit-flex;flex-wrap: nowrap;flex-direction: row;justify-content:  space-around;;"
+		<div style="position:fixed;z-index:10;bottom: 0;background-color: #FFFFFF;width: 750rpx;display: flex;display: -webkit-flex;flex-wrap: nowrap;flex-direction: row;justify-content:  space-around;;"
 		 ref="showshare">
 			<div class="text" style="font-size: 13rpx;padding-top: 20px;padding-bottom: 20px;">{{distance}}</div>
 			<div class="text" style="font-size: 13rpx;padding-top: 20px;padding-bottom: 20px;">{{cost}}</div>
@@ -194,7 +192,7 @@
 					if (data.paths[0] && data.paths[0].distance) {
 						console.log(data.paths[0].distance + '米')
 						// that.setData({
-						that.distance = data.paths[0].distance + '米'
+						that.distance = data.paths[0].distance/1000 + ' KM'
 						// });
 					}
 					if (data.taxi_cost) {

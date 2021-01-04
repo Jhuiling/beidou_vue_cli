@@ -18,8 +18,8 @@
         <view class="event-list " v-for="(item,index) in list" :key="index"  @tap="goDetails(item.path)">
             <!-- <image class="car-icon" src="../../static/image/car@2x.png"></image> -->
             <!-- <text class="car-name" v-if="item.machinefans.alias!=null">{{item.machinefans.alias}}</text> -->
-            <view>创建时间</view>
-			<view>{{item.create_time}}</view>
+            <view>创建时间：{{item.create_time}}</view>
+			<view @click.stop="handleDelItem(item)" class="del-btn">删除</view>
             <!-- <view class="address">
                 {{item.address}}
             </view> -->
@@ -136,7 +136,10 @@
 				  console.log(res.errMsg);
 				  console.log(res.errCode);
 				});
-            }
+            },
+			handleDelItem(item){
+				
+			}
         }
     }
     </script>
@@ -156,5 +159,11 @@
 		justify-content: space-between;
 		flex-direction: row;
 		align-items: center;
+	}
+	.del-btn{
+		padding:10rpx 30rpx;
+		border-radius: 30rpx;
+		background-color: skyblue;
+		color: #FFFFFF;
 	}
 </style>

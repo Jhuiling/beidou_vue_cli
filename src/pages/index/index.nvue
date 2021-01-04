@@ -646,6 +646,7 @@
 							common.request('machine/onewaycall',{
 								deviceid: _this.deviceid
 							}, function (res) {
+								console.log( res)
 								uni.showToast({
 								    title: res.data.info,
 								    duration: 2000
@@ -655,7 +656,7 @@
 							common.request('machine/twowaycall',{
 								deviceid: _this.deviceid
 							}, function (res) {
-								console.log( res.data.info)
+								console.log( res)
 								uni.showToast({
 								    title: res.data.info,
 								    duration: 2000

@@ -337,7 +337,7 @@ export default {
             uni.setStorageSync("token", res.data.url);
             setTimeout(function () {
               uni.navigateTo({
-                url: "/pages/watch/index",
+                url: "/pages/index/index",
               });
             }, 1500);
           }
