@@ -1,784 +1,784 @@
 {
-	"pages": [
-		// car_bd
-		// localtion_car
-		{
-			"path": "pages/index/qidong",
-			"style": {
-				"navigationBarTitleText": "首页",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/index/guide",
-			"style": {
-				"navigationBarTitleText": "首页",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "首页",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/localtion_car/index",
-			"style": {
-				"navigationBarTitleText": "位置",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/localtion_car/xiangqing",
-			"style": {
-				"navigationBarTitleText": "详情",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/car_bd/car_bd",
-			"style": {
-				"navigationBarTitleText": "汽车绑定",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		// input_device
-		{
-			"path": "pages/input_device/index",
-			"style": {
-				"navigationBarTitleText": "绑定设备",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/agreement/index",
-			"style": {
-				"navigationBarTitleText": "注册协议",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/personnel/index",
-			"style": {
-				"navigationBarTitleText": "人员管理",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/index_daohang/indexcc",
-			"style": {
-				"navigationBarTitleText": "导航",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/index_daohang/indexccnew",
-			"style": {
-				"navigationBarTitleText": "导航",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/jurisdiction/index",
-			"style": {
-				"navigationBarTitleText": "设备权限",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/question_list/index",
-			"style": {
-				"navigationBarTitleText": "关于我们",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			// 
-			"path": "pages/storetwo/index",
-			"style": {
-				"navigationBarTitleText": "商城",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/index_daohang/index",
-			"style": {
-				"navigationBarTitleText": "导航",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/question/index",
-			"style": {
-				"navigationBarTitleText": "常见问题",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/index_two/index",
-			"style": {
-				"navigationBarTitleText": "导航",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/setting/qrcode",
-			"style": {
-				"navigationBarTitleText": "设备二维码",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		// /pages/trajectory/guiji"
-		{
-			"path": "pages/trajectory/guiji",
-			"style": {
-				"navigationBarTitleText": "轨迹",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		// tingliu.vue
-		{
-			"path": "pages/trajectory/tongji",
-			"style": {
-				"navigationBarTitleText": "统计",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/trajectory/tingliu",
-			"style": {
-				"navigationBarTitleText": "停留统计",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/trajectory/licheng",
-			"style": {
-				"navigationBarTitleText": "里程统计",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		// licheng.vue
-		{
-			"path": "pages/trajectory/chekuang",
-			"style": {
-				"navigationBarTitleText": "车况",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/trajectory/yslx",
-			"style": {
-				"navigationBarTitleText": "路线轨迹",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		// yslx
-		{
-			"path": "pages/trajectory/xingcheng",
-			"style": {
-				"navigationBarTitleText": "行程",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/trajectory/guijitz",
-			"style": {
-				"navigationBarTitleText": "轨迹",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/trajectory/details",
-			"style": {
-				"navigationBarTitleText": "轨迹",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/watch/index",
-			"style": {
-				"navigationBarTitleText": "智能设备",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/localtion/index",
-			"style": {
-				"navigationBarTitleText": "首页",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/alarm/details",
-			"style": {
-				"navigationBarTitleText": "警报详情",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/alarm/jinbao",
-			"style": {
-				"navigationBarTitleText": "汽车警报",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		// jinbao
-		{
-			"path": "pages/trajectory/details",
-			"style": {
-				"navigationBarTitleText": "轨迹",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/enclosure/create",
-			"style": {
-				"navigationBarTitleText": "创建围栏",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/enclosure/createcar",
-			"style": {
-				"navigationBarTitleText": "围栏创建",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		// createcar
-		{
-			"path": "pages/enclosure/weilande",
-			"style": {
-				"navigationBarTitleText": "汽车围栏",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/enclosure/jiance",
-			"style": {
-				"navigationBarTitleText": "车辆检测",
-				"app-plus": {
-					"titleNView": true
-				}
-			}
-		},
-		{
-			"path": "pages/demo/index",
-			"style": {
-				"navigationBarTitleText": "Demo",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/machine/bind",
-			"style": {
-				"navigationBarTitleText": "首页",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/machine/scanning",
-			"style": {
-				"navigationBarTitleText": "扫描设备",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/check/details",
-			"style": {
-				"navigationBarTitleText": "检测详情",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/check/index",
-			"style": {
-				"navigationBarTitleText": "检测",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/health/index",
-			"style": {
-				"navigationBarTitleText": "健康",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/enclosure/index",
-			"style": {
-				"navigationBarTitleText": "围栏",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/camera/index",
-			"style": {
-				"navigationBarTitleText": "系统相机",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/clock/index",
-			"style": {
-				"navigationBarTitleText": "闹钟",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/clock/create",
-			"style": {
-				"navigationBarTitleText": "新建闹钟",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/target/index",
-			"style": {
-				"navigationBarTitleText": "运动目标设置",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/remind/index",
-			"style": {
-				"navigationBarTitleText": "提醒设置",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/admin/index",
-			"style": {
-				"navigationBarTitleText": "设备管理员",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/setting/index",
-			"style": {
-				"navigationBarTitleText": "设置",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/setting/details",
-			"style": {
-				"navigationBarTitleText": "设备详情",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/setting/shezhi",
-			"style": {
-				"navigationBarTitleText": "设置",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		// shezhi
-		{
-			"path": "pages/setting/detailscar",
-			"style": {
-				"navigationBarTitleText": "设备详情",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/trajectory/index",
-			"style": {
-				"navigationBarTitleText": "轨迹",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/trajectory/luyingindex",
-			"style": {
-				"navigationBarTitleText": "录音列表",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		// luyingindex.vue
-		{
-			"path": "pages/alarm/index",
-			"style": {
-				"navigationBarTitleText": "警报",
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/store/index",
-			"style": {
-				"navigationBarTitleText": "商城",
-				"enablePullDownRefresh": false,
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/me/index",
-			"style": {
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
-		{
-			"path": "pages/me/setup",
-			"style": {
-				"navigationBarTitleText": "账户设置",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/login/login",
-			"style": {
-				"navigationBarTitleText": "登录"
-			}
-		},
-		{
-			"path": "pages/login/register",
-			"style": {
-				"navigationBarTitleText": "注册"
-			}
-		},
-		{
-			"path": "pages/login/forget",
-			"style": {
-				"navigationBarTitleText": "找回密码"
-			}
-		},
-		{
-			"path": "pages/machine/list",
-			"style": {
-				"navigationBarTitleText": "设备管理",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/machine/detail",
-			"style": {
-				"navigationBarTitleText": "设备详情",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/machine/set",
-			"style": {
-				"navigationBarTitleText": "设备设置",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/machine/buy",
-			"style": {
-				"navigationBarTitleText": "设备设置",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/salary/list",
-			"style": {
-				"navigationBarTitleText": "考勤组管理",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"app-plus": {
-					"titleNView": {
-						"buttons": [ //原生标题栏按钮配置,
-							{
-								"float": "right", // 按钮浮动方式，float:向左浮动；right:向右浮动
-								"fontSize": "30rpx", // 文字大小
-								"text": "新建" // 图标类型
-							}
-						]
-					}
-				}
-			}
-		},
-		{
-			"path": "pages/salary/fansGroup",
-			"style": {
-				"navigationBarTitleText": "考勤组成员",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/salary/create",
-			"style": {
-				"navigationBarTitleText": "新建考勤组",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/salary/edit",
-			"style": {
-				"navigationBarTitleText": "考勤组设置",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"app-plus": {
-					"titleNView": {
-						"buttons": [ //原生标题栏按钮配置,
-							{
-								"float": "right", // 按钮浮动方式，float:向左浮动；right:向右浮动
-								"fontSize": "35rpx", // 文字大小
-								"text": "\ue501", // 图标类型
-								"fontSrc": "/static/font/qrcode.ttf"
-							}
-						]
-					}
-				}
-			}
-		},
-		{
-			"path": "pages/salary/salaryQrCode",
-			"style": {
-				"navigationBarTitleText": "考勤组二维码",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/salary/joinSalary",
-			"style": {
-				"navigationBarTitleText": "加入考勤组",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/salary/time",
-			"style": {
-				"navigationBarTitleText": "上班时间",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/salary/address",
-			"style": {
-				"navigationBarTitleText": "考勤位置",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/salary/home",
-			"style": {
-				"navigationBarTitleText": "考勤打卡",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"app-plus": {
-					"titleNView": {
-						"buttons": [ //原生标题栏按钮配置,
-							{
-								"float": "right", // 按钮浮动方式，float:向左浮动；right:向右浮动
-								"fontSize": "30rpx", // 文字大小
-								"text": "记录" // 图标类型
-							}
-						]
-					}
-				}
-			}
-		},
-		{
-			"path": "pages/salary/rule",
-			"style": {
-				"navigationBarTitleText": "考勤组规则",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/salary/salaryGroupRecord",
-			"style": {
-				"navigationBarTitleText": "考勤组记录",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/salary/salaryGroupMonthRecord",
-			"style": {
-				"navigationBarTitleText": "考勤组记录",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/salary/salaryFansMonthRecord",
-			"style": {
-				"navigationBarTitleText": "考勤记录",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/salary/salaryRecord",
-			"style": {
-				"navigationBarTitleText": "考勤记录",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		},
-		{
-			"path": "pages/search/index",
-			"style": {
-				"navigationBarTitleText": "搜索位置",
-				"backgroundColor": "#FFFFFF",
-				"navigationBarBackgroundColor": "#FFFFFF"
-			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "北斗导航",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#e9e9e9",
-		"pageOrientation": "auto"
-	}
-	,
-	"tabBar": {
-		"color": "#999",
-		"selectedColor": "#37f",
-		"borderStyle": "black",
-		"backgroundColor": "#ffffff",
-		"list": [{
-			"pagePath": "pages/index/index",
-			"iconPath": "static/image/home@3x.png",
-			"selectedIconPath": "static/image/s_home@3x.png",
-			"text": "首页"
-		}, {
-			"pagePath": "pages/store/index",
-			"iconPath": "static/image/store@3x.png",
-			"selectedIconPath": "static/image/s_store@3x.png",
-			"text": "商城"
-		}, {
-			"pagePath": "pages/me/index",
-			"iconPath": "static/image/me@3x.png",
-			"selectedIconPath": "static/image/s_me@3x.png",
-			"text": "我的"
-		}]
-	}
+    "pages": [
+        // car_bd
+        // localtion_car
+        {
+            "path": "pages/index/qidong",
+            "style": {
+                "navigationBarTitleText": "首页",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/index/guide",
+            "style": {
+                "navigationBarTitleText": "首页",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/index/index",
+            "style": {
+                "navigationBarTitleText": "首页",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/localtion_car/index",
+            "style": {
+                "navigationBarTitleText": "位置",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/localtion_car/xiangqing",
+            "style": {
+                "navigationBarTitleText": "详情",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/car_bd/car_bd",
+            "style": {
+                "navigationBarTitleText": "汽车绑定",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        // input_device
+        {
+            "path": "pages/input_device/index",
+            "style": {
+                "navigationBarTitleText": "绑定设备",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/agreement/index",
+            "style": {
+                "navigationBarTitleText": "注册协议",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/personnel/index",
+            "style": {
+                "navigationBarTitleText": "人员管理",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/index_daohang/indexcc",
+            "style": {
+                "navigationBarTitleText": "导航",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/index_daohang/indexccnew",
+            "style": {
+                "navigationBarTitleText": "导航",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/jurisdiction/index",
+            "style": {
+                "navigationBarTitleText": "设备权限",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/question_list/index",
+            "style": {
+                "navigationBarTitleText": "关于我们",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            // 
+            "path": "pages/storetwo/index",
+            "style": {
+                "navigationBarTitleText": "商城",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/index_daohang/index",
+            "style": {
+                "navigationBarTitleText": "导航",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/question/index",
+            "style": {
+                "navigationBarTitleText": "常见问题",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/index_two/index",
+            "style": {
+                "navigationBarTitleText": "导航",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/setting/qrcode",
+            "style": {
+                "navigationBarTitleText": "设备二维码",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        // /pages/trajectory/guiji"
+        {
+            "path": "pages/trajectory/guiji",
+            "style": {
+                "navigationBarTitleText": "轨迹",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        // tingliu.vue
+        {
+            "path": "pages/trajectory/tongji",
+            "style": {
+                "navigationBarTitleText": "统计",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/trajectory/tingliu",
+            "style": {
+                "navigationBarTitleText": "停留统计",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/trajectory/licheng",
+            "style": {
+                "navigationBarTitleText": "里程统计",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        // licheng.vue
+        {
+            "path": "pages/trajectory/chekuang",
+            "style": {
+                "navigationBarTitleText": "车况",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/trajectory/yslx",
+            "style": {
+                "navigationBarTitleText": "路线轨迹",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        // yslx
+        {
+            "path": "pages/trajectory/xingcheng",
+            "style": {
+                "navigationBarTitleText": "行程",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/trajectory/guijitz",
+            "style": {
+                "navigationBarTitleText": "轨迹",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/trajectory/details",
+            "style": {
+                "navigationBarTitleText": "轨迹",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/watch/index",
+            "style": {
+                "navigationBarTitleText": "智能设备",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/localtion/index",
+            "style": {
+                "navigationBarTitleText": "首页",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/alarm/details",
+            "style": {
+                "navigationBarTitleText": "警报详情",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/alarm/jinbao",
+            "style": {
+                "navigationBarTitleText": "汽车警报",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        // jinbao
+        {
+            "path": "pages/trajectory/details",
+            "style": {
+                "navigationBarTitleText": "轨迹",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/enclosure/create",
+            "style": {
+                "navigationBarTitleText": "创建围栏",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/enclosure/createcar",
+            "style": {
+                "navigationBarTitleText": "围栏创建",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        // createcar
+        {
+            "path": "pages/enclosure/weilande",
+            "style": {
+                "navigationBarTitleText": "汽车围栏",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/enclosure/jiance",
+            "style": {
+                "navigationBarTitleText": "车辆检测",
+                "app-plus": {
+                    "titleNView": true
+                }
+            }
+        },
+        {
+            "path": "pages/demo/index",
+            "style": {
+                "navigationBarTitleText": "Demo",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/machine/bind",
+            "style": {
+                "navigationBarTitleText": "首页",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/machine/scanning",
+            "style": {
+                "navigationBarTitleText": "扫描设备",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/check/details",
+            "style": {
+                "navigationBarTitleText": "检测详情",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/check/index",
+            "style": {
+                "navigationBarTitleText": "检测",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/health/index",
+            "style": {
+                "navigationBarTitleText": "健康",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/enclosure/index",
+            "style": {
+                "navigationBarTitleText": "围栏",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/camera/index",
+            "style": {
+                "navigationBarTitleText": "系统相机",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/clock/index",
+            "style": {
+                "navigationBarTitleText": "闹钟",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/clock/create",
+            "style": {
+                "navigationBarTitleText": "新建闹钟",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/target/index",
+            "style": {
+                "navigationBarTitleText": "运动目标设置",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/remind/index",
+            "style": {
+                "navigationBarTitleText": "提醒设置",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/admin/index",
+            "style": {
+                "navigationBarTitleText": "设备管理员",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/setting/index",
+            "style": {
+                "navigationBarTitleText": "设置",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/setting/details",
+            "style": {
+                "navigationBarTitleText": "设备详情",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/setting/shezhi",
+            "style": {
+                "navigationBarTitleText": "设置",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        // shezhi
+        {
+            "path": "pages/setting/detailscar",
+            "style": {
+                "navigationBarTitleText": "设备详情",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/trajectory/index",
+            "style": {
+                "navigationBarTitleText": "轨迹",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/trajectory/luyingindex",
+            "style": {
+                "navigationBarTitleText": "录音列表",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        // luyingindex.vue
+        {
+            "path": "pages/alarm/index",
+            "style": {
+                "navigationBarTitleText": "警报",
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/store/index",
+            "style": {
+                "navigationBarTitleText": "商城",
+                "enablePullDownRefresh": false,
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/me/index",
+            "style": {
+                "app-plus": {
+                    "titleNView": false
+                }
+            }
+        },
+        {
+            "path": "pages/me/setup",
+            "style": {
+                "navigationBarTitleText": "账户设置",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/login/login",
+            "style": {
+                "navigationBarTitleText": "登录"
+            }
+        },
+        {
+            "path": "pages/login/register",
+            "style": {
+                "navigationBarTitleText": "注册"
+            }
+        },
+        {
+            "path": "pages/login/forget",
+            "style": {
+                "navigationBarTitleText": "找回密码"
+            }
+        },
+        {
+            "path": "pages/machine/list",
+            "style": {
+                "navigationBarTitleText": "设备管理",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF",
+                "enablePullDownRefresh": true
+            }
+        },
+        {
+            "path": "pages/machine/detail",
+            "style": {
+                "navigationBarTitleText": "设备详情",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF",
+                "enablePullDownRefresh": true
+            }
+        },
+        {
+            "path": "pages/machine/set",
+            "style": {
+                "navigationBarTitleText": "设备设置",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF",
+                "enablePullDownRefresh": true
+            }
+        },
+        {
+            "path": "pages/machine/buy",
+            "style": {
+                "navigationBarTitleText": "设备设置",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF",
+                "enablePullDownRefresh": true
+            }
+        },
+        {
+            "path": "pages/salary/list",
+            "style": {
+                "navigationBarTitleText": "考勤组管理",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF",
+                "app-plus": {
+                    "titleNView": {
+                        "buttons": [ //原生标题栏按钮配置,
+                            {
+                                "float": "right", // 按钮浮动方式，float:向左浮动；right:向右浮动
+                                "fontSize": "30rpx", // 文字大小
+                                "text": "新建" // 图标类型
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "path": "pages/salary/fansGroup",
+            "style": {
+                "navigationBarTitleText": "考勤组成员",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/salary/create",
+            "style": {
+                "navigationBarTitleText": "新建考勤组",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/salary/edit",
+            "style": {
+                "navigationBarTitleText": "考勤组设置",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF",
+                "app-plus": {
+                    "titleNView": {
+                        "buttons": [ //原生标题栏按钮配置,
+                            {
+                                "float": "right", // 按钮浮动方式，float:向左浮动；right:向右浮动
+                                "fontSize": "35rpx", // 文字大小
+                                "text": "\ue501", // 图标类型
+                                "fontSrc": "/static/font/qrcode.ttf"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "path": "pages/salary/salaryQrCode",
+            "style": {
+                "navigationBarTitleText": "考勤组二维码",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/salary/joinSalary",
+            "style": {
+                "navigationBarTitleText": "加入考勤组",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/salary/time",
+            "style": {
+                "navigationBarTitleText": "上班时间",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/salary/address",
+            "style": {
+                "navigationBarTitleText": "考勤位置",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/salary/home",
+            "style": {
+                "navigationBarTitleText": "考勤打卡",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF",
+                "app-plus": {
+                    "titleNView": {
+                        "buttons": [ //原生标题栏按钮配置,
+                            {
+                                "float": "right", // 按钮浮动方式，float:向左浮动；right:向右浮动
+                                "fontSize": "30rpx", // 文字大小
+                                "text": "记录" // 图标类型
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "path": "pages/salary/rule",
+            "style": {
+                "navigationBarTitleText": "考勤组规则",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/salary/salaryGroupRecord",
+            "style": {
+                "navigationBarTitleText": "考勤组记录",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/salary/salaryGroupMonthRecord",
+            "style": {
+                "navigationBarTitleText": "考勤组记录",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/salary/salaryFansMonthRecord",
+            "style": {
+                "navigationBarTitleText": "考勤记录",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/salary/salaryRecord",
+            "style": {
+                "navigationBarTitleText": "考勤记录",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/search/index",
+            "style": {
+                "navigationBarTitleText": "搜索位置",
+                "backgroundColor": "#FFFFFF",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        }
+    ],
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "北斗导航",
+        "navigationBarBackgroundColor": "#F8F8F8",
+        "backgroundColor": "#e9e9e9",
+        "pageOrientation": "auto"
+    }
+    // ,
+    // "tabBar": {
+    // 	"color": "#999",
+    // 	"selectedColor": "#37f",
+    // 	"borderStyle": "black",
+    // 	"backgroundColor": "#ffffff",
+    // 	"list": [{
+    // 		"pagePath": "pages/index/index",
+    // 		"iconPath": "static/image/home@3x.png",
+    // 		"selectedIconPath": "static/image/s_home@3x.png",
+    // 		"text": "首页"
+    // 	}, {
+    // 		"pagePath": "pages/store/index",
+    // 		"iconPath": "static/image/store@3x.png",
+    // 		"selectedIconPath": "static/image/s_store@3x.png",
+    // 		"text": "商城"
+    // 	}, {
+    // 		"pagePath": "pages/me/index",
+    // 		"iconPath": "static/image/me@3x.png",
+    // 		"selectedIconPath": "static/image/s_me@3x.png",
+    // 		"text": "我的"
+    // 	}]
+    // }
 }
