@@ -4,13 +4,21 @@
     <view class="page" style="padding: 0;">
         
         <view class="timearea">
-            <view class="time" @tap="setTime(1)">
+            <!-- <view class="time" @tap="setTime(1)">
                 {{start_time}}
             </view> 
             <text>至</text>
             <view class="time" @tap="setTime(0)">
                 {{end_time}}
-            </view>
+            </view> -->
+			<view class="time" @tap="setTime(1)">
+				{{start_time}}
+			</view>
+			<text>至</text>
+			<view class="time" @tap="setTime(0)">
+				{{end_time}}
+			</view>
+			<view class="search-btn" @tap="getAlarmList">搜索</view>
         </view>
         <view class="event-list " v-for="(item,index) in alarmList" :key="index" @tap="goDetails(item)" >
             <image class="car-icon" src="../../static/image/car@2x.png"></image>
@@ -20,12 +28,7 @@
 				<view class="time">{{item.processedTime}}</view>
 			</view>
         </view>
-        <date-time
-                    ref="dateTime"
-                    startYear="2015"
-                    :isAll="false"
-                    :current="false"
-                    @confirm="onConfirm" ></date-time> 
+        <date-time ref="dateTime" startYear="2019" :isAll="true" :current="false" @confirm="onConfirm"></date-time>
     </view>
 	
 	<!-- "id": "1",
@@ -67,8 +70,8 @@
         data() {
             return {
                 alarmList:[],
-                start_time: '2020-09-01 14:09:13',
-                end_time: '2020-09-30 04:44:49',
+                start_time: '',
+                end_time: '',
                 times:'2020-03-10 08:30:01',
                 type:1,
 				deviceid:''
@@ -79,16 +82,17 @@
 			console.log(e)
 			_this.deviceid = e.deviceid ;
 			var date = new Date();
-					this.year = date.getFullYear();
-					this.month = date.getMonth() + 1;
-					this.date = date.getDate();
-					this.hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-					this.minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-					this.second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-					this.milliSeconds = date.getMilliseconds();
-					var currentTime = this.year+'-'+this.month + '-' + this.date + ' ' + this.hour + ':' + this.minute + ':' + this.second 
-					_this.end_time = currentTime ; 			
-					console.log(currentTime)
+			this.year = date.getFullYear();
+			this.month = date.getMonth() < 9 ?("0"+(date.getMonth() + 1)):(date.getMonth() + 1);
+			this.date = date.getDate() < 10 ?("0"+date.getDate()):date.getDate();
+			this.hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+			this.minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+			this.second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+			this.milliSeconds = date.getMilliseconds();
+			var currentTime = this.year+'-'+this.month + '-' + this.date + ' ' + this.hour + ':' + this.minute + ':' + this.second 
+			_this.start_time = currentTime;
+			_this.end_time = currentTime ; 			
+			console.log(currentTime)
         },
         mounted() {
             _this = this
@@ -102,6 +106,7 @@
                 })
             },
             setTime(type) {
+				console.log(type)
                 _this.type = type;
                 if(type) {
                     _this.times = _this.start_time
@@ -117,7 +122,7 @@
                 } else {
                     _this.end_time = e.selectRes 
                 }
-                 _this.getAlarmList();
+                 // _this.getAlarmList();
             },
             getAlarmList(){ 
 				var token = uni.getStorageSync('token');
@@ -129,22 +134,22 @@
 				// 	end_time:_this.end_time,
 				// 	token:token
 				// } 
-				
+				// console.log(_this.start_time.split(' ')[0],_this.end_time.split(' ')[0])
 				// console.log(dats)  
+				let a = _this.start_time.split(' ')[0]
+				let b = _this.end_time.split(' ')[0]
                 common.request('car/police_list', {
                   deviceid:_this.deviceid,
                   start_time:'2020-09-01', 
                   end_time:'2020-10-01',
                   token:token 
-                }, function(res) {  
-					console.log(res)    
+                }, function(res) {    
 					_this.alarmList = res.data.info.data  
 				})  
                 
             }, 
             // 查看详情 
-            goDetails(item) { 
-				console.log(item)
+            goDetails(item) {
                 uni.navigateTo({
                     url:'/pages/alarm/details?id=' + item.id+"&longitude="+item.longitude+"&latitude="+item.latitude+"&deviceid="+_this.deviceid 
                 })

@@ -279,6 +279,15 @@
 			}
 		},
 		{
+			"path": "pages/alarm/details2",
+			"style": {
+				"navigationBarTitleText": "警报详情",
+				"app-plus": {
+					"titleNView": true
+				}
+			}
+		},
+		{
 			"path": "pages/alarm/jinbao",
 			"style": {
 				"navigationBarTitleText": "汽车警报",

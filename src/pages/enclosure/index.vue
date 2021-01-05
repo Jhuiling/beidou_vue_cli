@@ -41,11 +41,22 @@ export default {
   data() {
     return {
       encolsureList:[],
-	  deviceid:''
+	  deviceid:'',
+	  loading:false
     };
+  },
+  watch:{
+	loading(val){
+		if(val){
+			uni.showLoading()
+		}else{
+			uni.hideLoading()
+		}
+	}  
   },
   onLoad(e){
 	  var _this = this ; 
+	  console.log(this.deviceid,e)
 	  _this.deviceid = e.deviceid 
   },
   mounted() {
@@ -66,27 +77,31 @@ export default {
     },
     // 获取围栏列表
     getEnclosureList() {
+		this.loading = true
       let data = {
          deviceid:this.deviceid
       }
 	   
 	  console.log(this.deviceid)
 	  
-		common.request('machine/enclosure_list', data, function(res) {
+		common.request('machine/enclosure_list', data, (res)=> {
 			_this.encolsureList = res.data.info.data
 			console.log(res)   
+			this.loading = false
 		})
     },
     removeEnclosure(item) {
       uni.showModal({
         title: '提示',
-        content: '是否删除？',
+        content: '是否删除选中围栏？',
         success: function (res) {
             if (res.confirm) {
+				_this.loading = true
                 common.request('machine/enclosure_delete', {id:item.id}, function(result) {
-                  console.log(result)
+                  console.log(result)				
+				  _this.loading = false
 				  uni.showToast({
-				      title: '成功',
+				      title: '删除成功',
 				      duration: 2000
 				  });
                   _this.getEnclosureList()

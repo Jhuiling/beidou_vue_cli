@@ -22,7 +22,7 @@
 				<image class="car-icon" src="../../static/image/car@2x.png"></image>
 				<text class="car-name">{{item.type}}</text>
 				<text class="title">{{item.name}}</text>
-				<text class="time">{{item.CreateDate}}</text>
+				<text class="time">{{item.create_time}}</text>
 			</view>
 			<view class="mask" v-if="loading">
 				<text>加载中...</text>
@@ -119,7 +119,7 @@
 			// 查看详情
 			goDetails(item) {
 				uni.navigateTo({
-					url: '/pages/alarm/details?id=' + item.id + "&longitude=" + item.longitude + "&latitude=" + item.latitude +
+					url: '/pages/alarm/details2?id=' + item.id + "&longitude=" + item.longitude + "&latitude=" + item.latitude +
 						"&deviceid=" + _this.deviceid
 				})
 			}
