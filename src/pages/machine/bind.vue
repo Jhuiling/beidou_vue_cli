@@ -88,7 +88,8 @@
 		},
 		onLoad(e) {
 			_this = this;
-			console.log(e);
+			this.get_icon();
+			// console.log(e);
 			if (e.deviceid) {
 				_this.deviceid = e.deviceid
 				common.request('machine/bind_fetch', {
@@ -110,6 +111,15 @@
 
 		},
 		methods: {
+			 get_icon(){
+				// machine/get_icon
+				common.request('machine/get_icon', {
+					type:"small"
+				}, function(res) {
+					console.log(res)
+					
+				});
+			},
 			aliassss(e) {
 				_this.use_user = e
 			},
