@@ -50,16 +50,16 @@
         <view class="item use-people">
           <view class="title">选择设备图标</view>
           <view class="use-list">
-            <view class="renbox" v-for="(item,index) in imgList" :key="index">
+            <view class="renbox" v-for="(item, index) in imgList" :key="index">
               <image
                 :src="
-                  use_user == 1
+                  use_user == item.img
                     ? `../../static/image/b_${item.img}.png`
-                    : `../../static/image/b_${item.img}.png`
+                    : `../../static/image/sb_${item.img}.png`
                 "
                 @click="aliassss(item.img)"
               ></image>
-              <text class="rentext">{{item.name}}</text>
+              <text class="rentext">{{ item.name }}</text>
             </view>
             <!-- <view class="renbox">
 							<image :src="use_user==2?'../../static/image/people_b@3x.png':'../../static/image/people_sb@3x.png'" @click="aliassss(2)"></image>
@@ -112,60 +112,60 @@ export default {
       wechatPay: false,
       alias: "",
       deviceid: "",
-      use_user: 1,
+      use_user: 0,
       urlbtx: false,
       imgList: [
         {
-		  img: "0",
-		  name:"车充"
+          img: "0",
+          name: "车充",
         },
         {
-		  img: "1",
-		  name:"工卡"
+          img: "1",
+          name: "工卡",
         },
         {
-		  img: "2",
-		  name:"狗"
+          img: "2",
+          name: "狗",
         },
         {
-		  img: "3",
-		  name:"猫咪"
+          img: "3",
+          name: "猫咪",
         },
         {
-		  img: "4",
-		  name:"摩托车"
+          img: "4",
+          name: "摩托车",
         },
         {
-		  img: "5",
-		  name:"奶奶"
+          img: "5",
+          name: "奶奶",
         },
         {
-		  img: "6",
-		  name:"爷爷"
+          img: "6",
+          name: "爷爷",
         },
         {
-		  img: "7",
-		  name:"男孩"
+          img: "7",
+          name: "男孩",
         },
         {
-		  img: "8",
-		  name:"女孩"
+          img: "8",
+          name: "女孩",
         },
         {
-		  img: "9",
-		  name:"汽车"
+          img: "9",
+          name: "汽车",
         },
         {
-		  img: "10",
-		  name:"全部"
+          img: "10",
+          name: "全部",
         },
         {
-		  img: "11",
-		  name:"手表1"
+          img: "11",
+          name: "手表1",
         },
         {
-		  img: "12",
-		  name:"手表2"
+          img: "12",
+          name: "手表2",
         },
       ],
     };
