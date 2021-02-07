@@ -19,10 +19,15 @@
 				<view class="search-btn" @tap="getAlarmList">搜索</view>
 			</view>
 			<view class="event-list " v-for="(item,index) in alarmList" :key="index" @tap="goDetails(item)">
-				<image class="car-icon" src="../../static/image/car@2x.png"></image>
-				<text class="car-name">{{item.type}}</text>
-				<text class="title">{{item.name}}</text>
-				<text class="time">{{item.create_time}}</text>
+				<view>
+					<image class="car-icon" src="../../static/image/car@2x.png"></image>
+					<text class="car-name">{{item.type}}</text>
+					<text class="title">{{item.name}}</text>
+					<text class="time">{{item.create_time}}</text>
+				</view>
+				<view>
+					<text class="address">{{item.address|| '暂无定位信息'}}</text>
+				</view>
 			</view>
 			<view class="mask" v-if="loading">
 				<text>加载中...</text>

@@ -81,7 +81,7 @@
 		<div class="sel-device" v-if="selOpen" style="box-shadow: 0px 7px 7px -7px #5E5E5E;">
 			<div class="topfalse"></div>
 			<radio-group>
-				<div v-for="(item,index) in  machineLists" :key="index"  @tap="changes(index)" style="width: 90%;margin: 0px auto;">
+				<div v-for="(item,index) in  machineLists" :key="index"  @tap="changes(item,index)" style="width: 90%;margin: 0px auto;">
 					<div v-if="int==index" class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;background-color: #f3f3f3;" >
 						<div class="neiimg">
 							<image class="dv-list-image" v-bind:src="imgconfig[item.type].icon" mode="aspectFit"></image>
@@ -973,14 +973,13 @@
 			getMachineList() {
 				common.request('machine/machine_list', {}, function(res) {
 					var newboxs = []
-
 					console.log(res)
 					if(res.data.info.length==0){
 						_this.guanbi = false
 					}else{
 						_this.guanbi = true
 					}
-
+					console.log(res)
 					_this.luyings = res.data.info[0].type
 					_this.machineLists = res.data.info;
 
@@ -1048,7 +1047,7 @@
 				_this.close = true;
 				console.log(item.url)
 				uni.navigateTo({
-					url: item.url+"?deviceid="+_this.deviceid
+					url: item.url+"?deviceid="+_this.deviceid+'&type='+this.type
 				});
 			},
 			goUrltdfg(){
@@ -1113,7 +1112,7 @@
 				_this.uanzhong = '首页'
 				this.type = 0
 			},
-			async changes(index) {
+			async changes(item,index) {
 				_this.yingchang = true
 				_this.uanzhong = _this.machineLists[index].alias
 				this.type =_this.machineLists[index].type

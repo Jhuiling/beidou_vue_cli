@@ -53,9 +53,19 @@
                 times:'2020-03-10 08:30:01',
                 type:1,
                 list:[],
-				deviceid:'' 
+				deviceid:'' ,
+				loading:false
             }
         },
+		watch:{
+			loading:function(val){
+				if(val){
+					uni.showLoading()
+				}else{
+					uni.hideLoading()
+				}
+			}
+		},
 		onLoad(e){
 			var _this = this ;
 			_this.deviceid = e.deviceid ;
@@ -92,6 +102,8 @@
                 _this.$refs.dateTime.show();
             },
             getList () {
+				if(this.loading)return 
+				this.loading = true
 				console.log(_this.start_time)
 				console.log(_this.end_time)
                 let data = {
@@ -99,9 +111,10 @@
                     end_time:_this.end_time,
                     deviceid:_this.deviceid 
                 } 
-				common.request("machine/record_list", data, function(res) {
+				common.request("machine/record_list", data, (res)=> {
 					console.log(res)
                     _this.list = res.data.info
+					this.loading = false
                 });
             },
             onConfirm(e) {
@@ -138,6 +151,17 @@
 				});
             },
 			handleDelItem(item){
+				if(this.loading)return 
+				this.loading =true
+				let data = {
+				    id:item.id,
+				    deviceid:_this.deviceid 
+				} 
+				common.request("machine/del_record", data, (res)=> {
+					this.loading =false
+					this.getList()
+				});
+				this.loading =false
 				
 			}
         }

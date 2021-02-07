@@ -4,7 +4,7 @@
     <view class="page">
         <view class="device">
             <view class="info">
-                <view class="logo"><image src="../../static/image/weatch@2x.png"></image></view>
+                <view class="logo" @click="modifyIcon"><image src="../../static/image/weatch@2x.png"></image></view>
                 <view class="title">{{name}}</view>
 <!--                <view class="subtitle">XXX智能手环——MP1185C</view>
                 <view class="subtitle">XXX智能手环——MP1185C</view> -->
@@ -12,7 +12,7 @@
             <view class="item">
                 <text class="title">设备昵称</text>
                 <view class="subtitle">
-                    <input style="background: transparent;" disabled class="uni-input" v-model="machineInfo.alias" type="text" placeholder="请输入16字符昵称" />
+                    <input style="background: transparent;" class="uni-input" v-model="machineInfo.alias" type="text" placeholder="请输入16字符昵称" />
                 </view>
             </view>
 			
@@ -45,6 +45,7 @@
         </view>
         <view class="line"></view>
 		<button type="default" class="btn" @click="jiebang()">解绑设备</button>
+		<button type="default" class="btn1" @click="modify()">修改信息</button>
 <!--        <view class="date">
             <view class="item">
                 <text class="title">激活日期</text>
@@ -140,6 +141,37 @@
 			
         },
         methods: {
+			modifyIcon(){
+				// uni.ch
+			},
+			modify(){
+				if(!this.machineInfo.alias){
+					uni.showToast({
+						title: '请输入昵称',
+						duration: 2000,
+						icon: "none"
+					});
+					return false
+				}
+				common.request('machine/seting', {
+					alias: this.machineInfo.alias,
+					deviceid: this.deviceid,
+					use_user: this.machineInfo.use_user
+				}, function(res) {
+						console.log("绑定设备",res)
+					if (res.data.status == 1) {
+						uni.showToast({
+							title:'修改成功'
+						})
+					} else {
+						uni.showToast({
+							title: res.data.info,
+							duration: 2000,
+							icon: "none"
+						});
+					}
+				});
+			},
 			jiebang(){
 				common.request('machine/unbind_machine', {
 					id:_this.id,

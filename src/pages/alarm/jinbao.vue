@@ -21,11 +21,16 @@
 			<view class="search-btn" @tap="getAlarmList">搜索</view>
         </view>
         <view class="event-list " v-for="(item,index) in alarmList" :key="index" @tap="goDetails(item)" >
-            <image class="car-icon" src="../../static/image/car@2x.png"></image>
             <view>
-				<view class="car-name">{{item.plateNo}}</view>
-				<view class="title">{{item.alarmType}}</view>
-				<view class="time">{{item.processedTime}}</view>
+				<image class="car-icon" src="../../static/image/car@2x.png"></image>
+				<view>
+					<view class="car-name">{{item.plateNo}}</view>
+					<view class="title">{{item.alarmType}}</view>
+					<view class="time">{{item.processedTime}}</view>
+				</view>
+			</view>
+			<view>
+				<text class="address">{{item.Location}}</text>
 			</view>
         </view>
         <date-time ref="dateTime" startYear="2019" :isAll="true" :current="false" @confirm="onConfirm"></date-time>

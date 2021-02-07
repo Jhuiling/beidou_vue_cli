@@ -56,12 +56,15 @@
 				type: 1,
 				list: [],
 				deviceid: '',
-				loading: false
+				loading: false,
+				deviceType:1
 			}
 		},
 		onLoad(e) {
 			var _this = this;
 			_this.deviceid = e.deviceid;
+			this.deviceType = e.type
+			console.log(e)
 			common.request("machine/get_time_range", {
 				token: uni.getStorageSync('token')
 			}, function(res) {
@@ -120,7 +123,7 @@
 				// end_time:_this.end_time,
 				uni.navigateTo({
 					url: '/pages/trajectory/details?token=' + token + "&start_time=" + _this.start_time + "&end_time=" + _this.end_time +
-						'&deviceid=' + _this.deviceid
+						'&deviceid=' + _this.deviceid + '&type=' + this.deviceType
 				})
 			}
 		}
