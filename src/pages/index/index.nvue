@@ -39,7 +39,7 @@
 		<div style="position: fixed;
 			z-index: 999;
 			left: 0;
-			top: 40rpx;
+			top: 60rpx;
 			width: 100rpx;
 			height: 60rpx;
 			border-width: 1px;
@@ -47,9 +47,13 @@
 			border-style: solid;
 			background-color: #fff;
 			flex-direction: row;
+			display:flex;
+			align-item:center;
 			justify-content: flex-start;" class="w-ctrl w-ctrltwo" @tap="openSel" v-if="guanbi">
-			<div class="w-box">
-				<image class="w-img" v-bind:src="type === 0 ? '../../static/image/icon/all.png' : imgconfig[type].icon"  mode="aspectFit"></image>
+			<div class="w-box"  style="	display:flex;
+			align-item:center;
+			justify-content: center;">
+				<image class="w-img" v-bind:src="type === 0 ? '../../static/image/icon/all.png' : '/static/image/b_'+type+'.png'"  mode="aspectFit"></image>
 			</div>
 			<div class="w-arrow">
 				<image class="w-arrow-image" src="../../static/image/right.png" mode=""></image>
@@ -60,7 +64,7 @@
 		<div style="position: fixed;
 			z-index: 999;
 			left: 0;
-			top: 40rpx;
+			top: 60rpx;
 			width: 100rpx;
 			height: 60rpx;
 			border-width: 1px;
@@ -68,8 +72,12 @@
 			border-style: solid;
 			background-color: #fff;
 			flex-direction: row;
+			display:flex;
+			align-item:center;
 			justify-content: flex-start;" class="w-ctrl w-ctrltwo" v-else  @tap="goUrltwo()">
-			<div class="w-box" >
+			<div class="w-box"  style="	display:flex;
+			align-item:center;
+			justify-content: center;">
 				<image class="w-img" v-bind:src="change == 1 ? '../../static/image/big_workcard@2xt.png' : '../../static/image/big_weatch@2xt.png'  " mode="aspectFit"></image>
 			</div>
 			<!-- <div class="w-arrow">
@@ -84,14 +92,14 @@
 				<div v-for="(item,index) in  machineLists" :key="index"  @tap="changes(item,index)" style="width: 90%;margin: 0px auto;">
 					<div v-if="int==index" class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;background-color: #f3f3f3;" >
 						<div class="neiimg">
-							<image class="dv-list-image" v-bind:src="imgconfig[item.type].icon" mode="aspectFit"></image>
+							<image class="dv-list-image" v-bind:src="'/static/image/s_'+item.type +'.png'" mode="aspectFit"></image>
 						</div>
 						<text style="color: #26A2FF;" class="dv-list-text ">{{item.alias}}</text>
 					</div>
 
 					<div v-else  class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;" >
 						<div class="neiimg">
-							<image class="dv-list-image" v-bind:src="imgconfig[item.type].icon" mode="aspectFit"></image>
+							<image class="dv-list-image" v-bind:src="'/static/image/s_'+item.type +'.png'" mode="aspectFit"></image>
 						</div>
 						<text class="dv-list-text ">{{item.alias}}</text>
 					</div>
@@ -1010,7 +1018,8 @@
 
 					for(var i = 0;i<_this.machineLists.length;i++){
 						let machine = _this.machineLists[i];
-						let icon = _this.imgconfig[machine.type]["pointimg"]
+						//let icon = _this.imgconfig[machine.type]["pointimg"]
+						let icon = '/static/image/b_'+machine.type +'.png'
 						machinemarkers[i]= {
 							id:i,latitude:machine.machineInfo.latitude,
 							longitude:machine.machineInfo.longitude,
@@ -1158,9 +1167,11 @@
 				let mymarkers = JSON.parse(JSON.stringify(this.mymarkers))
 				let newMarkers = mymarkers.map((item,index)=>{
 					if(item.id==id){
-						item.iconPath = this.imgconfig[_this.machineLists[index].type]['checkedIcon'] 
+					//	item.iconPath = this.imgconfig[_this.machineLists[index].type]['checkedIcon'] 
+					item.iconPath = '/static/image/b_'+[_this.machineLists[index].type] +'.png'
 					}else{
-						item.iconPath = this.imgconfig[_this.machineLists[index].type]["pointimg"]
+						item.iconPath = '/static/image/b_'+[_this.machineLists[index].type]+'.png'
+					//	item.iconPath = this.imgconfig[_this.machineLists[index].type]["pointimg"]
 					}
 					return item
 				})
