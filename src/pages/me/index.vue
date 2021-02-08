@@ -627,6 +627,7 @@ export default {
       });
     },
     bindPickerChange1(e) {
+		console.log(9999)
       var index = e.target.value;
       var arrx = _this.arry1;
       var xz = _this.shujubox;

@@ -156,7 +156,8 @@
 				common.request('machine/seting', {
 					alias: this.machineInfo.alias,
 					deviceid: this.deviceid,
-					use_user: this.machineInfo.use_user
+					use_user: this.machineInfo.use_user,
+					token :uni.getStorageSync('token')
 				}, function(res) {
 						console.log("绑定设备",res)
 					if (res.data.status == 1) {
