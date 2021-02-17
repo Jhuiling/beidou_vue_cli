@@ -18,7 +18,7 @@
 				<!-- <a href="www.baidu.com">比赛的比分</a> -->
 			</div>
 
-		</div> -->
+		</div>
 
 		<div style="position:fixed;z-index:10;bottom: 0;background-color: #FFFFFF;width: 750rpx;display: flex;display: -webkit-flex;flex-wrap: nowrap;flex-direction: row;justify-content:  space-around;;"
 		 ref="showshare">
@@ -324,7 +324,7 @@
 						if (data.paths[0] && data.paths[0].distance) {
 							console.log(data.paths[0].distance + '米')
 							// that.setData({
-							that.distance = data.paths[0].distance + '米'
+							that.distance = ( data.paths[0].distance/1000).toFixed(2) + '(km)'
 							// });
 						}
 						if (data.taxi_cost) {
@@ -375,7 +375,7 @@
 						if (data.paths[0] && data.paths[0].distance) {
 							console.log(data.paths[0].distance + '米')
 							// that.setData({
-							that.distance = data.paths[0].distance + '米'
+							that.distance = ( data.paths[0].distance/1000).toFixed(2) + '(km)'
 							// });
 						}
 						if (data.taxi_cost) {
@@ -426,7 +426,7 @@
 						if (data.paths[0] && data.paths[0].distance) {
 							console.log(data.paths[0].distance + '米')
 							// that.setData({
-							that.distance = data.paths[0].distance + '米'
+							that.distance = ( data.paths[0].distance/1000).toFixed(2) + '(km)'
 							// });
 						}
 						if (data.taxi_cost) {
