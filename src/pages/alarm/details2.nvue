@@ -31,9 +31,9 @@
 					<text class="w-title">警报类型:</text>
 					<text class="w-txt">{{alarmInfo.type}}</text>
 				</div>
-				<div class="w-item">
+				<div class="w-item" style="margin-bottom: 10rpx;">
 					<text class="w-title">地址:</text>
-					<text class="w-txt">{{alarmInfo.address}}</text>
+					<text class="w-txt" style="width: 550rpx;">{{alarmInfo.address}}</text>
 				</div>
 				<!--  -->
 				<div class="w-item">

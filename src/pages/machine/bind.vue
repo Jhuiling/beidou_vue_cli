@@ -53,11 +53,11 @@
             <view class="renbox" v-for="(item, index) in imgList" :key="index">
               <image
                 :src="
-                  use_user == item.img
-                    ? `../../static/image/b_${item.img}.png`
-                    : `../../static/image/sb_${item.img}.png`
+                  use_user == index
+                    ? `../../static/image/b_${index}.png`
+                    : `../../static/image/sb_${index}.png`
                 "
-                @click="aliassss(item.img)"
+                @click="aliassss(index)"
               ></image>
               <text class="rentext">{{ item.name }}</text>
             </view>
