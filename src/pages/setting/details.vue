@@ -180,10 +180,11 @@
 					// deviceid:353520180320184
 				}, function(res) {
 					uni.showToast({
-					    title: '标题',
+					    title: '解绑成功',
 					    duration: 2000,
 						icon:"none"
 					});
+					uni.navigateBack()
 					console.log(_this.id)
 					console.log(res)
 				})
