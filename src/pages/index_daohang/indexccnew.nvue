@@ -106,7 +106,7 @@
 				sechboxtt: '',
 				focusss: false,
 				bgname: '',
-				endnames: '',
+				endname: '',
 				endlon: 116.39742,
 				endlan: 39.909,
 				manjia: false,
@@ -134,10 +134,12 @@
 			_this.bglon = e.bglon
 			_this.endlat = e.endlat
 			_this.endlon = e.endlon
-
+			_this.bgname = e.bgname
+			_this.endname = e.endname
+			console.log(this.bgname,this.endname)
 			_this.latitude = e.bglat;
 			_this.longitude = e.bglon;
-
+			
 			console.log(e.bglat, e.bglon)
 			_this.markers = [{
 				id: 0,
@@ -259,7 +261,7 @@
 								latitude: bg,
 								longitude: bgt
 							},
-							name: bgname,
+							name: _this.bgname,
 							poiId: null
 						},
 						end: {
@@ -267,7 +269,7 @@
 								latitude: endlan,
 								longitude: endlon
 							},
-							name: '',
+							name: _this.endname,
 							poiId: null
 						},
 						multipleRouteNaviMode: false

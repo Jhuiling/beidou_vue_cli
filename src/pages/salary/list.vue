@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     deleSalary(id) {
-      let _this = that;
+      let _this = this;
       uni.showModal({
         title: "提示",
         content: "确定删除该考勤组",
