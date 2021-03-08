@@ -131,7 +131,7 @@
       >
         <view class="machine-box">
           <view class="nobolexS">
-            <view class="machine-item" v-if="arry1.length != 0">
+            <!-- <view class="machine-item" v-if="arry1.length != 0">
               <picker
                 @change="bindPickerChange1"
                 :value="index"
@@ -145,8 +145,8 @@
                   src="/static/image/bz1.png"
                 ></image>
               </picker>
-            </view>
-            <view class="machine-item" v-else>
+            </view> -->
+            <view class="machine-item">
               <image
                 class="img"
                 mode="aspectFit"
@@ -156,7 +156,7 @@
             <view class="num">{{ watch_count }}</view>
           </view>
 
-          <view class="nobolexS">
+          <!-- <view class="nobolexS">
             <view class="machine-item" v-if="arry2.length != 0">
               <picker
                 @change="bindPickerChange2"
@@ -180,9 +180,9 @@
               ></image>
             </view>
             <view class="num">{{ job_count }}</view>
-          </view>
-          <view class="nobolexS">
-            <!-- <navigator  url="/pages/car_bd/car_bd" style="background: #FFFFFF;border-top-left-radius: 5rpx ;border-top-right-radius: 5rpx;" > -->
+          </view> -->
+          <!-- <navigator  url="/pages/car_bd/car_bd" style="background: #FFFFFF;border-top-left-radius: 5rpx ;border-top-right-radius: 5rpx;" > -->
+          <!-- <view class="nobolexS">
             <view class="machine-item" v-if="arry3.length != 0">
               <picker
                 @change="bindPickerChange3"
@@ -206,9 +206,9 @@
               ></image>
             </view>
             <view class="num">{{ arry3.length }}</view>
-          </view>
+          </view> -->
           <!-- </navigator> -->
-          <view class="nobolexS">
+          <!-- <view class="nobolexS">
             <view class="machine-item" v-if="arry4.length != 0">
               <picker
                 @change="bindPickerChange4"
@@ -231,9 +231,9 @@
               ></image>
             </view>
             <view class="num">0</view>
-          </view>
+          </view> -->
 
-          <view class="nobolexS">
+          <!-- <view class="nobolexS">
             <view class="machine-item" v-if="arry5.length != 0">
               <picker
                 @change="bindPickerChange5"
@@ -256,7 +256,7 @@
               ></image>
             </view>
             <view class="num">0</view>
-          </view>
+          </view> -->
         </view>
       </view>
 
@@ -556,6 +556,21 @@ export default {
         token: uni.getStorageSync("token"),
       },
       function (res) {
+        // var list = [
+        //   {
+        //     type: "1", //绑定设备的时候传的图片的use_user,
+        //     num: "", //数量
+        //   },
+        //   {
+        //     type: "1", //绑定设备的时候传的图片的use_user,
+        //     num: "", //数量
+        //   },
+        //   {
+        //     type: "1", //绑定设备的时候传的图片的use_user,
+        //     num: "", //数量
+        //   },
+        // ];
+
         // car_bd
         console.log(res);
         var xhbox = res.data.info;
