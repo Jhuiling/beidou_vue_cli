@@ -131,7 +131,7 @@
       >
         <view class="machine-box">
           <view class="nobolexS">
-            <!-- <view class="machine-item" v-if="arry1.length != 0">
+            <view class="machine-item" v-if="arry1.length != 0">
               <picker
                 @change="bindPickerChange1"
                 :value="index"
@@ -145,8 +145,8 @@
                   src="/static/image/bz1.png"
                 ></image>
               </picker>
-            </view> -->
-            <view class="machine-item">
+            </view>
+            <view class="machine-item" v-else>
               <image
                 class="img"
                 mode="aspectFit"
@@ -156,7 +156,7 @@
             <view class="num">{{ watch_count }}</view>
           </view>
 
-          <!-- <view class="nobolexS">
+          <view class="nobolexS">
             <view class="machine-item" v-if="arry2.length != 0">
               <picker
                 @change="bindPickerChange2"
@@ -180,9 +180,9 @@
               ></image>
             </view>
             <view class="num">{{ job_count }}</view>
-          </view> -->
+          </view>
           <!-- <navigator  url="/pages/car_bd/car_bd" style="background: #FFFFFF;border-top-left-radius: 5rpx ;border-top-right-radius: 5rpx;" > -->
-          <!-- <view class="nobolexS">
+          <view class="nobolexS">
             <view class="machine-item" v-if="arry3.length != 0">
               <picker
                 @change="bindPickerChange3"
@@ -206,9 +206,9 @@
               ></image>
             </view>
             <view class="num">{{ arry3.length }}</view>
-          </view> -->
+          </view>
           <!-- </navigator> -->
-          <!-- <view class="nobolexS">
+          <view class="nobolexS">
             <view class="machine-item" v-if="arry4.length != 0">
               <picker
                 @change="bindPickerChange4"
@@ -231,9 +231,9 @@
               ></image>
             </view>
             <view class="num">0</view>
-          </view> -->
+          </view>
 
-          <!-- <view class="nobolexS">
+          <view class="nobolexS">
             <view class="machine-item" v-if="arry5.length != 0">
               <picker
                 @change="bindPickerChange5"
@@ -256,7 +256,7 @@
               ></image>
             </view>
             <view class="num">0</view>
-          </view> -->
+          </view>
         </view>
       </view>
 
@@ -825,17 +825,17 @@ export default {
         success: function (res) {
           console.log("扫一扫时间", res);
           if (res.tapIndex == 0) {
-            // uni.navigateTo({
-            //   url: "/pages/machine/bind?deviceid=" + "353520180332244",
-            // });
-            uni.scanCode({
-              success: function (res) {
-                console.log("扫码====", res);
-                uni.navigateTo({
-                  url: "/pages/machine/bind?deviceid=" + res.result,
-                });
-              },
+            uni.navigateTo({
+              url: "/pages/machine/bind?deviceid=" + "18200702174",
             });
+            // uni.scanCode({
+            //   success: function (res) {
+            //     console.log("扫码====", res);
+            //     uni.navigateTo({
+            //       url: "/pages/machine/bind?deviceid=" + res.result,
+            //     });
+            //   },
+            // });
           } else if (res.tapIndex == 1) {
             uni.scanCode({
               success: function (res) {
@@ -911,17 +911,17 @@ export default {
       this.scrollTop = event.target.scrollTop;
     },
     joinSalary() {
-      // uni.scanCode({
-      // 	success:function(res){
-      // 		console.log("扫码====kaoqin",res)
-      // 		uni.navigateTo({
-      // 			url: '/pages/salary/joinSalary?id=' + res.result
-      // 		});
-      // 	}
-      // });
-      uni.navigateTo({
-        url: "/pages/salary/joinSalary?id=" + 181,
+      uni.scanCode({
+        success: function (res) {
+          console.log("扫码====kaoqin", res);
+          uni.navigateTo({
+            url: "/pages/salary/joinSalary?id=" + res.result,
+          });
+        },
       });
+      // uni.navigateTo({
+      //   url: "/pages/salary/joinSalary?id=" + 181,
+      // });
     },
     doSalary() {
       uni.navigateTo({
