@@ -1,127 +1,68 @@
 <template>
     <view>
-    <uni-nav-bar left-icon="back" :fixed="true" :status-bar="true" title="设备" @clickLeft="goBack"  ></uni-nav-bar>
-    <view class="page" v-if="shopage">
-		<view class="fabox"></view>
-        <view class="device">
-            <view class="info" @tap="goDetails()">
-                <view class="icon">
-                    <image src="../../static/image/right.png"></image>
-                </view>
-                <view class="logo"><image :src="`/static/image/b_${use_user}.png`"></image></view>
-                <view class="title">{{deviceInfo.alias}}</view>
-                <!-- <view class="subtitle">XXX智能手环——MP1185C</view> -->
-            </view>
-            <view class="item">
-                <text class="title">设置时间汇报间隔</text>
-                <view class="times">
-                    <text>秒</text>
-                    <input class="uni-input" type="number" placeholder="" v-model="deviceInfo.machine.space_time" v-on:blur="saveSetting()" />
-                </view>
-            </view>
-        </view>
-        <view class="line"></view>
-        <view class="people" v-if="shouer">
-            <view class="item">
-                <text class="title">报警紧急联系人1</text>
-                <view class="times">
-                    <input class="uni-input" type="number" placeholder="" v-model="deviceInfo.machine.sos1"  v-on:blur="saveSetting()"  />
-                </view>
-            </view>
-            <view class="item">
-                <text class="title">报警紧急联系人2</text>
-                <view class="times">
-                    <input class="uni-input" type="number" placeholder="" v-model="deviceInfo.machine.sos2"  v-on:blur="saveSetting()"  />
-                </view>
-            </view>
-        </view>
-        <view class="line"></view>
-		
-		
-		
-        <view class="tips"  v-if="shouer">
-            <view class="item">
-                <text class="title">报警提醒方式</text>
-                <view class="subtitle">
-                    <view class="text">开</view>
-                    <view class="text">关</view>
-                </view>
-            </view>
-            <view class="item"  v-if="!kaiguan">
-                <text class="title sub">SOS报警</text>
-                <view class="subtitle">
-                    <radio-group>
-                        <label class="uni-list-cell uni-list-cell-pd change" >
-                            <view class="radios">
-                                <radio v-on:click="changeThis(0)" checked />
-                            </view>                   
-                        </label>
-						<label class="uni-list-cell uni-list-cell-pd change" >
-						    <view class="radios">
-						        <radio v-on:click="changeThis(1)"  />
-						    </view>                   
-						</label>
-                    </radio-group>
-                </view>
-            </view>
-           <view class="item"  v-if="!kaiguan">
-                <text class="title sub">跌倒报警</text>
-                <view class="subtitle">
-                    <radio-group>
-                        <label class="uni-list-cell uni-list-cell-pd change">
-                            <view class="radios">
-                                <radio v-on:click="fallSet(0)"  />
-                            </view>                   
-                        </label>
-						<label class="uni-list-cell uni-list-cell-pd change" >
-						    <view class="radios">
-						        <radio  v-on:click="fallSet(1)" checked />
-						    </view>                   
-						</label>
-                    </radio-group>
-                </view>
-            </view>
-        </view>
-		
-		<view class="tips" v-if="kaiguan">
-		    <view class="item">
-		        <text class="title sub">震动警告</text>
-		        <view class="subtitle">
-		            <radio-group @change="radioChange">
-		                <label class="uni-list-cell uni-list-cell-pd change" >
-		                    <view class="radios">
-		                        <radio v-on:click="changeThistwi(0)" :checked="shake==0"/>
-		                    </view>                   
-		                </label>
-						<label class="uni-list-cell uni-list-cell-pd change" >
-						    <view class="radios">
-						        <radio v-on:click="changeThistwi(1)" :checked="shake==1"/>
-						    </view>                   
-						</label>
-		            </radio-group>
-		        </view>
-		    </view>
-		   <view class="item">
-		        <text class="title sub">声控录音</text>
-		        <view class="subtitle">
-		            <radio-group>
-		                <label class="uni-list-cell uni-list-cell-pd change">
-		                    <view class="radios">
-								<!-- shake:_this.shake,
-								record:_this.record, -->
-		                        <radio v-on:click="fallSettwo(0)" :checked="record==0"/>
-		                    </view>                   
-		                </label>
-						<label class="uni-list-cell uni-list-cell-pd change">
-						    <view class="radios">
-						        <radio v-on:click="fallSettwo(1)" :checked="record==1"/>
-						    </view>                   
-						</label>
-		            </radio-group>
-		        </view>
-		    </view>
-		</view>
-    </view> 
+		<uni-nav-bar left-icon="back" :fixed="true" :status-bar="true" title="设备" @clickLeft="goBack"  ></uni-nav-bar>
+		<view class="page" v-if="shopage">
+			<view class="fabox"></view>
+			<view class="device">
+				<view class="info" @tap="goDetails()">
+					<view class="icon">
+						<image src="../../static/image/right.png"></image>
+					</view>
+					<view class="logo"><image src="../../static/image/weatch@2x.png"></image></view>
+					<view class="title">{{deviceInfo.alias}}</view>
+					<!-- <view class="subtitle">XXX智能手环——MP1185C</view> -->
+				</view>
+				<view class="item">
+					<text class="title">设置时间汇报间隔</text>
+					<view class="times">
+						<text>秒</text>
+						<input class="uni-input" type="number" placeholder="" />
+					</view>
+				</view>
+				
+				
+				
+			</view>
+			<view class="people">
+				<view class="item">
+					<text class="title">设置超速阈值</text>
+					<view class="times timestwo">
+						<text>Km/h</text>
+						<input class="uni-input" type="number" placeholder="" />
+					</view>
+				</view>
+				
+				<view class="item ">
+					<text class="title">设置疲劳阈值</text>
+					<view class="times timestwo">
+						<text>小时</text>
+						<input class="uni-input" type="number" placeholder="" />
+					</view>
+				</view>
+				
+			</view>
+			<view class="line"></view> 
+			
+			<view class="people">
+				<view class="item">
+					<text class="title">报警紧急联系人1</text>
+					<view class="times">
+						<input class="uni-input" type="number" placeholder=""   />
+					</view>
+				</view>
+				
+				<view class="item">
+					<text class="title">报警紧急联系人2</text>
+					<view class="times">
+						<input class="uni-input" type="number" placeholder=""   />
+					</view>
+				</view>
+				
+			</view>
+			
+			
+			<button>提交</button>
+		</view> 
     </view>
 </template>
 <script>
@@ -151,8 +92,7 @@
 				 record:'',
 				 fall_type:'',
 				 sos_type:'',
-				 shouer:false,
-				 use_user:''
+				 shouer:false
             }
         },
         mounted () {
@@ -232,13 +172,12 @@
                     deviceid:_this.deviceid
                 },function (res) {
 					console.log(res)
-					if(res.data.info.type==2){
-						_this.kaiguan = true
-						_this.shake = res.data.info.machine.shake
-						_this.record = res.data.info.machine.record
-					}
-                    _this.deviceInfo = res.data.info
-					_this.use_user = res.data.info.use_user
+					// if(res.data.info.type==2){
+					// 	_this.kaiguan = true
+					// 	_this.shake = res.data.info.machine.shake
+					// 	_this.record = res.data.info.machine.record
+					// }
+                    // _this.deviceInfo = res.data.info
                 })
             },
 			saveSetting () {
@@ -381,6 +320,9 @@
 	    }
 	    .set,.people,.tips {
 	        padding: 0 30rpx;
+			.timestwo{
+				width: 400rpx!important;
+			}
 	        .subtitle,.times {
 	            width: 300rpx;
 	            input {

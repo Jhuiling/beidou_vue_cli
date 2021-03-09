@@ -42,8 +42,20 @@ export default {
   data() {
     return {
       encolsureList:[],
-	  deviceid:''
+	  deviceid:'',
+	  loading:false
     };
+  },
+  watch:{
+	  loading(val){
+		  if(val){
+			  uni.showLoading({
+			  	title:'加载中...'
+			  })
+		  }else{
+			  uni.hideLoading()
+		  }
+	  }
   },
   onLoad(e){
 	  var _this = this ; 
@@ -74,10 +86,11 @@ export default {
       }
 	   
 	  console.log(this.deviceid)
-	  
-		common.request('car/enclosure_list', data, function(res) {
+	  this.loading=true
+		common.request('car/enclosure_list', data, (res)=> {
 			_this.encolsureList = res.data.info   
 			console.log(res)   
+			this.loading = false
 		})
     },
     removeEnclosure(item) {
@@ -86,17 +99,19 @@ export default {
 	var a = {
 		id:item.bindId,deviceid:deviceid
 	}
-	
       uni.showModal({
         title: '提示',
-        content: '是否删除？',
+        content: '是否删除选中围栏？',
         success: function (res) {
             if (res.confirm) {
+				_this.loading = true
 				console.log(a) 
+				console.log(item.bindId)
                 common.request('car/enclosure_delete', {id:item.bindId,deviceid:deviceid}, function(result) {
                   console.log(result) 
+				  _this.loading = false
 				  uni.showToast({
-				      title: '成功',
+				      title: '删除成功',
 				      duration: 2000
 				  });
                   _this.getEnclosureList()

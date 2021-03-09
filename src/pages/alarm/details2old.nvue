@@ -9,10 +9,10 @@
 			>
 			</uni-nav-bar>
 		</div> -->
-		<map key='map' v-bind:style="{width: '750rpx', height:phoneHeight + 'px'}" 
-		:latitude="alarmInfo.latitude" 
+		<!-- <map key='map' v-bind:style="{width: '750rpx', height:phoneHeight + 'px'}" 
+		:latitude="latitude" 
 		:scale="15"
-		:longitude="alarmInfo.longitude"
+		:longitude="longitude"
 		:show-location="true"
 		:markers="markers"
 		:enable-traffic="true"
@@ -25,17 +25,8 @@
 				</div>
 				<div class="w-item">
 					<text class="w-title">名称:</text>
-					<text class="w-txt">{{alarmInfo.watchfans&&alarmInfo.watchfans.alias}}</text>
+					<text class="w-txt">{{alarmInfo.alias}}</text>
 				</div>
-				<div class="w-item">
-					<text class="w-title">警报类型:</text>
-					<text class="w-txt">{{alarmInfo.type}}</text>
-				</div>
-				<div class="w-item" style="margin-bottom: 10rpx;">
-					<text class="w-title">地址:</text>
-					<text class="w-txt" style="width: 550rpx;">{{alarmInfo.address}}</text>
-				</div>
-				<!--  -->
 				<div class="w-item">
 					<text class="w-title">定位时间:</text>
 					<text class="w-txt">{{alarmInfo.create_time}}</text>
@@ -44,38 +35,12 @@
 					<text class="w-title">信号时间:</text>
 					<text class="w-txt">{{alarmInfo.create_time}}</text>
 				</div>
-				<!-- <div class="w-ads" >
+				<div class="w-ads"  v-if="alarmInfo.address">
 					<text class="w-title">地址:</text>
-					<text class="w-txt" style="width: 500rpx;">{{alarmInfo.location}}</text>
+					<text class="w-txt">{{alarmInfo.address}}</text>
 				</div>
-				<div class="w-ads" >
-					<text class="w-title">速度:</text>
-					<text class="w-txt" style="width: 500rpx;">{{alarmInfo.speed}}Km/h</text>
-				</div> -->
-				<!-- speed -->
-			</div>
-			<!-- "id": "1",
-			"VehicleId": "966",
-			"PlateNo": "冀B99999",
-			"AlarmType": "超速",
-			"Descr": "1",
-			"AlarmSource": "1",
-			"AlarmTime": "2020-08-13 18:00:38.000",
-			"Speed": "35.00000",
-			"Location": "河北省石家庄市正定县S302(城东街)(正定康桥御河幼儿园189米)",
-			"Latitude": "114.5933361",
-			"Longitude": "38.1281277",
-			"ProcessedTime": "2020-08-13 18:01:20.000",
-			"ProcessedUserId": "1",
-			"ProcessedUserName": "名字",
-			"AckSn": "1",
-			"Processed": "2",
-			"TenantId": "3",
-			"CreateDate": "2020-08-13 18:01:34.000",
-			"Remark": "备注",
-			"Deleted": "0",
-			"Owner": "0",
-			"ROW_NUMBER": "1" -->
+			</div> -->
+			hhhhhhhh
 		</div>
 	<!-- <view class="page">
 		<map :longitude="lng" :latitude="lat" scale=5 style="width: 100%; height: 100%;" :markers="covers"></map>
@@ -217,28 +182,26 @@
 			},
 			// 获取警报详情
 			getAlarmInfo(){
-				var token = uni.getStorageSync('token');
 				let data = {
 					deviceid:_this.deviceid, 
-					id:_this.id,
-					token:token
+					id:_this.id
 				}
 				console.log(data)
                 common.request('machine/police_detail', data, function(res) {
-					console.log(res)
-					var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
-					var latss = '118.15048299999999,39.587966000000002'
-					myAmapFun.getDrivingRoute({
-					      origin: latss,
-					      destination: latss,
-					      success: function(data){
-					        console.log(data) 
-					      },
-					      fail: function(info){
-					
-					      }
-					    })
-					_this.alarmInfo = res.data.info
+					console.log(res.data.info.latitude)
+					if(!res.data.info.latitude){
+						console.log(1)
+						
+						uni.getLocation({
+							type: 'wgs84',
+							success: function(res) {
+								console.log(res)
+								_this.latitude =   res.latitude ; 
+								_this.longitude =  res.longitude ; 
+							}
+						});
+					}else{
+						console.log(2)
 						_this.markers = [{
 							latitude: res.data.info.latitude,
 							longitude: res.data.info.longitude,
@@ -246,7 +209,7 @@
 							width:0.5,
 							height:0.5
 						}]
-					// }
+					}
 					
 					// latitude: 39.909,
 					// longitude: 116.39742,
@@ -256,9 +219,9 @@
 					// 		longitude:  res.data.info.longitude,
 					// 		iconPath: '../../static/image/dwya.png'
 					// 	}]
-					// _this.alarmInfo = res.data.info.watchfans
-					// _this.latitude = res.data.info.latitude
-					// _this.longitude = res.data.info.longitude
+					_this.alarmInfo = res.data.info.watchfans
+					_this.latitude = res.data.info.latitude
+					_this.longitude = res.data.info.longitude
 					
 					// var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
 					// myAmapFun.getRegeo({

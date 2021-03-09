@@ -184,7 +184,11 @@
 
 
 <script>
-	
+	const iconMap = {
+		'1':'image/watch1.png',
+		'2':'image/workcard.png',
+		'3':'image/car1.png'
+	}
 	
 	var marker, lineArr = [];
 	var zhouguo =  0 ; 
@@ -220,7 +224,7 @@
 		  // _this.jiange = jiange 
 		  this.start_time = getQueryString('start_time')
 		  this.end_time = getQueryString('end_time')
-		  	
+		  
 	  },
 	  methods:{
 		  sliderChange(e){
@@ -329,10 +333,10 @@
 			   marker = new AMap.Marker({
 				   map: map,
 				   position: lineArr[0],
-				   icon: "https://webapi.amap.com/images/car.png",
+				   icon: iconMap[getQueryString('type')],
 				   offset: new AMap.Pixel(-26, -13),
-				   autoRotation: true,
-				   angle:-90
+				   autoRotation: false,
+				   // angle:-90
 			   });
 			  marker.on('moving', function (e) {
 				passedPolyline = new AMap.Polyline({

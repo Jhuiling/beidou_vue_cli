@@ -17,11 +17,11 @@ uni-page-body {
             text-align: center;
             position: relative;
             .logo {
-                height: 120rpx;
-                padding: 10rpx;
+                // height: 120rpx;
+                padding: 10rpx 0rpx;
                 image {
-                    width: 62rpx;
-                    height: 82rpx;
+                    width: 80rpx;
+                    height: 80rpx;
                     background: #eee;
                     border-radius: 50%;
                     padding: 10rpx 20rpx;
@@ -37,6 +37,27 @@ uni-page-body {
             }
         }
     }
+	.use-people{
+		height: 240rpx;
+		padding-bottom: 500rpx;
+		.icon_item{
+			margin: 0rpx;
+			width: 80rpx;
+			height: 80rpx;
+		}
+		.use-list {
+		    padding: 20rpx 0rpx;
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			display: -webkit-flex;
+			.renbox{
+		        margin: 0 18rpx;
+				display: inline-block;
+			}
+		   
+		}
+	}
     .date {
         padding: 0 40rpx;
         .item {
@@ -130,8 +151,22 @@ uni-page-body {
         font-size: 30rpx;
         color: #333;
 		position: fixed;
-		bottom: 120rpx;
+		bottom: 150rpx;
 		left: 0;
 		right: 0;
     }
+	.btn1{
+		width: 600rpx;
+		margin: 40rpx auto;
+		height: 100rpx;
+		line-height: 100rpx;
+		box-shadow: 0 0 5rpx #ccc;
+		background-color: #fff;
+		font-size: 30rpx;
+		color: #333;
+		position: fixed;
+		bottom: 30rpx;
+		left: 0;
+		right: 0;
+	}
 }

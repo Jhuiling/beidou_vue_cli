@@ -4,18 +4,30 @@
 		<view class="page">
 
 			<view class="timearea">
-				<input class="time" v-model="start_time" />
+				<!-- <input class="time" v-model="start_time" />
 				<text>至</text>
 				<view class="time">
+					{{end_time}}
+				</view> -->
+				<view class="time" @tap="setTime(1)">
+					{{start_time}}
+				</view>
+				<text>至</text>
+				<view class="time" @tap="setTime(0)">
 					{{end_time}}
 				</view>
 				<view class="search-btn" @tap="getAlarmList">搜索</view>
 			</view>
 			<view class="event-list " v-for="(item,index) in alarmList" :key="index" @tap="goDetails(item)">
-				<image class="car-icon" src="../../static/image/car@2x.png"></image>
-				<text class="car-name">{{item.type}}</text>
-				<text class="title">{{item.name}}</text>
-				<text class="time">{{item.CreateDate}}</text>
+				<view>
+					<image class="car-icon" src="../../static/image/car@2x.png"></image>
+					<text class="car-name">{{item.type}}</text>
+					<text class="title">{{item.name}}</text>
+					<text class="time">{{item.create_time}}</text>
+				</view>
+				<view>
+					<text class="address">{{item.address|| '暂无定位信息'}}</text>
+				</view>
 			</view>
 			<view class="mask" v-if="loading">
 				<text>加载中...</text>
@@ -93,7 +105,7 @@
 				} else {
 					_this.end_time = e.selectRes
 				}
-				_this.getAlarmList();
+				// _this.getAlarmList();
 			},
 			getAlarmList() {
 				console.log(_this.deviceid)
@@ -111,10 +123,8 @@
 			},
 			// 查看详情
 			goDetails(item) {
-				console.log(item)
-				return false
 				uni.navigateTo({
-					url: '/pages/alarm/details?id=' + item.id + "&longitude=" + item.longitude + "&latitude=" + item.latitude +
+					url: '/pages/alarm/details2?id=' + item.id + "&longitude=" + item.longitude + "&latitude=" + item.latitude +
 						"&deviceid=" + _this.deviceid
 				})
 			}

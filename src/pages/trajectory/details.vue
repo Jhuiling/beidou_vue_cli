@@ -4,7 +4,7 @@
 		<uni-nav-bar left-icon="back" :fixed="false" :status-bar="true"  title="运动轨迹" @clickLeft="goBack" ></uni-nav-bar>
 	</view>
 	<view class="page">
-		<web-view :src="'/hybrid/html/trajectory.html?token='+token+'&start_time='+start_time+'&end_time='+end_time+'&deviceid='+deviceid" @message="isLoding"></web-view>
+		<web-view :src="'/hybrid/html/trajectory.html?token='+token+'&start_time='+start_time+'&end_time='+end_time+'&deviceid='+deviceid+'&type='+deviceType" @message="isLoding"></web-view>
 	</view>
 </view>
 </template>
@@ -41,7 +41,8 @@
 				token:'',
 				deviceid:'',
 				start_time:'',
-				end_time:''
+				end_time:'',
+				deviceType:1
 			}
 		},
 		onLoad(e) {
@@ -50,6 +51,8 @@
 			_this.end_time=e.end_time
 			_this.token = e.token 
 			_this.deviceid = e.deviceid
+			this.deviceType = e.type
+			console.log(e)
 			console.log(_this.start_time,_this.end_time,_this.token,_this.deviceid)
 		},
 		onShow() {

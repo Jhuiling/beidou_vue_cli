@@ -53,7 +53,7 @@
 			<div class="w-box"  style="	display:flex;
 			align-item:center;
 			justify-content: center;">
-				<image class="w-img" v-bind:src="type === 0 ? '../../static/image/icon/all.png' : '/static/image/b_'+type+'.png'"  mode="aspectFit"></image>
+				<image class="w-img" v-bind:src="use_user <0 ? '../../static/image/icon/all.png' : '/static/image/s_'+use_user+'.png'"  mode="aspectFit"></image>
 			</div>
 			<div class="w-arrow">
 				<image class="w-arrow-image" src="../../static/image/right.png" mode=""></image>
@@ -89,17 +89,17 @@
 		<div class="sel-device" v-if="selOpen" style="box-shadow: 0px 7px 7px -7px #5E5E5E;">
 			<div class="topfalse"></div>
 			<radio-group>
-				<div v-for="(item,index) in  machineLists" :key="index"  @tap="changes(index)" style="width: 90%;margin: 0px auto;">
+				<div v-for="(item,index) in  machineLists" :key="index"  @tap="changes(item,index)" style="width: 90%;margin: 0px auto;">
 					<div v-if="int==index" class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;background-color: #f3f3f3;" >
 						<div class="neiimg">
-							<image class="dv-list-image" v-bind:src="'/static/image/s_'+item.type +'.png'" mode="aspectFit"></image>
+							<image class="dv-list-image" :src="'/static/image/s_'+item.use_user +'.png'" mode="aspectFit"></image>
 						</div>
 						<text style="color: #26A2FF;" class="dv-list-text ">{{item.alias}}</text>
 					</div>
 
 					<div v-else  class="dv-body" style="padding-top: 15rpx;padding-bottom: 15rpx;margin-left: 20rpx;" >
 						<div class="neiimg">
-							<image class="dv-list-image" v-bind:src="'/static/image/s_'+item.type +'.png'" mode="aspectFit"></image>
+							<image class="dv-list-image" v-bind:src="'/static/image/s_'+item.use_user +'.png'" mode="aspectFit"></image>
 						</div>
 						<text class="dv-list-text ">{{item.alias}}</text>
 					</div>
@@ -491,7 +491,11 @@
 				recordStatus:false,
 				noView:0,
 				type:0,
-				allmymarkers:[]
+				allmymarkers:[],
+				use_user:-1,
+				hasShow:false,
+				current:null,
+				currentIndex:null
 			}
 		},
 		onHide(){
@@ -526,7 +530,12 @@
 				_this.manjia = true
 				_this.close=true
 			},500)
-
+			if(this.hasShow){
+				_this.getMachineList();
+			}else{
+				this.hasShow=true
+			}
+			
 		},
 		onLoad() {
 			_this = this;
@@ -654,6 +663,7 @@
 							common.request('machine/onewaycall',{
 								deviceid: _this.deviceid
 							}, function (res) {
+								console.log( res)
 								uni.showToast({
 								    title: res.data.info,
 								    duration: 2000
@@ -663,7 +673,7 @@
 							common.request('machine/twowaycall',{
 								deviceid: _this.deviceid
 							}, function (res) {
-								console.log( res.data.info)
+								console.log( res)
 								uni.showToast({
 								    title: res.data.info,
 								    duration: 2000
@@ -911,10 +921,12 @@
 			jumpNavigation(e){
 				let lat = e.latitude
 				let lon = e.longitude
+				let endname = e.address
 				let bglat = this.bglatitude;
 				let bglon =  this.bglongitude ;
+				let bgname = this.bgname
 				uni.navigateTo({
-					url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
+					url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&bgname='+ bgname +'&endlat='+lat+'&endlon='+lon+'&endname='+endname
 				});
 			},
 
@@ -980,14 +992,13 @@
 			getMachineList() {
 				common.request('machine/machine_list', {}, function(res) {
 					var newboxs = []
-
 					console.log(res)
 					if(res.data.info.length==0){
 						_this.guanbi = false
 					}else{
 						_this.guanbi = true
 					}
-
+					console.log(res)
 					_this.luyings = res.data.info[0].type
 					_this.machineLists = res.data.info;
 
@@ -1019,7 +1030,7 @@
 					for(var i = 0;i<_this.machineLists.length;i++){
 						let machine = _this.machineLists[i];
 						//let icon = _this.imgconfig[machine.type]["pointimg"]
-						let icon = '/static/image/b_'+machine.type +'.png'
+						let icon = '/static/image/b_'+machine.use_user +'.png'
 						machinemarkers[i]= {
 							id:i,latitude:machine.machineInfo.latitude,
 							longitude:machine.machineInfo.longitude,
@@ -1045,6 +1056,9 @@
 					_this.allmymarkers = machinemarkers
 					_this.circles = circles
 					_this.deviceid = res.data.info[0].machineInfo.deviceid
+					if(_this.current){
+						_this.changes(_this.machineLists[_this.currentIndex],_this.currentIndex)
+					}
 					_this.$forceUpdate()
 					_this.getRole()
 					_this.getAlarm()
@@ -1056,7 +1070,7 @@
 				_this.close = true;
 				console.log(item.url)
 				uni.navigateTo({
-					url: item.url+"?deviceid="+_this.deviceid
+					url: item.url+"?deviceid="+_this.deviceid+'&type='+this.type
 				});
 			},
 			goUrltdfg(){
@@ -1119,11 +1133,14 @@
 				_this.selOpen = false  ;
 				 _this.yingchang = false
 				_this.uanzhong = '首页'
-				this.type = 0
+				this.use_user = -1
 			},
-			async changes(index) {
+			async changes(item,index) {
+				this.current = item
+				this.currentIndex = index
 				_this.yingchang = true
 				_this.uanzhong = _this.machineLists[index].alias
+				this.use_user = item.use_user
 				this.type =_this.machineLists[index].type
 				var mymarkers = [_this.allmymarkers[index]] ;
 				_this.mymarkers  = mymarkers
@@ -1267,7 +1284,7 @@
 				var myAmapFun = new AMapWXfile.AMapWX({key: '9751ba7066e405d0f351b49dcc8b9704'});
 				myAmapFun.getRegeo({
 				  success: function(data){
-					  // console.log(data[0].name) ;
+					  console.log(data[0].name) ;
 					  _this.bgname = data[0].name
 				  }
 				})
@@ -1295,10 +1312,12 @@
 			},
 			searchAddress(e){
 				// _this.focusss = true ;
+				
 				console.log('on click')
 				let self = this
 				uni.chooseLocation({
 					success: function(res) {
+						console.log(res)
 						self.jumpNavigation(res)
 					}
 				});

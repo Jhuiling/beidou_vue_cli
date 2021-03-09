@@ -8,7 +8,7 @@
 					<view class="icon">
 						<image src="../../static/image/right.png"></image>
 					</view>
-					<view class="logo"><image src="../../static/image/weatch@2x.png"></image></view>
+					<view class="logo"><image :src="`/static/image/b_${use_user}.png`"></image></view>
 					<view class="title">{{deviceInfo.alias}}</view>
 					<!-- <view class="subtitle">XXX智能手环——MP1185C</view> -->
 				</view>
@@ -92,7 +92,8 @@
 				 record:'',
 				 fall_type:'',
 				 sos_type:'',
-				 shouer:false
+				 shouer:false,
+				 use_user:''
             }
         },
         mounted () {
@@ -178,6 +179,8 @@
 					// 	_this.record = res.data.info.machine.record
 					// }
                     // _this.deviceInfo = res.data.info
+					_this.deviceInfo = res.data.info
+					_this.use_user = res.data.info.use_user
                 })
             },
 			saveSetting () {

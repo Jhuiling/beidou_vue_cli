@@ -4,29 +4,28 @@
     <view class="page">
         <view class="device">
             <view class="info">
-                <view class="logo"><image :src="`/static/image/b_${use_user}.png`"></image></view>
+                <view class="logo"><image src="../../static/image/weatch@2x.png"></image></view>
                 <view class="title">{{name}}</view>
-<!--                <view class="subtitle">XXX智能手环——MP1185C</view>
-                <view class="subtitle">XXX智能手环——MP1185C</view> -->
+<!--<view class="subtitle">XXX智能手环——MP1185C</view><view class="subtitle">XXX智能手环——MP1185C</view> -->
             </view>
             <view class="item">
-                <text class="title">设备昵称</text>
+                <text class="title">设备昵称</text> 
                 <view class="subtitle">
-                    <input style="background: transparent;" class="uni-input" v-model="machineInfo.alias" type="text" placeholder="请输入16字符昵称" />
+                    <input class="uni-input"  v-model="machineInfo.alias" type="text" placeholder="请输入16字符昵称" />
                 </view>
             </view>
 			
 			<view class="item">
 			    <text class="title">设备号</text>
 			    <view class="subtitle">
-			        <input  style="background: transparent;" disabled class="uni-input" v-model="machineInfo.deviceid" type="text" placeholder="" /> 
+			        <input class="uni-input" v-model="machineInfo.deviceid" type="text" placeholder="" /> 
 			    </view>
 			</view>
 			
 			<view class="item">
 			    <text class="title">紧急联系人</text>
 			   <view class="subtitle">
-			       <input  style="background: transparent;" disabled class="uni-input" :value="machineInfo.machine?machineInfo.machine.sos1:''" type="text" placeholder="" /> 
+			       <input class="uni-input" v-model="machineInfo.sos1" type="text" placeholder="" /> 
 			   </view>
 			</view>
 			
@@ -42,29 +41,9 @@
                     <image src="../../static/image/right.png"></image>
                 </view>
             </view>
-			<view class="use-people">
-			  <view class="title">选择设备图标</view>
-			  <view class="use-list">
-			  	<view v-for="(item, index) in 12" :key="index" class="renbox">
-					<image
-					  :src="
-					    use_user == index
-					      ? `/static/image/b_${index}.png`
-					      : `/static/image/sb_${index}.png`
-					  "
-					  @click="modifyIcon(index)"
-					  class="icon_item"
-					></image>
-					<!-- <text class="rentext">{{ item.name }}</text> -->
-				</view>
-			  </view>
-			</view>
         </view>
-		
-		
         <view class="line"></view>
 		<button type="default" class="btn" @click="jiebang()">解绑设备</button>
-		<button type="default" class="btn1" @click="modify()">修改信息</button>
 <!--        <view class="date">
             <view class="item">
                 <text class="title">激活日期</text>
@@ -132,8 +111,7 @@
 				machineInfo:{},
 				name:'',
 				deviceid:'',
-				id:'',
-				use_user:''
+				id:''
             }
         },
 		onLoad(e){
@@ -144,56 +122,18 @@
 				deviceid:deviceid
 			}, function(res) {
 				console.log(res)
-				// uni.showToast({
-				//     title: '成功',
-				//     duration: 2000
-				// });
-				_this.machineInfo = res.data.info.machineInfo;
-				_this.use_user = _this.machineInfo.use_user
-				console.log("_this.machineInfo ",_this.machineInfo )
+				_this.machineInfo = res.data.info.machineInfo
 				_this.name = res.data.info.machineInfo.alias
 				_this.id = res.data.info.machineInfo.id
 			})
 			// deviceid
 		},
-        mounted() {
+        mounted() { 
             _this = this;
 			// _this.getDetials();
 			
         },
         methods: {
-			modifyIcon(e) {
-			  _this.use_user = e;
-			},
-			modify(){
-				if(!this.machineInfo.alias){
-					uni.showToast({
-						title: '请输入昵称',
-						duration: 2000,
-						icon: "none"
-					});
-					return false
-				}
-				common.request('machine/seting', {
-					alias: this.machineInfo.alias,
-					deviceid: this.deviceid,
-					use_user: this.use_user,
-					token :uni.getStorageSync('token')
-				}, function(res) {
-						console.log("绑定设备",res)
-					if (res.data.status == 1) {
-						uni.showToast({
-							title:'修改成功'
-						})
-					} else {
-						uni.showToast({
-							title: res.data.info,
-							duration: 2000,
-							icon: "none"
-						});
-					}
-				});
-			},
 			jiebang(){
 				common.request('machine/unbind_machine', {
 					id:_this.id,
@@ -213,14 +153,13 @@
 				// unbind_machine
 			},
 			goQrcode() {
-				 _this = this;
 			    uni.navigateTo({
-			        url:'/pages/setting/qrcode?deviceid='+_this.deviceid
+			        url:'/pages/setting/qrcode'
 			    })
 			},
             goAdmin() {
                 uni.navigateTo({
-                    url:'/pages/admin/index?deviceid='+this.deviceid
+                    url:'/pages/admin/index'
                 })
             },
             goBack() {
@@ -253,5 +192,4 @@
 	}
 
 	@import url("./css/details.less");
-	
 </style>

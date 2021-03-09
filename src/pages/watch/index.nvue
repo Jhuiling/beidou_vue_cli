@@ -54,8 +54,7 @@
 			justify-content: flex-start;"
 		 class="w-ctrl w-ctrltwo" @tap="openSel" v-if="guanbi">
 			<div class="w-box">
-				<image class="w-img" v-bind:src="type === 0 ? '../../static/image/icon/all.png' : imgconfig[type].icon"
-				 mode="aspectFit"></image>
+				<image class="w-img" v-bind:src="type === 0 ? '../../static/image/icon/all.png' : imgconfig[type].icon" mode="aspectFit"></image>
 			</div>
 			<div class="w-arrow">
 				<image class="w-arrow-image" src="../../static/image/right.png" mode=""></image>
@@ -131,8 +130,8 @@
 			<div class="inner" ref="createInner">
 				<div class="search-box">
 					<image src="/static/image/home_icon_06.jpg" class="left-icon"></image>
-					<input type="text" class="search-input" placeholder-style="font-size:18px;" v-bind:value="searchtext" disabled placeholder="查找地点、公交、地铁"
-					 v-on:touchstart="searchAddress" :focus="focusss" @input="bindInput" @confirm="bindInputtwo" />
+					<input type="text" class="search-input" placeholder-style="font-size:18px;" v-bind:value="searchtext" disabled
+					 placeholder="查找地点、公交、地铁" v-on:touchstart="searchAddress" :focus="focusss" @input="bindInput" @confirm="bindInputtwo" />
 					<text class="right-text">搜索</text>
 				</div>
 
@@ -162,8 +161,8 @@
 						<div class="item" v-for="(item,index) in menuList" :key="index" @tap="goUrl(item)">
 							<image v-bind:src="item.icon" alt="" class="icon"></image>
 							<text class="btn-list-text">{{item.name}}</text>
-							<view class="tip-box"v-if="item.name==='警报'&&noView">
-								<text class="tip" >{{noView}}</text>
+							<view class="tip-box" v-if="item.name==='警报'&&noView">
+								<text class="tip">{{noView}}</text>
 							</view>
 						</div>
 					</div>
@@ -242,9 +241,9 @@
 
 
 
-		<map key='map2' v-if="isShow" :longitude="longitude" :latitude="latitude" :enable-3D='true' :show-compass='true' :show-location="true"
-		 :style="{width: '750rpx', height: phoneHeight + 'px','padding-top':mapTop+'px'}" :markers="mymarkers" :polyline="mypolylines"
-		 :scale="scale" show-scale :enable-traffic="true" :enable-satellite="satellite" :circles="circles">
+		<map key='map2' v-if="isShow" :longitude="longitude" :latitude="latitude" :enable-3D='true' :show-compass='true'
+		 :show-location="true" :style="{width: '750rpx', height: phoneHeight + 'px','padding-top':mapTop+'px'}" :markers="mymarkers"
+		 :polyline="mypolylines" :scale="scale" show-scale :enable-traffic="true" :enable-satellite="satellite" :circles="circles">
 		</map>
 
 		<div class="w-info" v-if="yingchang">
@@ -286,11 +285,18 @@
 		</div>
 
 
-		<div class="dao_box" v-if="dajmnbox" :style="'width:'+djsw+';height:'+djsh+';'" @touchmove.stop.prevent @touchend.stop>
+		<div class="dao_box" v-if="dajmnbox" :style="'width:'+djsw+';height:'+djsh+';'" @click="dajmnbox=false;stopRecord()">
 			<div class="neiboxls" :style="'width:'+djsw+';height:'+djsh+';'">
-				<div class="mengbanbox">
-					<div class="textvfd">录音中</div>
-					<div class="textvfd">{{dsiaos}}S</div>
+				<div class="mengbanbox" :style="'width:'+djsw">
+					<image src="../../static/image/icon(2)/icon/sound@2x.png" mode="" style="width: 90rpx;height: 90rpx;"></image>
+					<text>00:{{dsiaos}}</text>
+					<div class="record-controller">
+						<image src="../../static/image/icon(2)/icon/r_stop@2x.png" mode="" style="width: 120rpx;height: 120rpx;" v-if="recordStatus"
+						 @click="stopRecord"></image>
+						<image src="../../static/image/icon(2)/icon/recording@2x.png" mode="" style="width: 120rpx;height: 120rpx;"
+						 @click="startRecord" v-if="!recordStatus"></image>
+						<image src="../../static/image/icon(2)/icon/makesure@2x.png" mode="" style="width: 120rpx;height: 120rpx;" @click="saveRecord"></image>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -446,9 +452,21 @@
 					// 	"icon": "/static/image/big_car.png",
 					// 	"pointimg": "/static/image/big_car.png"
 					// }
-					"1":{"icon":"/static/image/icon/watch1.png","pointimg":"/static/image/map/watch1.png","checkedIcon":"/static/image/map/watch1.png"},
-					"2":{"icon":"/static/image/icon/workcard.png","pointimg":"/static/image/map/workcard.png","checkedIcon":"/static/image/map/workcard.png"},
-					"3":{"icon":"/static/image/icon/car1.png","pointimg":"/static/image/map/car1.png","checkedIcon":"/static/image/map/car1.png"}
+					"1": {
+						"icon": "/static/image/icon/watch1.png",
+						"pointimg": "/static/image/map/watch1.png",
+						"checkedIcon": "/static/image/map/watch1.png"
+					},
+					"2": {
+						"icon": "/static/image/icon/workcard.png",
+						"pointimg": "/static/image/map/workcard.png",
+						"checkedIcon": "/static/image/map/workcard.png"
+					},
+					"3": {
+						"icon": "/static/image/icon/car1.png",
+						"pointimg": "/static/image/map/car1.png",
+						"checkedIcon": "/static/image/map/car1.png"
+					}
 				},
 				guanbi: true,
 				sechboxtt: '',
@@ -478,10 +496,10 @@
 				yingchang: false,
 				windowHeight: null,
 				mapTop: null,
-				isShow:true,
-				noView:0,
-				type:0,
-				allmymarkers:[]
+				isShow: true,
+				noView: 0,
+				type: 0,
+				allmymarkers: []
 			}
 		},
 		onHide() {
@@ -551,11 +569,11 @@
 		},
 		watch: {},
 		methods: {
-			dangqian(){
-				this.isShow=false
-				this.$nextTick(()=>{
+			dangqian() {
+				this.isShow = false
+				this.$nextTick(() => {
 					this.scale = 17
-					this.isShow=true
+					this.isShow = true
 				})
 			},
 			dianjidh(e) {
@@ -660,41 +678,16 @@
 
 
 			},
-			luying() {
+			luying(){
 				uni.showActionSheet({
-					itemList: ['录音', '录音列表'],
-					success: function(res) {
-						if (res.tapIndex == 0) {
-							common.request('machine/record', {
-								deviceid: _this.deviceid
-							}, function(res) {
-								console.log(res)
-								_this.dajmnbox = true
-								if (res.data.status != 1) {
-									uni.showToast({
-										icon: 'none',
-										position: 'center',
-										title: res.data.info
-									});
-								} else
-									var djs = 30;
-								var times = setInterval(function() {
-									djs--
-									_this.dsiaos = djs
-									if (djs <= 0) {
-										djs = 30
-										_this.dajmnbox = false
-										clearInterval(times)
-									}
-								}, 1000)
-								// uni.showToast({
-								//     title: res.data.info,
-								//     duration: 2000
-								// });
-							})
-						} else {
+				    itemList: ['录音', '录音列表'],
+				    success: function (res) {
+				        if(res.tapIndex==0){
+							_this.startRecord()
+						}else{
+							console.log(1111111111)
 							uni.navigateTo({
-								url: '/pages/trajectory/luyingindex?deviceid=' + _this.deviceid
+								url: '/pages/trajectory/luyingindex?deviceid='+_this.deviceid
 							});
 							// var data = {
 							// 	deviceid: _this.deviceid ,
@@ -720,10 +713,10 @@
 							// 	});
 							// })
 						}
-					},
-					fail: function(res) {
-						console.log(res.errMsg);
-					}
+				    },
+				    fail: function (res) {
+				        console.log(res.errMsg);
+				    }
 				});
 				// common.request('machine/record',{
 				// 	deviceid: _this.deviceid
@@ -734,6 +727,69 @@
 				// 	    duration: 2000
 				// 	});
 				// })
+			},
+			startRecord(e){
+				if(e){
+					e.stopPropagation()
+				}
+				common.request('machine/record',{
+					deviceid: _this.deviceid
+				}, function (res) {
+					console.log(res)
+					_this.dajmnbox =_this.dajmnbox||true
+					// if(res.data.status!=1){
+					// 	uni.showToast({
+					// 		icon: 'none',
+					// 		position: 'center',
+					// 		title: res.data.info
+					// 	});
+					// }else{
+					// 	_this.recordStatus=true
+					// 	if(_this.timer){
+					// 		clearInterval(_this.timer)
+					// 	}
+					// 	_this.timers = setInterval(()=>{
+					// 		_this.dsiaos--
+					// 		if(djs<=0){
+					// 			_this.dajmnbox = false
+					// 			_this.recordStatus=false
+					// 		}
+					// 	},1000)
+					// }
+					_this.recordStatus=true
+					if(_this.timer){
+						clearInterval(_this.timers)
+					}
+					_this.timers = setInterval(()=>{
+						_this.dsiaos--
+						if(_this.dsiaos<=0){
+							_this.dajmnbox = false
+							_this.recordStatus=false
+							uni.showToast({
+								title:'录音已保存',
+								success: () => {
+									_this.saveRecord()	
+								}
+							})
+						}
+					},1000)
+				})
+			},
+			stopRecord(e){
+				if(e){
+					e.stopPropagation()
+				}
+				_this.recordStatus=false
+				clearInterval(_this.timers)
+			},
+			saveRecord(e){
+				if(e){
+					e.stopPropagation()
+				}
+				_this.stopRecord()
+				uni.navigateTo({
+					url: '/pages/trajectory/luyingindex?deviceid='+_this.deviceid
+				});
 			},
 			daohangbtn() {
 				var endlon = _this.endlon;
@@ -856,14 +912,16 @@
 			},
 
 			// 获取设备详情
-			getMachineInfo(){
-				return new Promise((resolve,reject)=>{
-					common.request('machine/index', {deviceid: _this.deviceid }, function(res) {
+			getMachineInfo() {
+				return new Promise((resolve, reject) => {
+					common.request('machine/index', {
+						deviceid: _this.deviceid
+					}, function(res) {
 						_this.machineInfo = res.data.info
 						resolve()
 					})
-				}) 
-			
+				})
+
 			},
 
 			markertap(e) {
@@ -1056,23 +1114,23 @@
 					_this.menuList = res.data.info
 				})
 			},
-			getAlarm(){
+			getAlarm() {
 				common.request('/machine/police_list', {
 					deviceid: _this.deviceid
 				}, function(res) {
 					let alarmList = res.data.info.data
-					if(alarmList.length){
-						let newAlarmList=alarmList.filter((item)=>{
-							return item.is_view!=1
+					if (alarmList.length) {
+						let newAlarmList = alarmList.filter((item) => {
+							return item.is_view != 1
 						})
 						_this.noView = alarmList.length
 					}
-					
+
 				})
 			},
 			quanbu() {
 				var _this = this;
-				var mymarkers = _this.allmymarkers ;
+				var mymarkers = _this.allmymarkers;
 				_this.mymarkers = mymarkers
 				_this.scale = 5
 				_this.selOpen = false;
@@ -1080,10 +1138,10 @@
 				this.type = 0
 			},
 			async changes(index) {
-				this.type =_this.machineLists[index].type
+				this.type = _this.machineLists[index].type
 				_this.yingchang = true
 				_this.uanzhong = _this.machineLists[index].alias
-				var mymarkers = [_this.allmymarkers[index]] ;
+				var mymarkers = [_this.allmymarkers[index]];
 
 				// mymarkers[index].callout = {
 				// 	content:'杀了对方是客服撒旦发射点是的烦烦烦发生的撒旦发射点' ,
@@ -1131,12 +1189,12 @@
 				console.log(newbox)
 				_this.circles = newbox
 			},
-			switchIcon(id){
+			switchIcon(id) {
 				let mymarkers = JSON.parse(JSON.stringify(this.mymarkers))
-				let newMarkers = mymarkers.map((item,index)=>{
-					if(item.id==id){
-						item.iconPath = this.imgconfig[_this.machineLists[index].type]['checkedIcon'] 
-					}else{
+				let newMarkers = mymarkers.map((item, index) => {
+					if (item.id == id) {
+						item.iconPath = this.imgconfig[_this.machineLists[index].type]['checkedIcon']
+					} else {
 						item.iconPath = this.imgconfig[_this.machineLists[index].type]["pointimg"]
 					}
 					return item
@@ -1289,13 +1347,13 @@
 					}
 				});
 			},
-			jumpNavigation(e){
+			jumpNavigation(e) {
 				let lat = e.latitude
 				let lon = e.longitude
 				let bglat = this.bglatitude;
-				let bglon =  this.bglongitude ;
+				let bglon = this.bglongitude;
 				uni.navigateTo({
-					url: '/pages/index_daohang/indexccnew?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
+					url: '/pages/index_daohang/indexccnew?bglat=' + bglat + '&bglon=' + bglon + '&endlat=' + lat + '&endlon=' + lon
 				});
 			},
 			startroute() {
@@ -1355,7 +1413,16 @@
 		align-items: center;
 		flex-direction: row;
 	}
-
+	.record-controller{
+		width: 600rpx;
+		display: flex;
+		display: -webkit-flex;
+		align-items: center;
+		flex-direction: row;
+		justify-content: space-around;
+		padding: 20rpx 40rpx;
+		
+	}
 	.textvfd {
 		text-align: center;
 		display: block;

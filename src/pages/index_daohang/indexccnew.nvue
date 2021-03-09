@@ -20,7 +20,7 @@
 
 		</div>
 
-		<div style="position:fixed;z-index:10;bottom: 70px;background-color: #FFFFFF;width: 750rpx;display: flex;display: -webkit-flex;flex-wrap: nowrap;flex-direction: row;justify-content:  space-around;;"
+		<div style="position:fixed;z-index:10;bottom: 0;background-color: #FFFFFF;width: 750rpx;display: flex;display: -webkit-flex;flex-wrap: nowrap;flex-direction: row;justify-content:  space-around;;"
 		 ref="showshare">
 			<div class="text" style="font-size: 13rpx;padding-top: 20px;padding-bottom: 20px;">{{distance}}</div>
 			<div class="text" style="font-size: 13rpx;padding-top: 20px;padding-bottom: 20px;">{{cost}}</div>
@@ -106,7 +106,7 @@
 				sechboxtt: '',
 				focusss: false,
 				bgname: '',
-				endnames: '',
+				endname: '',
 				endlon: 116.39742,
 				endlan: 39.909,
 				manjia: false,
@@ -134,10 +134,12 @@
 			_this.bglon = e.bglon
 			_this.endlat = e.endlat
 			_this.endlon = e.endlon
-
+			_this.bgname = e.bgname
+			_this.endname = e.endname
+			console.log(this.bgname,this.endname)
 			_this.latitude = e.bglat;
 			_this.longitude = e.bglon;
-
+			
 			console.log(e.bglat, e.bglon)
 			_this.markers = [{
 				id: 0,
@@ -160,7 +162,7 @@
 			var endlon = e.endlon
 			var that = this;
 			// origin: '116.481028,39.989643',
-			// destination: '116.434446,39.90816', 
+			// destination: '116.434446,39.90816',
 			var myAmapFun = new AMapWXfile.AMapWX({
 				key: '9751ba7066e405d0f351b49dcc8b9704'
 			});
@@ -238,7 +240,7 @@
 				var endlon = _this.endlon;
 				var endlan = _this.endlat;
 				if (yanshi == 1) {
-					
+
 					// _this.bglat = e.bglat
 					// _this.bglon = e.bglon
 					// _this.endlat = e.endlat
@@ -259,7 +261,7 @@
 								latitude: bg,
 								longitude: bgt
 							},
-							name: bgname,
+							name: _this.bgname,
 							poiId: null
 						},
 						end: {
@@ -267,7 +269,7 @@
 								latitude: endlan,
 								longitude: endlon
 							},
-							name: '',
+							name: _this.endname,
 							poiId: null
 						},
 						multipleRouteNaviMode: false
@@ -279,11 +281,11 @@
 					// uni.getLocation({
 					// 	success: res => {
 					// 		console.log('location success', res)
-							
+
 					// 	}
 					// })
 					uni.openLocation({
-						latitude: Number(_this.endlat), 
+						latitude: Number(_this.endlat),
 						longitude: Number(_this.endlon),
 						scale: 18
 					})
@@ -324,7 +326,7 @@
 						if (data.paths[0] && data.paths[0].distance) {
 							console.log(data.paths[0].distance + '米')
 							// that.setData({
-							that.distance = data.paths[0].distance + '米'
+							that.distance = ( data.paths[0].distance/1000).toFixed(2) + '(km)'
 							// });
 						}
 						if (data.taxi_cost) {
@@ -375,7 +377,7 @@
 						if (data.paths[0] && data.paths[0].distance) {
 							console.log(data.paths[0].distance + '米')
 							// that.setData({
-							that.distance = data.paths[0].distance + '米'
+							that.distance = ( data.paths[0].distance/1000).toFixed(2) + '(km)'
 							// });
 						}
 						if (data.taxi_cost) {
@@ -426,7 +428,7 @@
 						if (data.paths[0] && data.paths[0].distance) {
 							console.log(data.paths[0].distance + '米')
 							// that.setData({
-							that.distance = data.paths[0].distance + '米'
+							that.distance = ( data.paths[0].distance/1000).toFixed(2) + '(km)'
 							// });
 						}
 						if (data.taxi_cost) {
@@ -543,9 +545,9 @@
 				let bgname = _this.bgname;
 				let bglat = _this.bglatitude;
 				let bglon = _this.bglongitude;
-				// uni.navigateTo({ 
+				// uni.navigateTo({
 				// 	url: '/pages/index_daohang/index?bglat=' +bglat +'&bglon='+bglon+'&endlat='+lat+'&endlon='+lon
-				// }); 
+				// });
 				_this.topoint = {
 					latitude: lat,
 					longitude: lon
@@ -605,7 +607,7 @@
 						// 	let aao = point.split(',')
 						// 	let p = {latitude: eval(aao[1]), longitude: eval(aao[0])}
 						// 	pl.push(p)
-						// } 
+						// }
 						// if(l==0)
 						// pls.push({points:pl,color:'#0e82ff',width:6})
 						var pls = [{

@@ -27,13 +27,13 @@
 			this.deviceid  = e.deviceid
 			setTimeout(()=>{
 				uni.chooseLocation({
-					success: function(res) {
+					success: (res)=> {
 						let {longitude,latitude}=res
 						uni.redirectTo({
 							url:"/pages/enclosure/create?deviceid="+this.deviceid+'&longitude='+longitude+'&latitude='+latitude
 						})
 					},
-					fail:function(res){
+					fail:(res)=>{
 						uni.redirectTo({
 							url:"/pages/enclosure/create?deviceid="+this.deviceid
 						})

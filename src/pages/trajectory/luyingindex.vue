@@ -18,8 +18,8 @@
         <view class="event-list " v-for="(item,index) in list" :key="index"  @tap="goDetails(item.path)">
             <!-- <image class="car-icon" src="../../static/image/car@2x.png"></image> -->
             <!-- <text class="car-name" v-if="item.machinefans.alias!=null">{{item.machinefans.alias}}</text> -->
-            <view>创建时间</view>
-			<view>{{item.create_time}}</view>
+            <view>创建时间：{{item.create_time}}</view>
+			<view @click.stop="handleDelItem(item)" class="del-btn">删除</view>
             <!-- <view class="address">
                 {{item.address}}
             </view> -->
@@ -53,9 +53,19 @@
                 times:'2020-03-10 08:30:01',
                 type:1,
                 list:[],
-				deviceid:'' 
+				deviceid:'' ,
+				loading:false
             }
         },
+		watch:{
+			loading:function(val){
+				if(val){
+					uni.showLoading()
+				}else{
+					uni.hideLoading()
+				}
+			}
+		},
 		onLoad(e){
 			var _this = this ;
 			_this.deviceid = e.deviceid ;
@@ -92,6 +102,8 @@
                 _this.$refs.dateTime.show();
             },
             getList () {
+				if(this.loading)return 
+				this.loading = true
 				console.log(_this.start_time)
 				console.log(_this.end_time)
                 let data = {
@@ -99,9 +111,10 @@
                     end_time:_this.end_time,
                     deviceid:_this.deviceid 
                 } 
-				common.request("machine/record_list", data, function(res) {
+				common.request("machine/record_list", data, (res)=> {
 					console.log(res)
                     _this.list = res.data.info
+					this.loading = false
                 });
             },
             onConfirm(e) {
@@ -136,7 +149,21 @@
 				  console.log(res.errMsg);
 				  console.log(res.errCode);
 				});
-            }
+            },
+			handleDelItem(item){
+				if(this.loading)return 
+				this.loading =true
+				let data = {
+				    id:item.id,
+				    deviceid:_this.deviceid 
+				} 
+				common.request("machine/del_record", data, (res)=> {
+					this.loading =false
+					this.getList()
+				});
+				this.loading =false
+				
+			}
         }
     }
     </script>
@@ -156,5 +183,11 @@
 		justify-content: space-between;
 		flex-direction: row;
 		align-items: center;
+	}
+	.del-btn{
+		padding:10rpx 30rpx;
+		border-radius: 30rpx;
+		background-color: skyblue;
+		color: #FFFFFF;
 	}
 </style>
