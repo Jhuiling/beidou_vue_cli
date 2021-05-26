@@ -912,17 +912,16 @@ export default {
       this.scrollTop = event.target.scrollTop;
     },
     joinSalary() {
-      uni.scanCode({
-        success: function (res) {
-          console.log("扫码====kaoqin", res);
-          uni.navigateTo({
-            url: "/pages/salary/joinSalary?id=" + res.result,
-          });
-        },
-      });
-      // uni.navigateTo({
-      //   url: "/pages/salary/joinSalary?id=" + 181,
+      // uni.scanCode({
+      //   success: function (res) {
+      //     uni.navigateTo({
+      //       url: "/pages/salary/joinSalary?id=" + res.result,
+      //     });
+      //   },
       // });
+      uni.navigateTo({
+        url: "/pages/salary/joinSalary?id=" + 181,
+      });
     },
     doSalary() {
       uni.navigateTo({
